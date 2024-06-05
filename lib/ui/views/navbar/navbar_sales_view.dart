@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:venus/core/app_constants/colors.dart';
 import 'package:venus/core/utilities/text_styles.dart';
-import 'package:venus/ui/views/approval/approval.dart';
+import 'package:venus/ui/views/approval/posisistok.dart';
 import 'package:venus/ui/views/dashboard_view.dart';
 import 'package:venus/ui/views/orderjual/orderjual.dart';
 
@@ -55,7 +55,7 @@ class _NavbarSalesViewState extends State<NavbarSalesView> {
     // ActivitySalesView(),
     OrderJualView(),
     // DaftarPengirimanView(),
-    ApprovalView(),
+    PosisiStokKomoditiView(),
   ];
 
   @override
@@ -152,12 +152,13 @@ class _NavbarSalesViewState extends State<NavbarSalesView> {
                     // ),
                     BottomNavigationBarItem(
                       icon: ImageIcon(
-                        AssetImage(
-                            _selectedIndex == 0 ? 'assets/icons/order_active.png' : 'assets/icons/order_inactive.png'),
+                        AssetImage(_selectedIndex == 0
+                            ? 'assets/icons/report_active.png'
+                            : 'assets/icons/report_inactive.png'),
                         size: 24,
                       ),
                       activeIcon: const ImageIcon(
-                        AssetImage('assets/icons/order_active.png'),
+                        AssetImage('assets/icons/report_active.png'),
                         size: 24,
                       ),
                       label: 'Report Stok',

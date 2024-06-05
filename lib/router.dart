@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:venus/core/app_constants/route.dart';
-import 'package:venus/core/view_models/customer/addcustomer_view_model.dart';
-import 'package:venus/core/view_models/customer/updatecustomer_view_model.dart';
-import 'package:venus/core/view_models/meet/createcheckinout_view_model.dart';
 import 'package:venus/core/view_models/orderjual/addorderjual_view_model.dart';
 import 'package:venus/core/view_models/orderjual/edit/updateorderjual_view_model.dart';
 import 'package:venus/ui/views/aktifitas_sales/activityandcustomer.dart';
-import 'package:venus/ui/views/aktifitas_sales/customer/addcustomer.dart';
-import 'package:venus/ui/views/aktifitas_sales/customer/adddesa.dart';
-import 'package:venus/ui/views/aktifitas_sales/customer/customer.dart';
-import 'package:venus/ui/views/aktifitas_sales/customer/detailcustomer.dart';
-import 'package:venus/ui/views/aktifitas_sales/customer/updatecustomer.dart';
-import 'package:venus/ui/views/aktifitas_sales/customer/updatedesa.dart';
-import 'package:venus/ui/views/aktifitas_sales/meet/addcheckinout.dart';
-import 'package:venus/ui/views/aktifitas_sales/meet/addpelanggan.dart';
 import 'package:venus/ui/views/aktifitas_sales/meet/detailpelanggan.dart';
 import 'package:venus/ui/views/aktifitas_sales/meet/listpelanggan.dart';
 import 'package:venus/ui/views/aktifitas_sales/omset.dart';
@@ -23,8 +12,8 @@ import 'package:venus/ui/views/aktifitas_sales/salesactivity/editsalesactivity.d
 import 'package:venus/ui/views/aktifitas_sales/salesactivity/salesactivity.dart';
 import 'package:venus/ui/views/akun/profile.dart';
 import 'package:venus/ui/views/akun/ubahpassword.dart';
-import 'package:venus/ui/views/approval/approval.dart';
 import 'package:venus/ui/views/approval/detailorder.dart';
+import 'package:venus/ui/views/approval/posisistok.dart';
 import 'package:venus/ui/views/authentication/login_view.dart';
 import 'package:venus/ui/views/dashboard_view.dart';
 import 'package:venus/ui/views/navbar/navbar_owner_view.dart';
@@ -324,7 +313,7 @@ class AppRouter {
 
       case Routes.approval:
         return buildRoute(
-          builder: (_) => const ApprovalView(),
+          builder: (_) => const PosisiStokKomoditiView(),
         );
 
       case Routes.approvaldetailorder:

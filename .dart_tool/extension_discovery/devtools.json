@@ -1,6 +1,1 @@
-{
-  "version": 2,
-  "entries": [
-    { "package": "venus_apps", "rootUri": "../", "packageUri": "lib/" }
-  ]
-}
+{"version":2,"entries":[{"package":"venus","rootUri":"../","packageUri":"lib/"}]}
