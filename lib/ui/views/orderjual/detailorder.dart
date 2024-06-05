@@ -15,6 +15,7 @@ import 'package:venus/ui/shared/loading_overlay.dart';
 import 'package:venus/ui/shared/spacings.dart';
 import 'package:venus/ui/shared/unfocus_helper.dart';
 import 'package:venus/ui/views/navbar/navbar_sales_view.dart';
+import 'package:venus/ui/views/orderjual/edit/editorderjual.dart';
 
 class DetailOrderPenjualanParam {
   const DetailOrderPenjualanParam({
@@ -132,6 +133,22 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                       fontSize: tabIsHide == false ? 18 : 14,
                                     ),
                                   ),
+                                  leading: IconButton(
+                                    onPressed: () {
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        Routes.navBarSales,
+                                        (route) => false,
+                                        arguments: NavbarSalesViewParam(
+                                          menuIndex: 1,
+                                          // 1 = Aktifitas Sales
+                                        ),
+                                      );
+                                    },
+                                    icon: const Icon(
+                                      Icons.arrow_back,
+                                    ),
+                                  ),
                                   actions: [
                                     PopupMenuButton<String>(
                                       iconColor: venusColor.black,
@@ -152,7 +169,16 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                   ),
                                                 ),
                                               ),
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  Routes.editorderjual,
+                                                  arguments: EditOrderJualParam(
+                                                    nomor: model.orderjual[0].intNomor,
+                                                    mode: 'edit',
+                                                  ),
+                                                );
+                                              },
                                               child: Row(
                                                 children: [
                                                   const Icon(
@@ -225,7 +251,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                                                 Routes.navBarSales,
                                                                                 (route) => false,
                                                                                 arguments: NavbarSalesViewParam(
-                                                                                  menuIndex: 2,
+                                                                                  menuIndex: 1,
                                                                                   // 1 = Aktifitas Sales
                                                                                 ),
                                                                               );

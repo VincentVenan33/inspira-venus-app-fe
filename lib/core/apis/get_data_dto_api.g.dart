@@ -37,7 +37,7 @@ class _GetDataDTOApi implements GetDataDTOApi {
     )
             .compose(
               _dio.options,
-              '/api/getData',
+              '/getData',
               queryParameters: queryParameters,
               data: _data,
             )

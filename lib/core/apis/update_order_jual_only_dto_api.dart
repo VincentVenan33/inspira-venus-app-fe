@@ -8,9 +8,9 @@ part 'update_order_jual_only_dto_api.g.dart';
 abstract class SetUpdateOrderJualOnlyDTOApi {
   factory SetUpdateOrderJualOnlyDTOApi(Dio dio, {String baseUrl}) = _SetUpdateOrderJualOnlyDTOApi;
 
-  @PUT('/api/updateData/{id}')
+  @PUT('updateData/{id}')
   Future<HttpResponse<dynamic>> updateOrderJualOnly(
-    @Path('id') int nomor,
+    @Path('id') int intNomor,
     @Header('Accept') String accept,
     @Body() UpdateOrderJualOnlyPayload payload,
   );

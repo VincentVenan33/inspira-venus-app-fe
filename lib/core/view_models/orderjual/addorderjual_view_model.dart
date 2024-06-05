@@ -212,8 +212,8 @@ class AddOrderJualViewModel extends BaseViewModel {
     String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
     final response = await _setOrderJualDetailBonusDTOApi.setOrderJual(
       action: "addOrderJual",
-      nomormhrelasicust: _selectedCustomer?.nomor.toString() ?? '',
-      nomormhrelasisales: json.decode(userDataJson!)['nomor'].toString(),
+      nomormhrelasicust: _selectedCustomer?.intNomor.toString() ?? '',
+      nomormhrelasisales: json.decode(userDataJson!)['intNomor'].toString(),
       kode: kode,
       ppnprosentase: ppnprosentase,
       statusppn: statusppn,

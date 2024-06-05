@@ -8,7 +8,7 @@ part 'get_data_dto_api.g.dart';
 abstract class GetDataDTOApi {
   factory GetDataDTOApi(Dio dio, {String baseUrl}) = _GetDataDTOApi;
 
-  @POST('/api/getData')
+  @POST('/getData')
   Future<HttpResponse<dynamic>> getData(
     @Header('Accept') String accept,
     @Body() GetDataPayload payload,

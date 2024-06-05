@@ -170,7 +170,7 @@ class _AddOrderJualState extends ConsumerState<AddOrderJual> {
                                               Routes.navBarSales,
                                               (route) => false,
                                               arguments: NavbarSalesViewParam(
-                                                menuIndex: 2,
+                                                menuIndex: 1,
                                                 // 1 = Aktifitas Sales
                                               ),
                                             );
@@ -328,7 +328,7 @@ class _AddOrderJualState extends ConsumerState<AddOrderJual> {
                                             if (model.selectedCustomer != null) {
                                               GetDataContent value = model.selectedCustomer!;
                                               setState(() {
-                                                customerController.text = value.nama;
+                                                customerController.text = value.vcNama;
                                               });
                                             }
                                           });
@@ -1171,7 +1171,7 @@ class _AddOrderJualState extends ConsumerState<AddOrderJual> {
                                                 Routes.navBarSales,
                                                 (route) => false,
                                                 arguments: NavbarSalesViewParam(
-                                                  menuIndex: 2,
+                                                  menuIndex: 1,
                                                 ),
                                               );
                                               model.clearItem();
@@ -1217,7 +1217,7 @@ class _AddOrderJualState extends ConsumerState<AddOrderJual> {
 
   Widget customer(BuildContext context, GetDataContent item) {
     return Text(
-      item.nama,
+      item.vcNama,
       style: const TextStyle(
         color: venusColor.black,
       ),

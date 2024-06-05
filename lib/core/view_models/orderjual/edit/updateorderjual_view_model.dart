@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:venus/core/models/get_data/get_data_dto.dart';
 import 'package:venus/core/models/get_data/order_jual_get_data_dto.dart';
 import 'package:venus/core/models/set_data/create_order_jual_detail_bonus_dto.dart';
@@ -10,7 +11,6 @@ import 'package:venus/core/networks/order_jual_get_data_dto_network.dart';
 import 'package:venus/core/networks/update_order_jual_only_dto.dart';
 import 'package:venus/core/services/shared_preferences_service.dart';
 import 'package:venus/core/view_models/base_view_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateOrderJualViewModel extends BaseViewModel {
   UpdateOrderJualViewModel({
@@ -146,7 +146,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   GetFilter currentFilter = GetFilter(
     limit: 20,
     sort: "ASC",
-    orderby: "mhrelasi.nama",
+    orderby: "mcustomer.vcNama",
   );
 
   @override
@@ -174,7 +174,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   Future<void> fetchOrderJual({bool reload = false}) async {
     final search = OrderJualGetSearch(
       term: 'like',
-      key: 'thorderjual.kode',
+      key: 'thorderjual.vcKode',
       query: '',
     );
     if (reload) {
@@ -186,7 +186,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
         page: _currentPage,
         sort: 'DESC',
         intNomor: _nomor,
-        orderby: 'thorderjual.nomor',
+        orderby: 'thorderjual.intNomor',
       );
 
       final response = await _orderJualGetDataDTOApi.getData(
@@ -198,16 +198,16 @@ class UpdateOrderJualViewModel extends BaseViewModel {
       if (response.isRight) {
         _orderjual = response.right.data.data[0];
         kodeController.text = _orderjual?.vcKode ?? '';
-        // customerController.text = _orderjual?.customer ?? '';
+        customerController.text = _orderjual?.customer ?? '';
         // diskonprosentaseController.text = _orderjual?.diskonprosentase.toString() ?? '';
         // diskonnominalController.text = _orderjual?.diskonnominal.toString() ?? '';
-        // dppController.text = _orderjual?.dpp.toString() ?? '';
-        // ppnnominalController.text = _orderjual?.ppnnominal.toString() ?? '';
-        // biayalainController.text = _orderjual?.totalbiaya.toString() ?? '';
-        // totalController.text = _orderjual?.total.toString() ?? '';
-        // subtotalController.text = _orderjual?.subtotal2.toString() ?? '';
-        // selectedDate = DateTime.parse(_orderjual?.tanggal ?? '');
-        // setselectedPPN(_orderjual?.statusppn ?? 0);
+        dppController.text = _orderjual?.decDPP.toString() ?? '';
+        ppnnominalController.text = _orderjual?.decPPNNominal.toString() ?? '';
+        biayalainController.text = _orderjual?.decTotalBiaya.toString() ?? '';
+        totalController.text = _orderjual?.decTotal.toString() ?? '';
+        subtotalController.text = _orderjual?.decSubTotal.toString() ?? '';
+        selectedDate = DateTime.parse(_orderjual?.dtTanggal ?? '');
+        // setselectedPPN(_orderjual!.decPPN?.toInt() ?? 0);
         notify();
       }
     } catch (e) {
@@ -218,10 +218,10 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   Future<void> _fetchOrderJualDetail(int nomorOrderJual) async {
     final search = OrderJualGetSearch(
       term: 'like',
-      key: 'tdorderjual.nomorthorderjual',
+      key: 'tdorderjual.intNomorHeader',
       query: '$nomorOrderJual',
     );
-    debugPrint('nomororderjual $nomorOrderJual');
+    debugPrint('intNomorHeader $nomorOrderJual');
     final filters = OrderJualGetFilter(
       limit: 10,
       page: 1,
@@ -242,7 +242,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   Future<void> fetchCustomer({bool reload = false}) async {
     final search = GetSearch(
       term: 'like',
-      key: 'mhrelasi.nama',
+      key: 'mcustomer.vcNama',
       query: searchQuery,
     );
     if (reload) {
@@ -290,8 +290,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   Future<void> _fecthUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
-    _nama = json.decode(userDataJson!)['nama'];
-    _admingrup = json.decode(userDataJson)['admingrup'];
+    _nama = json.decode(userDataJson!)['vcNama'];
+    _admingrup = json.decode(userDataJson)['vcJabatan'];
   }
 
   void setisLoadingMore(bool isLoadingMore) {
@@ -301,7 +301,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
 
   void setselectedcustomer(GetDataContent? customer) {
     _selectedCustomer = customer;
-    customerController.text = customer?.nama ?? '';
+    customerController.text = customer?.vcNama ?? '';
     notify();
   }
 
@@ -316,39 +316,56 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   }
 
   Future<bool> updateOrderJualOnlyModel({
-    required String nomormhrelasicust,
-    required String kode,
-    required String ppnprosentase,
-    required int statusppn,
-    required int ppnnominal,
-    required int diskonprosentase,
-    required int diskonnominal,
-    required int dpp,
-    required int totalbiaya,
-    required int total,
-    required int subtotal2,
-    required String tanggal,
-    required int dibuatoleh,
+    required final String dtTanggal,
+    required final String dtTanggalKirim,
+    required final int intNomorMJenisPenjualan,
+    required final int intNomorMValuta,
+    required final int intNomorMGudang,
+    required final int intNomorMCustomer,
+    required final int intNomorMSales,
+    required final int intJenis,
+    required final int intNomorMCabang,
+    required final int decUM1,
+    required final int decUM2,
+    required final int decUM3,
+    required final int decTotalUMC,
+    required final int decTotalBiaya,
+    required final int decSubTotal,
+    required final int decPPN,
+    required final int decPPNNominal,
+    required final int decDPP,
+    required final int decSisa,
+    required final String vcKeterangan,
+    required final String vcKeteranganFJ,
+    required final String vcKeteranganKW,
   }) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
     final response = await _setUpdateOrderJualOnlyDTOApi.seUpdatetOrderJual(
       action: "addOrderJual",
-      nomormhrelasicust: _selectedCustomer?.nomor.toString() ?? '',
-      nomormhrelasisales: json.decode(userDataJson!)['nomor'].toString(),
-      kode: kode,
-      ppnprosentase: ppnprosentase,
-      statusppn: statusppn,
-      ppnnominal: ppnnominal,
-      diskonnominal: diskonnominal,
-      diskonprosentase: diskonprosentase,
-      dpp: dpp,
-      totalbiaya: totalbiaya,
-      total: total,
-      subtotal2: subtotal2,
-      tanggal: tanggal,
-      diubaholeh: json.decode(userDataJson)['nomor'],
-      nomor: _nomor,
+      dtTanggal: dtTanggal,
+      dtTanggalKirim: dtTanggalKirim,
+      intNomorMCustomer: _selectedCustomer?.intNomor ?? 0,
+      intNomorMSales: intNomorMSales,
+      intNomorMJenisPenjualan: intNomorMJenisPenjualan,
+      intNomorMValuta: intNomorMValuta,
+      intNomorMGudang: intNomorMGudang,
+      intNomorMCabang: intNomorMCabang,
+      intJenis: intJenis,
+      decPPN: decPPN,
+      decPPNNominal: decPPNNominal,
+      decUM1: decUM1,
+      decUM2: decUM2,
+      decUM3: decUM3,
+      decTotalUMC: decTotalUMC,
+      decTotalBiaya: decTotalBiaya,
+      decSubTotal: decSubTotal,
+      decDPP: decDPP,
+      decSisa: decSisa,
+      vcKeterangan: vcKeterangan,
+      vcKeteranganFJ: vcKeteranganFJ,
+      vcKeteranganKW: vcKeteranganKW,
+      intNomor: _nomor,
     );
     if (response.isRight) {
       return true;
@@ -364,8 +381,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
     final response = await _setDeleteOrderJualDetailDTOApi.setDeleteOrderJualDetail(
       action: "softDeleteOrderJualDetail",
-      intDeleteUserID: json.decode(userDataJson!)['nomor'],
-      nomor: nomor,
+      intDeleteUserID: json.decode(userDataJson!)['intNomor'],
+      intNomor: nomor,
     );
     if (response.isRight) {
       return true;

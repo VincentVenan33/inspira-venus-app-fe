@@ -142,7 +142,7 @@ class _AddPelangganOrderJualState extends ConsumerState<AddPelangganOrderJual> {
                                     return RadioListTile(
                                       tileColor: venusColor.transparent,
                                       title: Text(
-                                        model.customer[index].nama,
+                                        model.customer[index].vcNama,
                                       ),
                                       groupValue: model.selectedCustomer,
                                       value: model.customer[index],

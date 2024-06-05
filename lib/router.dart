@@ -133,20 +133,20 @@ class AppRouter {
           builder: (_) => const EditSalesActivity(),
         );
 
-      case Routes.customer:
-        return buildRoute(
-          builder: (_) => const CustomerView(),
-        );
+      // case Routes.customer:
+      //   return buildRoute(
+      //     builder: (_) => const CustomerView(),
+      //   );
 
       case Routes.listpelanggan:
         return buildRoute(
           builder: (_) => const ListPelangganView(),
         );
 
-      case Routes.addcheckinout:
-        return buildRoute(
-          builder: (_) => const AddCheckInOut(),
-        );
+      // case Routes.addcheckinout:
+      //   return buildRoute(
+      //     builder: (_) => const AddCheckInOut(),
+      //   );
 
       case Routes.addpelangganorderjual:
         return buildRoute(
@@ -162,52 +162,52 @@ class AppRouter {
           ),
         );
 
-      case Routes.addcustomer:
-        return buildRoute(
-          builder: (_) => const AddCustomer(),
-        );
+      // case Routes.addcustomer:
+      //   return buildRoute(
+      //     builder: (_) => const AddCustomer(),
+      //   );
 
-      case Routes.editcustomer:
-        UpdateCustomerParam param = const UpdateCustomerParam(mode: 'edit', nomor: 0);
-        if (settings.arguments is UpdateCustomerParam) {
-          param = settings.arguments as UpdateCustomerParam;
-        } else {
-          argsIsInvalid = true;
-          // continue invalidArgs;
-        }
-        return buildRoute(
-          builder: (_) => UpdateCustomer(
-            param: param,
-          ),
-        );
+      // case Routes.editcustomer:
+      //   UpdateCustomerParam param = const UpdateCustomerParam(mode: 'edit', nomor: 0);
+      //   if (settings.arguments is UpdateCustomerParam) {
+      //     param = settings.arguments as UpdateCustomerParam;
+      //   } else {
+      //     argsIsInvalid = true;
+      //     // continue invalidArgs;
+      //   }
+      //   return buildRoute(
+      //     builder: (_) => UpdateCustomer(
+      //       param: param,
+      //     ),
+      //   );
 
-      case Routes.adddesa:
-        return buildRoute(
-          builder: (_) => AddDesa(
-            viewModel: settings.arguments as AddCustomerViewModel,
-          ),
-        );
-      case Routes.editdesa:
-        return buildRoute(
-          builder: (_) => UpdateDesa(
-            viewModel: settings.arguments as UpdateCustomerViewModel,
-          ),
-        );
+      // case Routes.adddesa:
+      //   return buildRoute(
+      //     builder: (_) => AddDesa(
+      //       viewModel: settings.arguments as AddCustomerViewModel,
+      //     ),
+      //   );
+      // case Routes.editdesa:
+      //   return buildRoute(
+      //     builder: (_) => UpdateDesa(
+      //       viewModel: settings.arguments as UpdateCustomerViewModel,
+      //     ),
+      //   );
 
-      case Routes.detailcustomer:
-        DetailCustomerParam param = const DetailCustomerParam(mode: 'view', nomor: 0);
-        if (settings.arguments is DetailCustomerParam) {
-          param = settings.arguments as DetailCustomerParam;
-        } else {
-          argsIsInvalid = true;
-          // continue invalidArgs;
-        }
+      // case Routes.detailcustomer:
+      //   DetailCustomerParam param = const DetailCustomerParam(mode: 'view', nomor: 0);
+      //   if (settings.arguments is DetailCustomerParam) {
+      //     param = settings.arguments as DetailCustomerParam;
+      //   } else {
+      //     argsIsInvalid = true;
+      //     // continue invalidArgs;
+      //   }
 
-        return buildRoute(
-          builder: (_) => DetailCustomer(
-            param: param,
-          ),
-        );
+      //   return buildRoute(
+      //     builder: (_) => DetailCustomer(
+      //       param: param,
+      //     ),
+      //   );
 
       case Routes.detailpelanggan:
         DetailPelangganParam param = const DetailPelangganParam(mode: 'view', nomor: 0);
@@ -246,12 +246,12 @@ class AppRouter {
           ),
         );
 
-      case Routes.addpelanggan:
-        return buildRoute(
-          builder: (_) => AddPelanggan(
-            viewModel: settings.arguments as AddCheckInOutViewModel,
-          ),
-        );
+      // case Routes.addpelanggan:
+      //   return buildRoute(
+      //     builder: (_) => AddPelanggan(
+      //       viewModel: settings.arguments as AddCheckInOutViewModel,
+      //     ),
+      //   );
 
       case Routes.detailorderpenjualan:
         DetailOrderPenjualanParam param = const DetailOrderPenjualanParam(mode: 'view', nomor: 0);

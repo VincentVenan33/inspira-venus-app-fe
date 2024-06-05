@@ -20,46 +20,56 @@ class UpdateOrderJualOnlyPayload {
 @JsonSerializable()
 class UpdateOrderJualOnlyRequest {
   UpdateOrderJualOnlyRequest({
-    required this.nomormhrelasicust,
-    required this.ppnprosentase,
-    required this.statusppn,
-    required this.ppnnominal,
-    required this.diskonprosentase,
-    required this.diskonnominal,
-    required this.dpp,
-    required this.totalbiaya,
-    required this.total,
-    required this.subtotal2,
-    required this.tanggal,
-    required this.kode,
-    required this.diubaholeh,
+    required this.dtTanggal,
+    required this.dtTanggalKirim,
+    required this.intNomorMJenisPenjualan,
+    required this.intNomorMValuta,
+    required this.intNomorMGudang,
+    required this.intNomorMCustomer,
+    required this.intNomorMSales,
+    required this.intJenis,
+    required this.intNomorMCabang,
+    required this.decUM1,
+    required this.decUM2,
+    required this.decUM3,
+    required this.decTotalUMC,
+    required this.decTotalBiaya,
+    required this.decSubTotal,
+    required this.decPPN,
+    required this.decPPNNominal,
+    required this.decDPP,
+    required this.decSisa,
+    required this.vcKeterangan,
+    required this.vcKeteranganFJ,
+    required this.vcKeteranganKW,
   });
 
   factory UpdateOrderJualOnlyRequest.fromJson(Map<String, dynamic> json) => _$UpdateOrderJualOnlyRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateOrderJualOnlyRequestToJson(this);
 
-  @JsonKey(name: 'nomormhrelasi_cust')
-  final String nomormhrelasicust;
-  @JsonKey(name: 'ppn_prosentase')
-  final String ppnprosentase;
-  @JsonKey(name: 'status_ppn')
-  final int statusppn;
-  @JsonKey(name: 'ppn_nominal')
-  final int ppnnominal;
-  @JsonKey(name: 'diskon_prosentase')
-  final int diskonprosentase;
-  @JsonKey(name: 'diskon_nominal')
-  final int diskonnominal;
-  final int dpp;
-  @JsonKey(name: 'total_biaya')
-  final int totalbiaya;
-  final int total;
-  final int subtotal2;
-  final String tanggal;
-  final String kode;
-  @JsonKey(name: 'diubah_oleh')
-  final int? diubaholeh;
+  final String dtTanggal;
+  final String dtTanggalKirim;
+  final int intNomorMJenisPenjualan;
+  final int intNomorMValuta;
+  final int intNomorMGudang;
+  final int intNomorMCustomer;
+  final int intNomorMSales;
+  final int intJenis;
+  final int intNomorMCabang;
+  final int decUM1;
+  final int decUM2;
+  final int decUM3;
+  final int decTotalUMC;
+  final int decTotalBiaya;
+  final int decSubTotal;
+  final int decPPN;
+  final int decPPNNominal;
+  final int decDPP;
+  final int decSisa;
+  final String vcKeterangan;
+  final String vcKeteranganFJ;
+  final String vcKeteranganKW;
 }
 
 @JsonSerializable()

@@ -26,7 +26,7 @@ class SplashScreenView extends ConsumerWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    'assets/icons/pt_venus_ceramica_indonesia_logo.png',
+                    'assets/icons/venus-splash-logo.png',
                   ),
                   fit: BoxFit.none,
                 ),

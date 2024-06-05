@@ -20,7 +20,7 @@ class _SetUpdateOrderJualOnlyDTOApi implements SetUpdateOrderJualOnlyDTOApi {
 
   @override
   Future<HttpResponse<dynamic>> updateOrderJualOnly(
-    nomor,
+    intNomor,
     accept,
     payload,
   ) async {
@@ -38,7 +38,7 @@ class _SetUpdateOrderJualOnlyDTOApi implements SetUpdateOrderJualOnlyDTOApi {
     )
             .compose(
               _dio.options,
-              '/api/updateData/${nomor}',
+              'updateData/${intNomor}',
               queryParameters: queryParameters,
               data: _data,
             )

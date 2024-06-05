@@ -103,93 +103,79 @@ class GetDataResult {
 @JsonSerializable()
 class GetDataContent {
   GetDataContent({
-    required this.nomor,
-    required this.kode,
-    required this.nama,
-    this.keterangan = "",
-    this.nomormhgelar = 0,
-    this.nomormhkota = 0,
-    this.nomormhdesa = 0,
-    this.nomormhrelasisales = 0,
-    this.nomormhtipeoutlet = 0,
-    this.nomormhkategoricustomer = 0,
-    this.nomormhkelurahan = 0,
-    this.nomormhprovinsi = 0,
-    this.nomormhkecamatan = 0,
-    this.kontak = "",
-    this.alamatktp = "",
-    this.shareloc = "",
-    this.jatuhtempo = 0,
-    this.plafon = 0,
-    this.npwp = "",
-    this.ktp = "",
-    this.tanggaleditplafon = "",
-    this.alamat = "",
-    this.telepon = "",
-    this.nohp = "",
-    this.hp = "",
-    // this.userid = "",
-    // this.jenis = 0,
-    this.gelar = "",
-    this.desa = "",
-    this.sales = "",
-    this.tipeoutlet = "",
-    this.kategoricustomer = "",
-    this.kecamatan = "",
-    this.kota = "",
-    this.provinsi = "",
-    this.omset = "",
-    this.total = 0,
-    this.qty = 0,
+    required this.intNomor,
+    required this.vcKode,
+    required this.vcNama,
+    this.vcKeterangan = "",
+    this.intNomorMJenisCustomer = 0,
+    this.intNomorMKlasifikasiCustomer = 0,
+    this.intNomorMKotaPengiriman = 0,
+    this.intNomorMKotaPenagihan = 0,
+    this.intNomorMSales = 0,
+    this.intNomorMArea = 0,
+    this.vcKontak = "",
+    this.vcNPWP = "",
+    this.vcAlamatNPWP = "",
+    this.vcAlamatPengiriman = "",
+    this.vcAlamatPenagihan = "",
+    this.vcTeleponPengiriman = "",
+    this.vcTeleponPenagihan = "",
+    this.vcHPPengiriman = "",
+    this.vcHPPenagihan = "",
+    this.vcFaxPengiriman = "",
+    this.vcFaxPenagihan = "",
+    this.vcEmailPenagihan = "",
+    this.intPT = 0,
+    this.intJT = 0,
+    this.decPlafon = "",
+    this.decLatitude = "",
+    this.decLongitude = "",
+    this.namasales = "",
+    this.kodesales = "",
+    this.namaarea = "",
+    this.namakota = "",
+    this.namaklasifikasicustomer = "",
   });
 
   factory GetDataContent.fromJson(Map<String, dynamic> json) => _$GetDataContentFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetDataContentToJson(this);
 
-  final int nomor;
-  final String kode;
-  final String nama;
-  final String? keterangan;
-  final int? nomormhgelar;
-  final int? nomormhkota;
-  final int? nomormhdesa;
-  @JsonKey(name: 'nomormhrelasi_sales')
-  final int? nomormhrelasisales;
-  final int? nomormhtipeoutlet;
-  final int? nomormhkategoricustomer;
-  final int? nomormhkelurahan;
-  final int? nomormhprovinsi;
-  final int? nomormhkecamatan;
-  final String? kontak;
-  @JsonKey(name: 'alamat_ktp')
-  final String? alamatktp;
-  @JsonKey(name: 'share_loc')
-  final String? shareloc;
-  @JsonKey(name: 'jatuh_tempo')
-  final int? jatuhtempo;
-  final int? plafon;
-  final String? npwp;
-  final String? ktp;
-  @JsonKey(name: 'tanggal_edit_plafon')
-  final String? tanggaleditplafon;
-  final String? alamat;
-  final String? telepon;
-  @JsonKey(name: 'no_hp')
-  final String? nohp;
-  final String? hp;
-  // @JsonKey(name: 'user_id')
-  // final String? userid;
-  // final int? jenis;
-  final String? gelar;
-  final String? desa;
-  final String? sales;
-  final String? tipeoutlet;
-  final String? kategoricustomer;
-  final String? kecamatan;
-  final String? kota;
-  final String? provinsi;
-  final String? omset;
-  final int? total;
-  final int? qty;
+  final int intNomor;
+  final String vcKode;
+  final String vcNama;
+  final String? vcKeterangan;
+  final int? intNomorMJenisCustomer;
+  final int? intNomorMKlasifikasiCustomer;
+  final int? intNomorMKotaPengiriman;
+  final int? intNomorMKotaPenagihan;
+  final int? intNomorMSales;
+  final int? intNomorMArea;
+  final String? vcKontak;
+  final String? vcNPWP;
+  final String? vcAlamatNPWP;
+  final String? vcAlamatPengiriman;
+  final String? vcAlamatPenagihan;
+  final String? vcTeleponPengiriman;
+  final String? vcTeleponPenagihan;
+  final String? vcHPPengiriman;
+  final String? vcHPPenagihan;
+  final String? vcFaxPengiriman;
+  final String? vcFaxPenagihan;
+  final String? vcEmailPenagihan;
+  final int? intPT;
+  final int? intJT;
+  final String? decPlafon;
+  final String? decLatitude;
+  final String? decLongitude;
+  @JsonKey(name: 'nama_sales')
+  final String? namasales;
+  @JsonKey(name: 'kode_sales')
+  final String? kodesales;
+  @JsonKey(name: 'nama_area')
+  final String? namaarea;
+  @JsonKey(name: 'nama_kota')
+  final String? namakota;
+  @JsonKey(name: 'nama_klasifikasi_customer')
+  final String? namaklasifikasicustomer;
 }

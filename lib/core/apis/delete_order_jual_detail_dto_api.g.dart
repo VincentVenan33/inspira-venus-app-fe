@@ -38,7 +38,7 @@ class _DeleteOrderJualDetailDTOApi implements DeleteOrderJualDetailDTOApi {
     )
             .compose(
               _dio.options,
-              '/api/deleteData/${nomor}',
+              '/deleteData/${nomor}',
               queryParameters: queryParameters,
               data: _data,
             )

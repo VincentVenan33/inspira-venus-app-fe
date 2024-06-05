@@ -112,12 +112,12 @@ flutter:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/pt_venus_ceramica_indonesia_logo.png
+  image: assets/venus-splash-logo.png
 
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icons/Logo.ico"
+  image_path: "assets/icons/pt_venus_ceramica_indonesia_logo.png"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

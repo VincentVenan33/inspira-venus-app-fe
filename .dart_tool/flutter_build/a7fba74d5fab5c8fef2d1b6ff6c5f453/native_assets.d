@@ -1,0 +1,1 @@
+ N:\\inspira\\inspira-venus-app-fe\\.dart_tool\\flutter_build\\a7fba74d5fab5c8fef2d1b6ff6c5f453\\native_assets.yaml: 

@@ -8,7 +8,7 @@ part 'delete_order_jual_detail_dto_api.g.dart';
 abstract class DeleteOrderJualDetailDTOApi {
   factory DeleteOrderJualDetailDTOApi(Dio dio, {String baseUrl}) = _DeleteOrderJualDetailDTOApi;
 
-  @DELETE('/api/deleteData/{id}')
+  @DELETE('/deleteData/{id}')
   Future<HttpResponse<dynamic>> deleteOrderJualDetail(
     @Path('id') int nomor,
     @Header('Accept') String accept,

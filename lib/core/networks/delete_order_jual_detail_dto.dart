@@ -26,7 +26,7 @@ class SetDeleteOrderJualDetailDTOService {
   Future<Either<Failure, DeleteOrderJualDetailResponse>> setDeleteOrderJualDetail({
     required final String action,
     required final int intDeleteUserID,
-    required int nomor,
+    required int intNomor,
   }) async {
     try {
       final payload = DeleteOrderJualDetailPayload(
@@ -34,7 +34,7 @@ class SetDeleteOrderJualDetailDTOService {
         intDeleteUserID: intDeleteUserID,
       );
       final HttpResponse<dynamic> response = await api.deleteOrderJualDetail(
-        nomor,
+        intNomor,
         'application/json',
         payload,
       );
