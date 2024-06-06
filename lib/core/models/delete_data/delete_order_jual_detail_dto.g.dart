@@ -10,14 +10,14 @@ DeleteOrderJualDetailPayload _$DeleteOrderJualDetailPayloadFromJson(
         Map<String, dynamic> json) =>
     DeleteOrderJualDetailPayload(
       action: json['action'] as String,
-      intDeleteUserID: json['dihapus_oleh'] as int,
+      intDeleteUserID: json['intDeleteUserID'] as int,
     );
 
 Map<String, dynamic> _$DeleteOrderJualDetailPayloadToJson(
         DeleteOrderJualDetailPayload instance) =>
     <String, dynamic>{
       'action': instance.action,
-      'dihapus_oleh': instance.intDeleteUserID,
+      'intDeleteUserID': instance.intDeleteUserID,
     };
 
 DeleteOrderJualDetailResponse _$DeleteOrderJualDetailResponseFromJson(

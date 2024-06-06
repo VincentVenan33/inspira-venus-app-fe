@@ -683,7 +683,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                                       top: 6,
                                                                       bottom: 6,
                                                                     ),
-                                                                    hintText: '${model.orderjual[0].decDisc}.00',
+                                                                    hintText: '${model.orderjual[0].decDisc}',
                                                                     hintStyle: const TextStyle(
                                                                       color: venusColor.black,
                                                                       fontWeight: FontWeight.w500,
@@ -859,7 +859,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Text(
-                                                                      '${model.orderjual[0].decPPN}.00',
+                                                                      '${model.orderjual[0].decPPN}',
                                                                       style: const TextStyle(
                                                                         color: venusColor.black,
                                                                         fontWeight: FontWeight.w400,

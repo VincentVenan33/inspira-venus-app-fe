@@ -37,7 +37,7 @@ class _BarangGetDataDTOApi implements BarangGetDataDTOApi {
     )
             .compose(
               _dio.options,
-              '/api/getData',
+              '/getData',
               queryParameters: queryParameters,
               data: _data,
             )

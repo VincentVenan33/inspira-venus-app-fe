@@ -14,7 +14,6 @@ class DeleteOrderJualDetailPayload {
   Map<String, dynamic> toJson() => _$DeleteOrderJualDetailPayloadToJson(this);
 
   final String action;
-  @JsonKey(name: 'dihapus_oleh')
   final int intDeleteUserID;
 }
 

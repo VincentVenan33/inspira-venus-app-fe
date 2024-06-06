@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:venus/core/models/get_data/order_jual_get_data_dto.dart';
 import 'package:venus/core/models/get_data/produk_get_data_dto.dart';
 import 'package:venus/core/models/get_data/satuan_barang_get_data_dto.dart';
@@ -10,7 +9,6 @@ import 'package:venus/core/networks/satuan_barang_get_data_dto_network.dart';
 import 'package:venus/core/networks/update_order_jual_detail_dto.dart';
 import 'package:venus/core/services/shared_preferences_service.dart';
 import 'package:venus/core/view_models/base_view_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class EditItemDetailOrderJualViewModel extends BaseViewModel {
   EditItemDetailOrderJualViewModel({
@@ -48,6 +46,7 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
   final TextEditingController namaController = TextEditingController();
   final TextEditingController satuanqtyController = TextEditingController();
   final TextEditingController qtyController = TextEditingController();
+  final TextEditingController beratController = TextEditingController();
   final TextEditingController hargaController = TextEditingController();
   final TextEditingController satuanisiController = TextEditingController();
   final TextEditingController konversisatuanController = TextEditingController();
@@ -81,9 +80,9 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
   @override
   Future<void> initModel() async {
     setBusy(true);
+    await _fetchSatuanBarang(_orderjualdetail?.intNomorMBarang ?? 0);
     await _fetchOrderJualDetail();
     await fetchBarang(reload: true);
-    // await _fetchSatuanBarang(_orderjualdetail?.nomormhbarang ?? 0);
     setBusy(false);
     hargaController.addListener(calculateDiscTotal);
     diskon1Controller.addListener(calculateDiscTotal);
@@ -133,14 +132,14 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  BarangGetFilter currentFilter = BarangGetFilter(
+  BarangGetFilter barangcurrentFilter = BarangGetFilter(
     limit: 10,
     page: 1,
   );
   Future<void> fetchBarang({bool reload = false}) async {
     final search = BarangGetSearch(
       term: 'like',
-      key: 'mhbarang.nama',
+      key: 'mbarang.vcNamaBeli',
       query: '',
     );
     if (reload) {
@@ -149,9 +148,9 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
     }
     try {
       final newFilter = BarangGetFilter(
-        limit: currentFilter.limit,
+        limit: barangcurrentFilter.limit,
         page: _currentPage,
-        nomor: _nomor,
+        intNomor: _nomor,
       );
 
       final response = await _barangGetDataDTOApi.getData(
@@ -159,12 +158,12 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
         filters: newFilter,
         search: search,
         sort: "DESC",
-        orderby: "mhbarang.nomor",
+        orderby: "mbarang.intNomor",
       );
 
       if (response.isRight) {
         final List<BarangGetDataContent> barangDataFromApi = response.right.data.data;
-        _isLastPage = barangDataFromApi.length < currentFilter.limit;
+        _isLastPage = barangDataFromApi.length < barangcurrentFilter.limit;
         _barang.addAll(barangDataFromApi);
         if (_isLastPage == false) {
           _currentPage++;
@@ -201,7 +200,7 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
   Future<void> _fetchOrderJualDetail() async {
     final search = OrderJualGetSearch(
       term: 'like',
-      key: 'tdorderjual.nomorthorderjual',
+      key: 'tdorderjual.intNomorHeader',
       query: '',
     );
 
@@ -220,22 +219,20 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
     if (response.isRight) {
       _orderjualdetail = response.right.data.data[0];
       kodeController.text = _orderjualdetail?.vcKode ?? '';
-      // namaController.text = _orderjualdetail?.barang ?? '';
-      // nomorbarangController.text = _orderjualdetail?.nomormhbarang.toString() ?? '';
-      // nomorsatuanController.text = _orderjualdetail?.nomormhsatuan.toString() ?? '';
-      // qtyController.text = _orderjualdetail?.qty.toString() ?? '';
-      // satuanqtyController.text = _orderjualdetail?.satuanqty.toString() ?? '';
-      // isiController.text = _orderjualdetail?.isi.toString() ?? '';
-      // satuanisiController.text = _orderjualdetail?.satuanisi.toString() ?? '';
-      // hargaController.text = _orderjualdetail?.harga.toString() ?? '';
-      // diskon1Controller.text = _orderjualdetail?.disc1.toString() ?? '';
-      // diskon2Controller.text = _orderjualdetail?.disc2.toString() ?? '';
-      // diskon3Controller.text = _orderjualdetail?.disc3.toString() ?? '';
-      // directController.text = _orderjualdetail?.discdirect.toString() ?? '';
-      // totalController.text = _orderjualdetail?.total.toString() ?? '';
-      // nettoController.text = _orderjualdetail?.netto.toString() ?? '';
-      // subtotalController.text = _orderjualdetail?.subtotal.toString() ?? '';
-      // konversisatuanController.text = _orderjualdetail?.konversisatuan.toString() ?? '';
+      namaController.text = _orderjualdetail?.vcNamaJual ?? '';
+      nomorbarangController.text = _orderjualdetail?.intNomorMBarang.toString() ?? '';
+      nomorsatuanController.text = _orderjualdetail?.intNomorMSatuan1.toString() ?? '';
+      qtyController.text = _orderjualdetail?.decJumlah1.toString() ?? '';
+      satuanqtyController.text = _orderjualdetail?.satuan1.toString() ?? '';
+      isiController.text = _orderjualdetail?.decJumlahUnit.toString() ?? '';
+      satuanisiController.text = _orderjualdetail?.satuanUnit.toString() ?? '';
+      hargaController.text = _orderjualdetail?.decHarga.toString() ?? '';
+      diskon1Controller.text = _orderjualdetail?.decDisc1.toString() ?? '';
+      diskon2Controller.text = _orderjualdetail?.decDisc2.toString() ?? '';
+      diskon3Controller.text = _orderjualdetail?.decDisc3.toString() ?? '';
+      nettoController.text = _orderjualdetail?.decNetto.toString() ?? '';
+      subtotalController.text = _orderjualdetail?.decSubTotal.toString() ?? '';
+      beratController.text = _orderjualdetail?.decBerat.toString() ?? '';
 
       notify();
     } else {}
@@ -247,44 +244,35 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
   }
 
   Future<bool> updateOrderJualDetailModel({
-    required int nomorthorderjual,
-    required int nomormhbarang,
-    required int nomormhsatuan,
-    required int qty,
-    required int netto,
-    required int disctotal,
-    required int discdirect,
-    required int disc3,
-    required int disc2,
-    required int disc1,
-    required String satuanqty,
-    required int isi,
-    required String satuanisi,
-    required int harga,
-    required int subtotal,
-    required int konversisatuan,
+    required int intNomorHeader,
+    required int intNomorDetail,
+    required int intNomorMBarang,
+    required int intNomorMSatuan1,
+    required int decJumlah1,
+    required int decHarga,
+    required int decJumlahUnit,
+    required int decDisc1,
+    required int decDisc2,
+    required int decDisc3,
+    required int decNetto,
+    required int decSubTotal,
+    required int decBerat,
   }) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
     final response = await _setUpdateOrderJualDetailDTOApi.seUpdatetOrderJual(
       action: "updateOrderJualDetail",
-      nomorthorderjual: nomorthorderjual,
-      nomormhbarang: nomormhbarang,
-      nomormhsatuan: nomormhsatuan,
-      qty: qty,
-      netto: netto,
-      disctotal: disctotal,
-      discdirect: discdirect,
-      disc1: disc1,
-      disc2: disc2,
-      disc3: disc3,
-      satuanqty: satuanqty,
-      satuanisi: satuanisi,
-      isi: isi,
-      konversisatuan: konversisatuan,
-      harga: harga,
-      subtotal: subtotal,
-      diubaholeh: json.decode(userDataJson!)['nomor'],
+      intNomorHeader: intNomorHeader,
+      intNomorDetail: intNomorDetail,
+      intNomorMBarang: intNomorMBarang,
+      intNomorMSatuan1: intNomorMSatuan1,
+      decJumlah1: decJumlah1,
+      decHarga: decHarga,
+      decJumlahUnit: decJumlahUnit,
+      decDisc1: decDisc1,
+      decNetto: decNetto,
+      decDisc3: decDisc3,
+      decDisc2: decDisc2,
+      decSubTotal: decSubTotal,
+      decBerat: decBerat,
       nomor: _nomor,
     );
     if (response.isRight) {

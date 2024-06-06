@@ -116,6 +116,9 @@ class OrderJualGetDataContent {
     this.intNomorMSatuan1 = 0,
     this.intNomorMSatuanUnit = 0,
     this.vcKode = "",
+    this.kodeGudang = "",
+    this.kodeCustomer = "",
+    this.kodeSales = "",
     this.intTOP = 0,
     this.dtTanggal = "",
     this.dtTanggalKirim = "",
@@ -211,6 +214,7 @@ class OrderJualGetDataContent {
     this.decTerbayar = 0,
     this.decTotalIDR = 0,
     this.decTotalSupplier = 0,
+    this.vcNamaJual = '',
   });
 
   factory OrderJualGetDataContent.fromJson(Map<String, dynamic> json) => _$OrderJualGetDataContentFromJson(json);
@@ -226,6 +230,12 @@ class OrderJualGetDataContent {
   final int intNomorMSatuan1;
   final int intNomorMSatuanUnit;
   final String vcKode;
+  @JsonKey(name: 'KodeGudang', includeIfNull: false)
+  final String? kodeGudang;
+  @JsonKey(name: 'KodeCustomer', includeIfNull: false)
+  final String? kodeCustomer;
+  @JsonKey(name: 'KodeSales', includeIfNull: false)
+  final String? kodeSales;
   final int? intTOP;
   final String? dtTanggal;
   final String? dtTanggalKirim;
@@ -282,6 +292,7 @@ class OrderJualGetDataContent {
   final int? intNomorMArea;
   final String? vcAlasanValidasi;
   final String? vcAlasanBatalValidasi;
+  final String? vcNamaJual;
   final int? intEksport;
   @JsonKey(name: 'JenisPenjualan', includeIfNull: false)
   final String? jenisPenjualan;

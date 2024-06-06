@@ -113,6 +113,9 @@ OrderJualGetDataContent _$OrderJualGetDataContentFromJson(
       intNomorMSatuan1: json['intNomorMSatuan1'] as int? ?? 0,
       intNomorMSatuanUnit: json['intNomorMSatuanUnit'] as int? ?? 0,
       vcKode: json['vcKode'] as String? ?? "",
+      kodeGudang: json['KodeGudang'] as String? ?? "",
+      kodeCustomer: json['KodeCustomer'] as String? ?? "",
+      kodeSales: json['KodeSales'] as String? ?? "",
       intTOP: json['intTOP'] as int? ?? 0,
       dtTanggal: json['dtTanggal'] as String? ?? "",
       dtTanggalKirim: json['dtTanggalKirim'] as String? ?? "",
@@ -210,6 +213,7 @@ OrderJualGetDataContent _$OrderJualGetDataContentFromJson(
       decTerbayar: (json['decTerbayar'] as num?)?.toDouble() ?? 0,
       decTotalIDR: (json['decTotalIDR'] as num?)?.toDouble() ?? 0,
       decTotalSupplier: (json['decTotalSupplier'] as num?)?.toDouble() ?? 0,
+      vcNamaJual: json['vcNamaJual'] as String? ?? '',
     );
 
 Map<String, dynamic> _$OrderJualGetDataContentToJson(
@@ -224,63 +228,6 @@ Map<String, dynamic> _$OrderJualGetDataContentToJson(
     'intNomorMSatuan1': instance.intNomorMSatuan1,
     'intNomorMSatuanUnit': instance.intNomorMSatuanUnit,
     'vcKode': instance.vcKode,
-    'intTOP': instance.intTOP,
-    'dtTanggal': instance.dtTanggal,
-    'dtTanggalKirim': instance.dtTanggalKirim,
-    'intJTHari': instance.intJTHari,
-    'vcKeterangan': instance.vcKeterangan,
-    'vcKeteranganFJ': instance.vcKeteranganFJ,
-    'vcKeteranganKW': instance.vcKeteranganKW,
-    'intJenisOJ': instance.intJenisOJ,
-    'intJenis': instance.intJenis,
-    'intGabungan': instance.intGabungan,
-    'intNomorMCabang': instance.intNomorMCabang,
-    'intNomorMCustomer': instance.intNomorMCustomer,
-    'intNomorMSales': instance.intNomorMSales,
-    'intNomorMJenisPenjualan': instance.intNomorMJenisPenjualan,
-    'intNomorMValuta': instance.intNomorMValuta,
-    'intNomorMProyek': instance.intNomorMProyek,
-    'intBiaya': instance.intBiaya,
-    'decSubTotal': instance.decSubTotal,
-    'decKurs': instance.decKurs,
-    'decDisc': instance.decDisc,
-    'decDiscNominal': instance.decDiscNominal,
-    'decPPN': instance.decPPN,
-    'decPPNNominal': instance.decPPNNominal,
-    'decTotal': instance.decTotal,
-    'decTotalLama': instance.decTotalLama,
-    'decDPP': instance.decDPP,
-    'decTotalUMC': instance.decTotalUMC,
-    'decSisa': instance.decSisa,
-    'decTotalBiaya': instance.decTotalBiaya,
-    'decTotalBiayaInternal': instance.decTotalBiayaInternal,
-    'decTotalBiayaEstimasi': instance.decTotalBiayaEstimasi,
-    'intApproved': instance.intApproved,
-    'intApproveUserID': instance.intApproveUserID,
-    'dtApproveTime': instance.dtApproveTime,
-    'vcPenerima': instance.vcPenerima,
-    'vcAlamat': instance.vcAlamat,
-    'intNomorMKota': instance.intNomorMKota,
-    'vcTelepon': instance.vcTelepon,
-    'vcFax': instance.vcFax,
-    'vcHP': instance.vcHP,
-    'vcEmail': instance.vcEmail,
-    'intNomorMUserApprovedBy': instance.intNomorMUserApprovedBy,
-    'intNomorMGudang': instance.intNomorMGudang,
-    'intDraft': instance.intDraft,
-    'intPending': instance.intPending,
-    'intSample': instance.intSample,
-    'decUM1': instance.decUM1,
-    'decUM2': instance.decUM2,
-    'decUM3': instance.decUM3,
-    'intValidasiUserID': instance.intValidasiUserID,
-    'dtValidasiTime': instance.dtValidasiTime,
-    'intUnValidasiUserID': instance.intUnValidasiUserID,
-    'dtUnValidasiTime': instance.dtUnValidasiTime,
-    'intNomorMArea': instance.intNomorMArea,
-    'vcAlasanValidasi': instance.vcAlasanValidasi,
-    'vcAlasanBatalValidasi': instance.vcAlasanBatalValidasi,
-    'intEksport': instance.intEksport,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -289,6 +236,67 @@ Map<String, dynamic> _$OrderJualGetDataContentToJson(
     }
   }
 
+  writeNotNull('KodeGudang', instance.kodeGudang);
+  writeNotNull('KodeCustomer', instance.kodeCustomer);
+  writeNotNull('KodeSales', instance.kodeSales);
+  val['intTOP'] = instance.intTOP;
+  val['dtTanggal'] = instance.dtTanggal;
+  val['dtTanggalKirim'] = instance.dtTanggalKirim;
+  val['intJTHari'] = instance.intJTHari;
+  val['vcKeterangan'] = instance.vcKeterangan;
+  val['vcKeteranganFJ'] = instance.vcKeteranganFJ;
+  val['vcKeteranganKW'] = instance.vcKeteranganKW;
+  val['intJenisOJ'] = instance.intJenisOJ;
+  val['intJenis'] = instance.intJenis;
+  val['intGabungan'] = instance.intGabungan;
+  val['intNomorMCabang'] = instance.intNomorMCabang;
+  val['intNomorMCustomer'] = instance.intNomorMCustomer;
+  val['intNomorMSales'] = instance.intNomorMSales;
+  val['intNomorMJenisPenjualan'] = instance.intNomorMJenisPenjualan;
+  val['intNomorMValuta'] = instance.intNomorMValuta;
+  val['intNomorMProyek'] = instance.intNomorMProyek;
+  val['intBiaya'] = instance.intBiaya;
+  val['decSubTotal'] = instance.decSubTotal;
+  val['decKurs'] = instance.decKurs;
+  val['decDisc'] = instance.decDisc;
+  val['decDiscNominal'] = instance.decDiscNominal;
+  val['decPPN'] = instance.decPPN;
+  val['decPPNNominal'] = instance.decPPNNominal;
+  val['decTotal'] = instance.decTotal;
+  val['decTotalLama'] = instance.decTotalLama;
+  val['decDPP'] = instance.decDPP;
+  val['decTotalUMC'] = instance.decTotalUMC;
+  val['decSisa'] = instance.decSisa;
+  val['decTotalBiaya'] = instance.decTotalBiaya;
+  val['decTotalBiayaInternal'] = instance.decTotalBiayaInternal;
+  val['decTotalBiayaEstimasi'] = instance.decTotalBiayaEstimasi;
+  val['intApproved'] = instance.intApproved;
+  val['intApproveUserID'] = instance.intApproveUserID;
+  val['dtApproveTime'] = instance.dtApproveTime;
+  val['vcPenerima'] = instance.vcPenerima;
+  val['vcAlamat'] = instance.vcAlamat;
+  val['intNomorMKota'] = instance.intNomorMKota;
+  val['vcTelepon'] = instance.vcTelepon;
+  val['vcFax'] = instance.vcFax;
+  val['vcHP'] = instance.vcHP;
+  val['vcEmail'] = instance.vcEmail;
+  val['intNomorMUserApprovedBy'] = instance.intNomorMUserApprovedBy;
+  val['intNomorMGudang'] = instance.intNomorMGudang;
+  val['intDraft'] = instance.intDraft;
+  val['intPending'] = instance.intPending;
+  val['intSample'] = instance.intSample;
+  val['decUM1'] = instance.decUM1;
+  val['decUM2'] = instance.decUM2;
+  val['decUM3'] = instance.decUM3;
+  val['intValidasiUserID'] = instance.intValidasiUserID;
+  val['dtValidasiTime'] = instance.dtValidasiTime;
+  val['intUnValidasiUserID'] = instance.intUnValidasiUserID;
+  val['dtUnValidasiTime'] = instance.dtUnValidasiTime;
+  val['intNomorMArea'] = instance.intNomorMArea;
+  val['vcAlasanValidasi'] = instance.vcAlasanValidasi;
+  val['vcAlasanBatalValidasi'] = instance.vcAlasanBatalValidasi;
+  val['vcNamaJual'] = instance.vcNamaJual;
+  val['intEksport'] = instance.intEksport;
   writeNotNull('JenisPenjualan', instance.jenisPenjualan);
   writeNotNull('Cabang', instance.cabang);
   writeNotNull('Customer', instance.customer);

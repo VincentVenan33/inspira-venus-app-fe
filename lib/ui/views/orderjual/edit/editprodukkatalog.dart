@@ -169,7 +169,7 @@ class _EditProdukKatalogViewState extends ConsumerState<EditProdukKatalogView> {
                                         context,
                                         Routes.editaddDetailCatalog,
                                         arguments: EditAddDetailOrderParam(
-                                          nomor: model.barang[index].nomor,
+                                          nomor: model.barang[index].intNomor,
                                           mode: 'view',
                                           header: widget.param.header,
                                           detailItem: widget.param.detailItem,
@@ -212,7 +212,7 @@ class _EditProdukKatalogViewState extends ConsumerState<EditProdukKatalogView> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      model.barang[index].kode,
+                                                      model.barang[index].vcKode,
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
@@ -220,7 +220,7 @@ class _EditProdukKatalogViewState extends ConsumerState<EditProdukKatalogView> {
                                                     SizedBox(
                                                       width: 170,
                                                       child: Text(
-                                                        model.barang[index].nama,
+                                                        '${model.barang[index].vcNamaJual}',
                                                         style: const TextStyle(
                                                           fontSize: 12,
                                                           fontWeight: FontWeight.bold,
@@ -228,20 +228,20 @@ class _EditProdukKatalogViewState extends ConsumerState<EditProdukKatalogView> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Kategori : ${model.barang[index].kategoribarang}',
+                                                      'Kategori : ${model.barang[index].kategori}',
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Group : ${model.barang[index].groupbarang}',
+                                                      'Group : ${model.barang[index].namagroup}',
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      'Jenis : ${model.barang[index].jenispenjualan}',
-                                                      style: const TextStyle(
+                                                     Text(
+                                                      'tipe : ${model.barang[index].tipe}',
+                                                      style: TextStyle(
                                                         fontSize: 10,
                                                       ),
                                                     ),

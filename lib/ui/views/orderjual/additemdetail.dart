@@ -4,9 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:venus/core/app_constants/colors.dart';
-import 'package:venus/core/app_constants/route.dart';
 import 'package:venus/core/models/get_data/satuan_barang_get_data_dto.dart';
-import 'package:venus/core/models/set_data/create_order_jual_detail_bonus_dto.dart';
 import 'package:venus/core/networks/barang_get_data_dto_network.dart';
 import 'package:venus/core/networks/satuan_barang_get_data_dto_network.dart';
 import 'package:venus/core/services/shared_preferences_service.dart';
@@ -223,28 +221,30 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  model.barang[0].nama,
-                                                  style: const TextStyle(
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.w500,
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '${model.barang[0].vcNamaJual}',
+                                                    style: const TextStyle(
+                                                      fontSize: 24,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
                                                   ),
-                                                ),
-                                                Spacings.verSpace(
-                                                  5,
-                                                ),
-                                                Text(
-                                                  model.barang[0].kode,
-                                                  style: const TextStyle(
-                                                    color: venusColor.black,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w400,
+                                                  Spacings.verSpace(
+                                                    5,
                                                   ),
-                                                )
-                                              ],
+                                                  Text(
+                                                    model.barang[0].vcKode,
+                                                    style: const TextStyle(
+                                                      color: venusColor.black,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -294,7 +294,7 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                                                     value: model.selectedSatuanBarang,
                                                     hint: const Text('Pilih Satuan'),
                                                     items: model.satuanbarang
-                                                        .where((item) => item.nama != null && item.nama!.isNotEmpty)
+                                                        .where((item) => item.vcNama != null && item.vcNama!.isNotEmpty)
                                                         .map((item) => DropdownMenuItem<SatuanBarangGetDataContent>(
                                                               value: item,
                                                               child: satuanBarang(
@@ -314,7 +314,7 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                                                               int.tryParse(konversiSatuanController.text) ?? 0;
                                                           debugPrint('konversi satuan $_konversisatuan');
                                                           _isi = _qty * _konversisatuan;
-                                                          _harga = value.hargapricelist!;
+                                                          _harga = value.hargaPL!;
                                                           hargaController.text = _harga.toString();
                                                           isiController.text = _isi.toString();
                                                         },
@@ -1127,35 +1127,35 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          final bool response = await model.addItemtoList(
-                            CreateOrderJualDetailRequest(
-                              nomormhbarang: model.barang[0].nomor,
-                              nomormhsatuan: model.selectedSatuanBarang?.nomor ?? 0,
-                              kode: model.barang[0].kode,
-                              nama: model.barang[0].nama,
-                              qty: _qty,
-                              netto: int.parse(nettoController.text),
-                              disctotal: int.parse(totalController.text),
-                              discdirect: _discdirect,
-                              disc3: _disc3,
-                              disc2: _disc2,
-                              disc1: _disc1,
-                              satuanqty: model.selectedSatuanBarang?.nama ?? '',
-                              isi: int.parse(isiController.text),
-                              satuanisi: model.barang[0].satuan1,
-                              harga: _harga,
-                              subtotal: int.parse(subtotalController.text),
-                              konversisatuan: _konversisatuan,
-                            ),
-                          );
+                          // final bool response = await model.addItemtoList(
+                          //   CreateOrderJualDetailRequest(
+                          //     nomormhbarang: model.barang[0].nomor,
+                          //     nomormhsatuan: model.selectedSatuanBarang?.nomor ?? 0,
+                          //     kode: model.barang[0].kode,
+                          //     nama: model.barang[0].nama,
+                          //     qty: _qty,
+                          //     netto: int.parse(nettoController.text),
+                          //     disctotal: int.parse(totalController.text),
+                          //     discdirect: _discdirect,
+                          //     disc3: _disc3,
+                          //     disc2: _disc2,
+                          //     disc1: _disc1,
+                          //     satuanqty: model.selectedSatuanBarang?.nama ?? '',
+                          //     isi: int.parse(isiController.text),
+                          //     satuanisi: model.barang[0].satuan1,
+                          //     harga: _harga,
+                          //     subtotal: int.parse(subtotalController.text),
+                          //     konversisatuan: _konversisatuan,
+                          //   ),
+                          // );
 
-                          if (response) {
-                            Navigator.pushNamed(
-                              // ignore: use_build_context_synchronously
-                              context,
-                              Routes.addorderjual,
-                            );
-                          }
+                          // if (response) {
+                          //   Navigator.pushNamed(
+                          //     // ignore: use_build_context_synchronously
+                          //     context,
+                          //     Routes.addorderjual,
+                          //   );
+                          // }
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
@@ -1189,7 +1189,7 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
 
   Widget satuanBarang(BuildContext context, SatuanBarangGetDataContent item) {
     return Text(
-      '${item.nama}',
+      '${item.vcNama}',
       style: const TextStyle(
         color: venusColor.black,
       ),

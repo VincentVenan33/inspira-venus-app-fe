@@ -21,200 +21,206 @@ class _PosisiStokKomoditiViewState extends ConsumerState<PosisiStokKomoditiView>
   @override
   Widget build(BuildContext context) {
     return ViewModel<PosisiStokKomoditiViewModel>(
-        model: PosisiStokKomoditiViewModel(
-          posisiStokGetDataDTOApi: ref.read(posisiStokGetDataDTOApi),
-        ),
-        onModelReady: (PosisiStokKomoditiViewModel model) => model.initModel(),
-        builder: (_, PosisiStokKomoditiViewModel model, __) {
-          return LoadingOverlay(
-            isLoading: model.busy,
-            child: UnfocusHelper(
-              child: SafeArea(
-                child: Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: venusColor.backgroundAtas,
-                    title: const Text(
-                      'Laporan Posisi Stok Komoditi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
+      model: PosisiStokKomoditiViewModel(
+        posisiStokGetDataDTOApi: ref.read(posisiStokGetDataDTOApi),
+      ),
+      onModelReady: (PosisiStokKomoditiViewModel model) => model.initModel(),
+      builder: (_, PosisiStokKomoditiViewModel model, __) {
+        return LoadingOverlay(
+          isLoading: model.busy,
+          child: UnfocusHelper(
+            child: SafeArea(
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: venusColor.backgroundAtas,
+                  title: const Text(
+                    'Laporan Posisi Stok Komoditi',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
-                    leading: Container(),
-                    centerTitle: true,
-                    actions: [
-                      IconButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 29,
-                                  vertical: 29,
+                  ),
+                  leading: Container(),
+                  centerTitle: true,
+                  actions: [
+                    IconButton(
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 29,
+                                vertical: 29,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: venusColor.lightBlack020,
+                                  width: 1,
                                 ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: venusColor.lightBlack020,
-                                    width: 1,
-                                  ),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(25),
-                                    topRight: Radius.circular(25),
-                                  ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(25),
                                 ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Filter Data Laporan Posisi Stok Komoditi',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w600,
-                                          ),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Filter Data Laporan Posisi Stok Komoditi',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          icon: const Icon(Icons.close),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: const Icon(Icons.close),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacings.verSpace(22),
+                                  Container(
+                                    color: venusColor.transparent,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Spacings.verSpace(8),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'Tanggal Akhir',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                      color: venusColor.lightBlack011,
+                                                    ),
+                                                  ),
+                                                  Spacings.verSpace(5),
+                                                  SizedBox(
+                                                    width: double.infinity,
+                                                    height: 48,
+                                                    child: ElevatedButton(
+                                                      style: ElevatedButton.styleFrom(
+                                                        padding: const EdgeInsets.all(
+                                                          8,
+                                                        ),
+                                                        side: const BorderSide(
+                                                          color: Colors.grey,
+                                                          width: 1.0,
+                                                        ),
+                                                        shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                        ),
+                                                        backgroundColor: venusColor.transparent,
+                                                        surfaceTintColor: venusColor.transparent,
+                                                        shadowColor: const Color(0x00000000),
+                                                      ),
+                                                      onPressed: () => model.pickDateAkhir(context),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            DateFormat('dd/MM/yyyy').format(model.selectedDateAkhir),
+                                                            style: const TextStyle(
+                                                              fontSize: 14,
+                                                              color: venusColor.black,
+                                                              fontWeight: FontWeight.w400,
+                                                            ),
+                                                          ),
+                                                          const Icon(
+                                                            Icons.calendar_month,
+                                                            color: venusColor.lightBlack016,
+                                                            size: 16,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(22),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: ElevatedButton(
+                                                onPressed: () async {
+                                                  await model.fetchPosisiStok(reload: true);
+                                                  // ignore: use_build_context_synchronously
+                                                  Navigator.pop(context);
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  padding: const EdgeInsets.symmetric(
+                                                    horizontal: 144,
+                                                    vertical: 16,
+                                                  ),
+                                                  backgroundColor: venusColor.floatButtonSalesColor,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  'Filter',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                    Spacings.verSpace(22),
-                                    Container(
-                                      color: venusColor.transparent,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Spacings.verSpace(8),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    const Text(
-                                                      'Tanggal Akhir',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight: FontWeight.w400,
-                                                        color: venusColor.lightBlack011,
-                                                      ),
-                                                    ),
-                                                    Spacings.verSpace(5),
-                                                    SizedBox(
-                                                      width: double.infinity,
-                                                      height: 48,
-                                                      child: ElevatedButton(
-                                                        style: ElevatedButton.styleFrom(
-                                                          padding: const EdgeInsets.all(
-                                                            8,
-                                                          ),
-                                                          side: const BorderSide(
-                                                            color: Colors.grey,
-                                                            width: 1.0,
-                                                          ),
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius.circular(8),
-                                                          ),
-                                                          backgroundColor: venusColor.transparent,
-                                                          surfaceTintColor: venusColor.transparent,
-                                                          shadowColor: const Color(0x00000000),
-                                                        ),
-                                                        onPressed: () => model.pickDateAkhir(context),
-                                                        child: Row(
-                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                                          children: [
-                                                            Text(
-                                                              DateFormat('dd/MM/yyyy').format(model.selectedDateAkhir),
-                                                              style: const TextStyle(
-                                                                fontSize: 14,
-                                                                color: venusColor.black,
-                                                                fontWeight: FontWeight.w400,
-                                                              ),
-                                                            ),
-                                                            const Icon(
-                                                              Icons.calendar_month,
-                                                              color: venusColor.lightBlack016,
-                                                              size: 16,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Spacings.verSpace(22),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: ElevatedButton(
-                                                  onPressed: () async {
-                                                    await model.fetchPosisiStok(reload: true);
-                                                    // ignore: use_build_context_synchronously
-                                                    Navigator.pop(context);
-                                                  },
-                                                  style: ElevatedButton.styleFrom(
-                                                    padding: const EdgeInsets.symmetric(
-                                                      horizontal: 144,
-                                                      vertical: 16,
-                                                    ),
-                                                    backgroundColor: venusColor.floatButtonSalesColor,
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(10),
-                                                    ),
-                                                  ),
-                                                  child: const Text(
-                                                    'Filter',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.filter_alt_outlined,
-                        ),
-                        color: Colors.black,
-                        iconSize: 20,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.filter_alt_outlined,
                       ),
-                    ],
-                  ),
-                  body: Column(
-                    children: [
-                      Expanded(
-                        child: LazyLoadScrollView(
-                          isLoading: model.busy,
-                          onEndOfPage: () => model.isLastPage == false ? model.fetchPosisiStok() : null,
-                          child: RefreshIndicator(
-                            onRefresh: () async => model.initModel(),
-                            child: ListView.builder(
+                      color: Colors.black,
+                      iconSize: 20,
+                    ),
+                  ],
+                ),
+                body: Column(
+                  children: [
+                    Expanded(
+                      child: LazyLoadScrollView(
+                        isLoading: model.busy,
+                        onEndOfPage: () {
+                          if (!model.isLastPage && !model.isLoadingMore) {
+                            model.initData();
+                          }
+                        },
+                        child: RefreshIndicator(
+                          onRefresh: () async => model.initModel(),
+                          child: Stack(
+                            children: [
+                              ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: model.posisiStok.length,
                                 itemBuilder: (BuildContext context, int index) {
@@ -368,16 +374,43 @@ class _PosisiStokKomoditiViewState extends ConsumerState<PosisiStokKomoditiView>
                                       ],
                                     ),
                                   );
-                                }),
+                                },
+                              ),
+                              if (model.isLoadingMore)
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: buildLoadingIndicator(), // Menampilkan indikator loading di bawah ListView
+                                ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
+  }
+
+  Widget buildLoadingIndicator() {
+    return Container(
+      color: venusColor.white,
+      padding: const EdgeInsets.all(20),
+      child: const Center(
+        child: SizedBox(
+          height: 30,
+          width: 30,
+          child: CircularProgressIndicator(
+            color: venusColor.blue001,
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -20,6 +20,9 @@ class PosisiStokKomoditiViewModel extends BaseViewModel {
   bool _isLastPage = false;
   bool get isLastPage => _isLastPage;
 
+  bool _isLoadingMore = false;
+  bool get isLoadingMore => _isLoadingMore;
+
   void pickDateAkhir(BuildContext context) async {
     DateTime? date = await showDatePicker(
       context: context,
@@ -41,6 +44,23 @@ class PosisiStokKomoditiViewModel extends BaseViewModel {
     _selectedDateAkhir = DateTime.now();
     await fetchPosisiStok(reload: true);
     setBusy(false);
+  }
+
+  Future<void> initData() async {
+    setisLoadingMore(true);
+    _selectedDateAkhir = DateTime.now();
+    await fetchPosisiStok();
+    setisLoadingMore(false);
+  }
+
+  void setLoading(
+    bool value, {
+    bool skipNotifyListener = false,
+  }) {
+    _isLoadingMore = value;
+    if (!isDisposed && !skipNotifyListener) {
+      notifyListeners();
+    }
   }
 
   PosisiStokQuery query() => PosisiStokQuery(
@@ -84,8 +104,11 @@ class PosisiStokKomoditiViewModel extends BaseViewModel {
   );
   Future<void> fetchPosisiStok({bool reload = false}) async {
     if (reload) {
+      setBusy(true);
       _currentPage = 1;
       _posisiStok.clear();
+    } else {
+      _isLoadingMore = true;
     }
     try {
       final newFilter = PosisiStokGetFilter(
@@ -108,9 +131,18 @@ class PosisiStokKomoditiViewModel extends BaseViewModel {
         }
 
         notify();
+        setBusy(false);
+        _isLoadingMore = false;
       }
     } catch (e) {
       debugPrint("Error: $e");
+      setBusy(false);
+      _isLoadingMore = false;
     }
+  }
+
+  void setisLoadingMore(bool isLoadingMore) {
+    _isLoadingMore = isLoadingMore;
+    notify();
   }
 }

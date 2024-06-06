@@ -33,7 +33,7 @@ class DaftarOrderJualViewModel extends BaseViewModel {
   Future<void> fetchBarang({bool reload = false}) async {
     final search = BarangGetSearch(
       term: 'like',
-      key: 'mhbarang.nama',
+      key: 'mbarang.vcNamaBeli',
       query: searchQuery,
     );
     if (reload) {
@@ -51,7 +51,7 @@ class DaftarOrderJualViewModel extends BaseViewModel {
         filters: newFilter,
         search: search,
         sort: "DESC",
-        orderby: "mhbarang.nomor",
+        orderby: "mbarang.intNomor",
       );
 
       if (response.isRight) {

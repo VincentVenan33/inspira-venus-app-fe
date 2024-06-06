@@ -65,30 +65,30 @@ class SatuanBarangGetDataResponse {
 @JsonSerializable()
 class SatuanBarangGetDataContent {
   SatuanBarangGetDataContent({
-    this.nama = '',
-    this.nomor = 0,
+    this.vcNama = '',
+    this.intNomor = 0,
     this.konversi = 0,
     this.urutan = 0,
-    this.hargapricelist = 0,
-    this.hargadasar = 0,
-    this.hargaterendah = 0,
+    this.hargaPL = 0,
+    this.hargaPLUSD = 0,
+    this.hargaPLRMB = 0,
   });
 
   factory SatuanBarangGetDataContent.fromJson(Map<String, dynamic> json) => _$SatuanBarangGetDataContentFromJson(json);
 
   Map<String, dynamic> toJson() => _$SatuanBarangGetDataContentToJson(this);
-  @JsonKey(name: 'nama', includeIfNull: false)
-  final String? nama;
-  @JsonKey(name: 'nomor', includeIfNull: false)
-  final int? nomor;
+  @JsonKey(name: 'vcNama', includeIfNull: false)
+  final String? vcNama;
+  @JsonKey(name: 'intNomor', includeIfNull: false)
+  final int? intNomor;
   @JsonKey(name: 'konversi', includeIfNull: false)
   final int? konversi;
   @JsonKey(name: 'urutan', includeIfNull: false)
   final int? urutan;
-  @JsonKey(name: 'harga_pricelist', includeIfNull: false)
-  final int? hargapricelist;
-  @JsonKey(name: 'harga_dasar', includeIfNull: false)
-  final int? hargadasar;
-  @JsonKey(name: 'harga_terendah', includeIfNull: false)
-  final int? hargaterendah;
+  @JsonKey(name: 'hargaPL', includeIfNull: false)
+  final int? hargaPL;
+  @JsonKey(name: 'hargaPLUSD', includeIfNull: false)
+  final int? hargaPLUSD;
+  @JsonKey(name: 'hargaPLRMB', includeIfNull: false)
+  final int? hargaPLRMB;
 }

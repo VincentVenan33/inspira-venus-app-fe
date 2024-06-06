@@ -55,13 +55,13 @@ Map<String, dynamic> _$SatuanBarangGetDataResponseToJson(
 SatuanBarangGetDataContent _$SatuanBarangGetDataContentFromJson(
         Map<String, dynamic> json) =>
     SatuanBarangGetDataContent(
-      nama: json['nama'] as String? ?? '',
-      nomor: json['nomor'] as int? ?? 0,
+      vcNama: json['vcNama'] as String? ?? '',
+      intNomor: json['intNomor'] as int? ?? 0,
       konversi: json['konversi'] as int? ?? 0,
       urutan: json['urutan'] as int? ?? 0,
-      hargapricelist: json['harga_pricelist'] as int? ?? 0,
-      hargadasar: json['harga_dasar'] as int? ?? 0,
-      hargaterendah: json['harga_terendah'] as int? ?? 0,
+      hargaPL: json['hargaPL'] as int? ?? 0,
+      hargaPLUSD: json['hargaPLUSD'] as int? ?? 0,
+      hargaPLRMB: json['hargaPLRMB'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$SatuanBarangGetDataContentToJson(
@@ -74,12 +74,12 @@ Map<String, dynamic> _$SatuanBarangGetDataContentToJson(
     }
   }
 
-  writeNotNull('nama', instance.nama);
-  writeNotNull('nomor', instance.nomor);
+  writeNotNull('vcNama', instance.vcNama);
+  writeNotNull('intNomor', instance.intNomor);
   writeNotNull('konversi', instance.konversi);
   writeNotNull('urutan', instance.urutan);
-  writeNotNull('harga_pricelist', instance.hargapricelist);
-  writeNotNull('harga_dasar', instance.hargadasar);
-  writeNotNull('harga_terendah', instance.hargaterendah);
+  writeNotNull('hargaPL', instance.hargaPL);
+  writeNotNull('hargaPLUSD', instance.hargaPLUSD);
+  writeNotNull('hargaPLRMB', instance.hargaPLRMB);
   return val;
 }

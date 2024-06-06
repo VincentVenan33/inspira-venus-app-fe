@@ -8,7 +8,7 @@ part 'satuan_barang_get_data_dto_api.g.dart';
 abstract class SatuanBarangGetDataDTOApi {
   factory SatuanBarangGetDataDTOApi(Dio dio, {String baseUrl}) = _SatuanBarangGetDataDTOApi;
 
-  @POST('/api/getData')
+  @POST('/getData')
   Future<HttpResponse<dynamic>> getData(
     @Header('Accept') String accept,
     @Body() SatuanBarangGetDataPayload payload,

@@ -294,8 +294,8 @@ class _OrderJualViewState extends ConsumerState<OrderJualView> {
                     },
                     child: Column(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(
+                        Padding(
+                          padding: const EdgeInsets.only(
                             top: 24,
                             left: 24,
                             right: 24,
@@ -313,47 +313,47 @@ class _OrderJualViewState extends ConsumerState<OrderJualView> {
                               // Spacings.verSpace(
                               //   24,
                               // ),
-                              // SizedBox(
-                              //   width: double.infinity,
-                              //   height: 41,
-                              //   child: ElevatedButton(
-                              //     style: ButtonStyle(
-                              //       backgroundColor: MaterialStateProperty.all<Color>(venusColor.floatButtonSalesColor),
-                              //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              //         RoundedRectangleBorder(
-                              //           borderRadius: BorderRadius.circular(8.0),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     onPressed: () {
-                              //       Navigator.pushNamed(
-                              //         context,
-                              //         Routes.daftarorderjual,
-                              //       );
-                              //     },
-                              //     child: Row(
-                              //       crossAxisAlignment: CrossAxisAlignment.center,
-                              //       mainAxisAlignment: MainAxisAlignment.center,
-                              //       children: [
-                              //         const Text(
-                              //           'Katalog Produk',
-                              //           style: TextStyle(
-                              //             color: Colors.white,
-                              //             fontSize: 16,
-                              //             fontWeight: FontWeight.w600,
-                              //           ),
-                              //         ),
-                              //         Spacings.horSpace(15),
-                              //         const Icon(
-                              //           Icons.book_outlined,
-                              //           color: venusColor.white,
-                              //           size: 24,
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ),
-                              // ),
-                              // Spacings.verSpace(24),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 41,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(venusColor.floatButtonSalesColor),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      Routes.daftarorderjual,
+                                    );
+                                  },
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'Katalog Produk',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      Spacings.horSpace(15),
+                                      const Icon(
+                                        Icons.book_outlined,
+                                        color: venusColor.white,
+                                        size: 24,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Spacings.verSpace(24),
                             ],
                           ),
                         ),

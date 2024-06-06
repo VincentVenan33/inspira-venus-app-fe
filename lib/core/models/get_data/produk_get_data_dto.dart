@@ -29,7 +29,7 @@ class BarangGetFilter {
   BarangGetFilter({
     required this.limit,
     required this.page,
-    this.nomor,
+    this.intNomor,
   });
 
   factory BarangGetFilter.fromJson(Map<String, dynamic> json) => _$BarangGetFilterFromJson(json);
@@ -38,7 +38,7 @@ class BarangGetFilter {
 
   final int limit;
   final int page;
-  final int? nomor;
+  final int? intNomor;
 }
 
 @JsonSerializable()
@@ -101,97 +101,52 @@ class BarangGetDataResult {
 @JsonSerializable()
 class BarangGetDataContent {
   BarangGetDataContent({
-    required this.nomor,
-    required this.kode,
-    required this.nama,
-    this.nomormhmerkbarang = 0,
-    this.varian = "",
-    this.nomormhgolonganbarang = 0,
-    this.nomormhkategoribarang = 0,
-    this.nomormhsubstitusibarang = 0,
-    this.nomormhjenispenjualan = 0,
-    this.nomormhgroupbarang = 0,
-    this.nomormhsatuan1 = 0,
-    this.nomormhsatuan2 = 0,
-    this.nomormhsatuan3 = 0,
-    this.nomormhprincipal = 0,
-    this.berat = "",
-    this.konversisatuan2 = 0,
-    this.konversisatuan3 = 0,
-    this.komisi = 0,
-    this.bonus = "",
-    this.hargapricelist = "",
-    this.hargadasar = "",
-    this.hargaterendah = "",
-    this.minimumstok = 0,
-    this.maximumstok = 0,
-    this.expdate = "",
-    this.eod = "",
-    this.keterangan = "",
-    this.catatan = "",
-    this.directory = "",
-    this.kategoribarang = "",
+    required this.intNomor,
+    required this.vcKode,
+    required this.vcNamaBeli,
+    this.decP = "",
+    this.decL = "",
+    this.decT = "",
+    this.decLuas = "",
+    this.decVolume = "",
+    this.decStokMin = "",
+    this.decBerat = 0,
+    this.decHargaPL1 = "",
+    this.vcNamaJual = "",
+    this.brand = "",
+    this.namagroup = "",
+    this.tipe = "",
+    this.grade = "",
+    this.surface = "",
     this.satuan1 = "",
     this.satuan2 = "",
     this.satuan3 = "",
-    this.substitusibarang = "",
-    this.jenispenjualan = "",
-    this.golonganbarang = "",
-    this.groupbarang = "",
-    this.total = 0,
-    this.qty = 0,
+    this.kategori = "",
   });
 
   factory BarangGetDataContent.fromJson(Map<String, dynamic> json) => _$BarangGetDataContentFromJson(json);
 
   Map<String, dynamic> toJson() => _$BarangGetDataContentToJson(this);
 
-  final int nomor;
-  final String kode;
-  final String nama;
-  final int? nomormhmerkbarang;
-  final String? varian;
-  final int? nomormhgolonganbarang;
-  final int? nomormhkategoribarang;
-  final int? nomormhsubstitusibarang;
-  final int? nomormhjenispenjualan;
-  final int? nomormhgroupbarang;
-  final int? nomormhsatuan1;
-  final int? nomormhsatuan2;
-  final int? nomormhsatuan3;
-  final int? nomormhprincipal;
-  final String? berat;
-  @JsonKey(name: 'konversi_satuan_2')
-  final int? konversisatuan2;
-  @JsonKey(name: 'konversi_satuan_3')
-  final int? konversisatuan3;
-  final int? komisi;
-  final String? bonus;
-  final String? hargapricelist;
-  @JsonKey(name: 'harga_dasar')
-  final String? hargadasar;
-  @JsonKey(name: 'harga_terendah')
-  final String? hargaterendah;
-  @JsonKey(name: 'minimum_stok')
-  final int? minimumstok;
-  @JsonKey(name: 'maximum_stok')
-  final int? maximumstok;
-  @JsonKey(name: 'exp_date')
-  final String? expdate;
-  @JsonKey(name: 'eod', includeIfNull: false)
-  final String? eod;
-  final String? keterangan;
-  @JsonKey(name: 'catatan', includeIfNull: false)
-  final String? catatan;
-  final String? directory;
-  final String? kategoribarang;
+  final int intNomor;
+  final String vcKode;
+  final String vcNamaBeli;
+  final String? decP;
+  final String? decL;
+  final String? decT;
+  final String? decLuas;
+  final String? decVolume;
+  final String? decStokMin;
+  final int? decBerat;
+  final String? decHargaPL1;
+  final String? vcNamaJual;
+  final String? brand;
+  final String? namagroup;
+  final String? tipe;
+  final String? grade;
+  final String? surface;
   final String? satuan1;
   final String? satuan2;
   final String? satuan3;
-  final String? substitusibarang;
-  final String? jenispenjualan;
-  final String? golonganbarang;
-  final String? groupbarang;
-  final int? total;
-  final int? qty;
+  final String? kategori;
 }

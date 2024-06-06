@@ -26,10 +26,13 @@ import 'package:venus/ui/views/orderjual/addpelanggan.dart';
 import 'package:venus/ui/views/orderjual/daftarorderjual.dart';
 import 'package:venus/ui/views/orderjual/detailorder.dart';
 import 'package:venus/ui/views/orderjual/edit/editadditemdetail.dart';
+import 'package:venus/ui/views/orderjual/edit/editarea.dart';
+import 'package:venus/ui/views/orderjual/edit/editgudang.dart';
 import 'package:venus/ui/views/orderjual/edit/edititemdetail.dart';
 import 'package:venus/ui/views/orderjual/edit/editorderjual.dart';
 import 'package:venus/ui/views/orderjual/edit/editpelanggan.dart';
 import 'package:venus/ui/views/orderjual/edit/editprodukkatalog.dart';
+import 'package:venus/ui/views/orderjual/edit/editsales.dart';
 import 'package:venus/ui/views/orderjual/edititemdetail.dart';
 import 'package:venus/ui/views/orderjual/itemdetail.dart';
 import 'package:venus/ui/views/orderjual/orderjual.dart';
@@ -151,6 +154,24 @@ class AppRouter {
           ),
         );
 
+      case Routes.editgudangorderjual:
+        return buildRoute(
+          builder: (_) => EditGudangOrderJual(
+            viewModel: settings.arguments as UpdateOrderJualViewModel,
+          ),
+        );
+      case Routes.editsalesorderjual:
+        return buildRoute(
+          builder: (_) => EditSalesOrderJual(
+            viewModel: settings.arguments as UpdateOrderJualViewModel,
+          ),
+        );
+      case Routes.editareaorderjual:
+        return buildRoute(
+          builder: (_) => EditAreaOrderJual(
+            viewModel: settings.arguments as UpdateOrderJualViewModel,
+          ),
+        );
       // case Routes.addcustomer:
       //   return buildRoute(
       //     builder: (_) => const AddCustomer(),

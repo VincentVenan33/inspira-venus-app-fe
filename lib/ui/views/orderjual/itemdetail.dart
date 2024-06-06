@@ -127,28 +127,30 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                           Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    model.barang[0].nama,
-                                                    style: const TextStyle(
-                                                      fontSize: 24,
-                                                      fontWeight: FontWeight.w500,
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${model.barang[0].vcNamaJual}',
+                                                      style: const TextStyle(
+                                                        fontSize: 24,
+                                                        fontWeight: FontWeight.w500,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Spacings.verSpace(
-                                                    5,
-                                                  ),
-                                                  Text(
-                                                    model.barang[0].kode,
-                                                    style: const TextStyle(
-                                                      color: venusColor.black,
-                                                      fontSize: 15,
-                                                      fontWeight: FontWeight.w400,
+                                                    Spacings.verSpace(
+                                                      5,
                                                     ),
-                                                  )
-                                                ],
+                                                    Text(
+                                                      model.barang[0].vcKode,
+                                                      style: const TextStyle(
+                                                        color: venusColor.black,
+                                                        fontSize: 15,
+                                                        fontWeight: FontWeight.w400,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -190,7 +192,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     const Text(
-                                                      'Golongan',
+                                                      'Grade',
                                                       style: TextStyle(
                                                         color: Color(0xFF8F8F8F),
                                                         fontSize: 14,
@@ -198,7 +200,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${model.barang[0].golonganbarang}',
+                                                      '${model.barang[0].grade}',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,
@@ -220,7 +222,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
                                                     const Text(
-                                                      'Jenis Penjualan',
+                                                      'Tipe',
                                                       style: TextStyle(
                                                         color: Color(0xFF8F8F8F),
                                                         fontSize: 14,
@@ -228,7 +230,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${model.barang[0].jenispenjualan}',
+                                                      '${model.barang[0].tipe}',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,
@@ -258,7 +260,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${model.barang[0].groupbarang}',
+                                                      '${model.barang[0].namagroup}',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,
@@ -318,7 +320,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${model.barang[0].berat}',
+                                                      '${model.barang[0].decBerat}',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,
@@ -348,7 +350,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${model.barang[0].konversisatuan2}',
+                                                      '${model.barang[0].satuan2}',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,
@@ -378,7 +380,7 @@ class _DetailOrderJualState extends ConsumerState<DetailOrderJual> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${model.barang[0].konversisatuan3}',
+                                                      '${model.barang[0].satuan3}',
                                                       style: const TextStyle(
                                                         fontSize: 14,
                                                         fontWeight: FontWeight.w500,

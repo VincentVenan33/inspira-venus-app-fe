@@ -79,7 +79,7 @@ class EditAddItemDetailOrderJualViewModel extends BaseViewModel {
   Future<void> fetchBarang({bool reload = false}) async {
     final search = BarangGetSearch(
       term: 'like',
-      key: 'mhbarang.nama',
+      key: 'mbarang.vcNamaBeli',
       query: '',
     );
     if (reload) {
@@ -90,7 +90,7 @@ class EditAddItemDetailOrderJualViewModel extends BaseViewModel {
       final newFilter = BarangGetFilter(
         limit: currentFilter.limit,
         page: _currentPage,
-        nomor: _nomor,
+        intNomor: _nomor,
       );
 
       final response = await _barangGetDataDTOApi.getData(
@@ -98,7 +98,7 @@ class EditAddItemDetailOrderJualViewModel extends BaseViewModel {
         filters: newFilter,
         search: search,
         sort: "DESC",
-        orderby: "mhbarang.nomor",
+        orderby: "mbarang.intNomor",
       );
 
       if (response.isRight) {
@@ -202,41 +202,39 @@ class EditAddItemDetailOrderJualViewModel extends BaseViewModel {
   }
 
   Future<bool> addOrderJualDetailModel({
-    required int nomorthorderjual,
-    required int nomormhbarang,
-    required int nomormhsatuan,
-    required int qty,
-    required int netto,
-    required int disctotal,
-    required int discdirect,
-    required int disc3,
-    required int disc2,
-    required int disc1,
-    required String satuanqty,
-    required int isi,
-    required String satuanisi,
-    required int harga,
-    required int subtotal,
-    required int konversisatuan,
+    required String formatcode,
+    required int intNomorHeader,
+    required int intNomorDetail,
+    required int intNomorMBarang,
+    required int intNomorMSatuan1,
+    required int decJumlah1,
+    required int decHarga,
+    required int decJumlahUnit,
+    required int decDisc1,
+    required int decDisc2,
+    required int decDisc3,
+    required int decNetto,
+    required int decSubTotal,
+    required String dtTanggal,
+    required int decBerat,
   }) async {
     final response = await _setOrderJualDetailDTOApi.setOrderJualDetail(
       action: "addOrderJualDetail",
-      nomorthorderjual: nomorthorderjual,
-      nomormhbarang: nomormhbarang,
-      nomormhsatuan: nomormhsatuan,
-      qty: qty,
-      netto: netto,
-      disctotal: disctotal,
-      discdirect: discdirect,
-      disc1: disc1,
-      disc2: disc2,
-      disc3: disc3,
-      satuanqty: satuanqty,
-      satuanisi: satuanisi,
-      isi: isi,
-      konversisatuan: konversisatuan,
-      harga: harga,
-      subtotal: subtotal,
+      formatcode: formatcode,
+      intNomorHeader: intNomorHeader,
+      intNomorDetail: intNomorDetail,
+      intNomorMBarang: intNomorMBarang,
+      intNomorMSatuan1: intNomorMSatuan1,
+      decJumlah1: decJumlah1,
+      decHarga: decHarga,
+      decJumlahUnit: decJumlahUnit,
+      decDisc1: decDisc1,
+      decNetto: decNetto,
+      decDisc3: decDisc3,
+      decDisc2: decDisc2,
+      decSubTotal: decSubTotal,
+      dtTanggal: dtTanggal,
+      decBerat: decBerat,
     );
     if (response.isRight) {
       return true;

@@ -54,7 +54,7 @@ class DetailOrderJualViewModel extends BaseViewModel {
   Future<void> fetchBarang({bool reload = false}) async {
     final search = BarangGetSearch(
       term: 'like',
-      key: 'mhbarang.nama',
+      key: 'mbarang.vcNamaBeli',
       query: '',
     );
     if (reload) {
@@ -65,7 +65,7 @@ class DetailOrderJualViewModel extends BaseViewModel {
       final newFilter = BarangGetFilter(
         limit: currentFilter.limit,
         page: _currentPage,
-        nomor: _nomor,
+        intNomor: _nomor,
       );
 
       final response = await _barangGetDataDTOApi.getData(
@@ -73,7 +73,7 @@ class DetailOrderJualViewModel extends BaseViewModel {
         filters: newFilter,
         search: search,
         sort: "DESC",
-        orderby: "mhbarang.nomor",
+        orderby: "mbarang.intNomor",
       );
 
       if (response.isRight) {

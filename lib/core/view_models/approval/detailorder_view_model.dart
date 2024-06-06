@@ -93,7 +93,7 @@ class ApprovalDetailOrderViewModel extends BaseViewModel {
   Future<void> _fetchOrderJualDetail(int nomorOrderJual) async {
     final search = OrderJualGetSearch(
       term: 'like',
-      key: 'tdorderjual.nomorthorderjual',
+      key: 'tdorderjual.intNomorHeader',
       query: '$nomorOrderJual',
     );
     debugPrint('nomororderjual $nomorOrderJual');

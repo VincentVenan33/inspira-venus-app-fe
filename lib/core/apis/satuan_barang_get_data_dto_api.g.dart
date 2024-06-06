@@ -37,7 +37,7 @@ class _SatuanBarangGetDataDTOApi implements SatuanBarangGetDataDTOApi {
     )
             .compose(
               _dio.options,
-              '/api/getData',
+              '/getData',
               queryParameters: queryParameters,
               data: _data,
             )

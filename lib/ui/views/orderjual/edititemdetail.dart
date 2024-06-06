@@ -322,7 +322,7 @@ class _EditDetailOrderJualState extends ConsumerState<EditDetailOrderJual> {
                                                           fontWeight: FontWeight.w500),
                                                     ),
                                                     items: model.satuanbarang
-                                                        .where((item) => item.nama != null)
+                                                        .where((item) => item.vcNama != null)
                                                         .map((item) => DropdownMenuItem<SatuanBarangGetDataContent>(
                                                               value: item,
                                                               child: satuanBarang(
@@ -342,7 +342,7 @@ class _EditDetailOrderJualState extends ConsumerState<EditDetailOrderJual> {
                                                               int.tryParse(konversiSatuanController.text) ?? 0;
                                                           debugPrint('konversi satuan $_konversisatuan');
                                                           _isi = _qty * _konversisatuan;
-                                                          _harga = value.hargapricelist!;
+                                                          _harga = value.hargaPL!;
                                                           hargaController.text = _harga.toString();
                                                           isiController.text = _isi.toString();
                                                         },
@@ -1160,7 +1160,7 @@ class _EditDetailOrderJualState extends ConsumerState<EditDetailOrderJual> {
                             widget.param.nomor ?? 0,
                             CreateOrderJualDetailRequest(
                               nomormhbarang: int.parse(nomorbarangController.text),
-                              nomormhsatuan: model.selectedSatuanBarang?.nomor ?? 0,
+                              nomormhsatuan: model.selectedSatuanBarang?.intNomor ?? 0,
                               kode: widget.param.detailItem?.kode,
                               nama: widget.param.detailItem?.nama,
                               qty: _qty,
@@ -1170,7 +1170,7 @@ class _EditDetailOrderJualState extends ConsumerState<EditDetailOrderJual> {
                               disc3: _disc3,
                               disc2: _disc2,
                               disc1: _disc1,
-                              satuanqty: model.selectedSatuanBarang?.nama ?? '',
+                              satuanqty: model.selectedSatuanBarang?.vcNama ?? '',
                               isi: int.parse(isiController.text),
                               satuanisi: widget.param.detailItem?.satuanisi,
                               harga: _harga,
@@ -1219,7 +1219,7 @@ class _EditDetailOrderJualState extends ConsumerState<EditDetailOrderJual> {
 
   Widget satuanBarang(BuildContext context, SatuanBarangGetDataContent item) {
     return Text(
-      '${item.nama}',
+      '${item.vcNama}',
       style: const TextStyle(
         color: venusColor.black,
       ),

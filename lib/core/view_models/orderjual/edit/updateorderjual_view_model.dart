@@ -2,13 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:venus/core/models/get_data/area_get_data_dto.dart';
 import 'package:venus/core/models/get_data/get_data_dto.dart';
+import 'package:venus/core/models/get_data/jenis_penjualan_get_data_dto.dart';
 import 'package:venus/core/models/get_data/order_jual_get_data_dto.dart';
+import 'package:venus/core/models/get_data/valuta_get_data_dto.dart';
 import 'package:venus/core/models/set_data/create_order_jual_detail_bonus_dto.dart';
+import 'package:venus/core/networks/area_get_data_dto_network.dart';
 import 'package:venus/core/networks/delete_order_jual_detail_dto.dart';
 import 'package:venus/core/networks/get_data_dto_network.dart';
+import 'package:venus/core/networks/jenis_penjualan_get_data_dto_network.dart';
 import 'package:venus/core/networks/order_jual_get_data_dto_network.dart';
 import 'package:venus/core/networks/update_order_jual_only_dto.dart';
+import 'package:venus/core/networks/valuta_get_data_dto_network.dart';
 import 'package:venus/core/services/shared_preferences_service.dart';
 import 'package:venus/core/view_models/base_view_model.dart';
 
@@ -16,12 +22,18 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   UpdateOrderJualViewModel({
     required OrderJualGetDataDTOService orderJualGetDataDTOApi,
     required GetDataDTOService getDataDTOApi,
+    required JenisPenjualanGetDataDTOService jenisPenjualanGetDataDTOApi,
+    required AreaGetDataDTOService areaGetDataDTOApi,
+    required ValutaGetDataDTOService valutaGetDataDTOApi,
     required SharedPreferencesService sharedPreferencesService,
     required SetUpdateOrderJualOnlyDTOService setUpdateOrderJualOnlyDTOApi,
     required SetDeleteOrderJualDetailDTOService setDeleteOrderJualDetailDTOApi,
     required int nomor,
   })  : _orderJualGetDataDTOApi = orderJualGetDataDTOApi,
         _getDataDTOApi = getDataDTOApi,
+        _jenisPenjualanGetDataDTOApi = jenisPenjualanGetDataDTOApi,
+        _areaGetDataDTOApi = areaGetDataDTOApi,
+        _valutaGetDataDTOApi = valutaGetDataDTOApi,
         _sharedPreferencesService = sharedPreferencesService,
         _setUpdateOrderJualOnlyDTOApi = setUpdateOrderJualOnlyDTOApi,
         _setDeleteOrderJualDetailDTOApi = setDeleteOrderJualDetailDTOApi,
@@ -29,6 +41,9 @@ class UpdateOrderJualViewModel extends BaseViewModel {
 
   final OrderJualGetDataDTOService _orderJualGetDataDTOApi;
   final GetDataDTOService _getDataDTOApi;
+  final JenisPenjualanGetDataDTOService _jenisPenjualanGetDataDTOApi;
+  final AreaGetDataDTOService _areaGetDataDTOApi;
+  final ValutaGetDataDTOService _valutaGetDataDTOApi;
   // ignore: unused_field
   final SharedPreferencesService _sharedPreferencesService;
   final SetUpdateOrderJualOnlyDTOService _setUpdateOrderJualOnlyDTOApi;
@@ -36,7 +51,13 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   final int _nomor;
 
   final TextEditingController kodeController = TextEditingController();
+  final TextEditingController gudangController = TextEditingController();
+  final TextEditingController jatuhtempoController = TextEditingController();
+  final TextEditingController jenisPenjualanController = TextEditingController();
   final TextEditingController customerController = TextEditingController();
+  final TextEditingController salesController = TextEditingController();
+  final TextEditingController areaController = TextEditingController();
+  final TextEditingController kursController = TextEditingController();
   final TextEditingController diskonprosentaseController = TextEditingController();
   final TextEditingController tanggalController = TextEditingController();
   final TextEditingController diskonnominalController = TextEditingController();
@@ -76,8 +97,28 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   GetDataContent? _selectedSales;
   GetDataContent? get selectedSales => _selectedSales;
 
-  int get selectedPPN => _selectedPPN;
-  int _selectedPPN = 0;
+  final List<GetDataContent> _gudang = [];
+  List<GetDataContent> get gudang => _gudang;
+  GetDataContent? _selectedGudang;
+  GetDataContent? get selectedGudang => _selectedGudang;
+
+  List<ValutaGetDataContent> _valuta = [];
+  List<ValutaGetDataContent> get valuta => _valuta;
+  ValutaGetDataContent? _selectedValuta;
+  ValutaGetDataContent? get selectedValuta => _selectedValuta;
+
+  final List<AreaGetDataContent> _area = [];
+  List<AreaGetDataContent> get area => _area;
+  AreaGetDataContent? _selectedArea;
+  AreaGetDataContent? get selectedArea => _selectedArea;
+
+  List<JenisPenjualanGetDataContent> _jenispenjualan = [];
+  List<JenisPenjualanGetDataContent> get jenispenjualan => _jenispenjualan;
+  JenisPenjualanGetDataContent? _selectedJenisPenjualan;
+  JenisPenjualanGetDataContent? get selectedJenisPenjualan => _selectedJenisPenjualan;
+
+  int get selectedPembayaran => _selectedPembayaran;
+  int _selectedPembayaran = 0;
 
   int _currentPage = 1;
   bool _isLastPage = false;
@@ -88,6 +129,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   bool get isLoadingMore => _isLoadingMore;
 
   late DateTime selectedDate;
+  late DateTime selectedDateKirim;
 
   void setLoading(
     bool value, {
@@ -107,11 +149,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
 
     _diskonnominal = (_subtotal * disc1Percentage).toInt();
     diskonnominalController.text = _diskonnominal.toString();
-    if (selectedPPN == '0') {
-      _ppn = 0;
-    } else {
-      _ppn = (_dpp * 0.11).toInt();
-    }
+
     _dpp = _subtotal - _diskonnominal.toInt();
     dppController.text = _dpp.toString();
     ppnnominalController.text = _ppn.toString();
@@ -154,6 +192,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     setBusy(true);
     await fetchOrderJual(reload: true);
     await _fetchOrderJualDetail(_nomor);
+    await _fetchJenisPenjualan();
+    await _fetchValuta();
     await _fecthUser();
     setBusy(false);
     diskonprosentaseController.addListener(hitung);
@@ -164,6 +204,9 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   Future<void> initData() async {
     setisLoadingMore(true);
     await fetchCustomer();
+    await fetchGudang();
+    await fetchSales();
+    await fetchArea();
     setisLoadingMore(false);
   }
 
@@ -198,7 +241,13 @@ class UpdateOrderJualViewModel extends BaseViewModel {
       if (response.isRight) {
         _orderjual = response.right.data.data[0];
         kodeController.text = _orderjual?.vcKode ?? '';
-        customerController.text = _orderjual?.customer ?? '';
+        customerController.text = "${_orderjual?.kodeCustomer ?? ''} - ${_orderjual?.customer ?? ''}";
+        gudangController.text = "${_orderjual?.kodeGudang ?? ''} - ${_orderjual?.gudang ?? ''}";
+        salesController.text = "${_orderjual?.kodeSales ?? ''} - ${_orderjual?.sales ?? ''}";
+        jatuhtempoController.text = _orderjual?.intJTHari.toString() ?? '';
+        jenisPenjualanController.text = _orderjual?.jenisPenjualan ?? '';
+        areaController.text = _orderjual?.area ?? '';
+        kursController.text = _orderjual?.decKurs.toString() ?? '';
         // diskonprosentaseController.text = _orderjual?.diskonprosentase.toString() ?? '';
         // diskonnominalController.text = _orderjual?.diskonnominal.toString() ?? '';
         dppController.text = _orderjual?.decDPP.toString() ?? '';
@@ -207,7 +256,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
         totalController.text = _orderjual?.decTotal.toString() ?? '';
         subtotalController.text = _orderjual?.decSubTotal.toString() ?? '';
         selectedDate = DateTime.parse(_orderjual?.dtTanggal ?? '');
-        // setselectedPPN(_orderjual!.decPPN?.toInt() ?? 0);
+        selectedDateKirim = DateTime.parse(_orderjual?.dtTanggalKirim ?? '');
+        setselectedPembayaran(_orderjual!.intTOP?.toInt() ?? 0);
         notify();
       }
     } catch (e) {
@@ -287,6 +337,214 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     }
   }
 
+  GetFilter gudangCurrentFilter = GetFilter(
+    limit: 20,
+    sort: "ASC",
+    orderby: "mgudang.vcNama",
+  );
+
+  Future<void> fetchGudang({bool reload = false}) async {
+    final search = GetSearch(
+      term: 'like',
+      key: 'mgudang.vcNama',
+      query: searchQuery,
+    );
+    if (reload) {
+      setBusy(true);
+      _currentPage = 1;
+      _gudang.clear();
+    } else {
+      // Add this else part
+      _isLoadingMore = true; // Set loading before fetching
+    }
+    try {
+      final newFilter = GetFilter(
+        limit: gudangCurrentFilter.limit,
+        page: _currentPage,
+        sort: gudangCurrentFilter.sort,
+        orderby: gudangCurrentFilter.orderby,
+      );
+
+      final response = await _getDataDTOApi.getData(
+        action: "getGudang",
+        filters: newFilter,
+        search: search,
+      );
+
+      if (response.isRight) {
+        final List<GetDataContent> gudangDataFromApi = response.right.data.data;
+        _isLastPage = gudangDataFromApi.length < gudangCurrentFilter.limit;
+
+        _gudang.addAll(gudangDataFromApi);
+        if (_isLastPage == false) {
+          _currentPage++;
+        }
+
+        notify();
+        setBusy(false);
+        _isLoadingMore = false;
+      }
+    } catch (e) {
+      debugPrint("Error: $e");
+      setBusy(false);
+      _isLoadingMore = false;
+    }
+  }
+
+  GetFilter salesCurrentFilter = GetFilter(
+    limit: 20,
+    sort: "ASC",
+    orderby: "msales.vcNama",
+  );
+
+  Future<void> fetchSales({bool reload = false}) async {
+    final search = GetSearch(
+      term: 'like',
+      key: 'msales.vcNama',
+      query: searchQuery,
+    );
+    if (reload) {
+      setBusy(true);
+      _currentPage = 1;
+      _sales.clear();
+    } else {
+      // Add this else part
+      _isLoadingMore = true; // Set loading before fetching
+    }
+    try {
+      final newFilter = GetFilter(
+        limit: salesCurrentFilter.limit,
+        page: _currentPage,
+        sort: salesCurrentFilter.sort,
+        orderby: salesCurrentFilter.orderby,
+      );
+
+      final response = await _getDataDTOApi.getData(
+        action: "getSales",
+        filters: newFilter,
+        search: search,
+      );
+
+      if (response.isRight) {
+        final List<GetDataContent> salesDataFromApi = response.right.data.data;
+        _isLastPage = salesDataFromApi.length < salesCurrentFilter.limit;
+
+        _sales.addAll(salesDataFromApi);
+        if (_isLastPage == false) {
+          _currentPage++;
+        }
+
+        notify();
+        setBusy(false);
+        _isLoadingMore = false;
+      }
+    } catch (e) {
+      debugPrint("Error: $e");
+      setBusy(false);
+      _isLoadingMore = false;
+    }
+  }
+
+  AreaGetFilter areaCurrentFilter = AreaGetFilter(
+    limit: 10,
+    sort: "ASC",
+    orderby: "marea.vcNama",
+  );
+
+  Future<void> fetchArea({bool reload = false}) async {
+    final search = AreaGetSearch(
+      term: 'like',
+      key: 'marea.vcNama',
+      query: searchQuery,
+    );
+    if (reload) {
+      setBusy(true);
+      _currentPage = 1;
+      _area.clear();
+    } else {
+      // Add this else part
+      _isLoadingMore = true; // Set loading before fetching
+    }
+    try {
+      final newFilter = AreaGetFilter(
+        limit: areaCurrentFilter.limit,
+        page: _currentPage,
+        sort: areaCurrentFilter.sort,
+        orderby: areaCurrentFilter.orderby,
+      );
+
+      final response = await _areaGetDataDTOApi.getData(
+        action: "getArea",
+        filters: newFilter,
+        search: search,
+      );
+
+      if (response.isRight) {
+        final List<AreaGetDataContent> areaDataFromApi = response.right.data.data;
+        _isLastPage = areaDataFromApi.length < areaCurrentFilter.limit;
+
+        _area.addAll(areaDataFromApi);
+        if (_isLastPage == false) {
+          _currentPage++;
+        }
+
+        notify();
+        setBusy(false);
+        _isLoadingMore = false;
+      }
+    } catch (e) {
+      debugPrint("Error: $e");
+      setBusy(false);
+      _isLoadingMore = false;
+    }
+  }
+
+  Future<void> _fetchJenisPenjualan() async {
+    final filters = JenisPenjualanGetFilter(
+      limit: 10,
+    );
+
+    final search = JenisPenjualanGetSearch(
+      term: 'like',
+      key: 'mjenispenjualan.vcNama',
+      query: '',
+    );
+
+    final response = await _jenisPenjualanGetDataDTOApi.getData(
+      action: "getJenisPenjualan",
+      filters: filters,
+      search: search,
+    );
+
+    if (response.isRight) {
+      _jenispenjualan = response.right.data.data;
+      notify();
+    }
+  }
+
+  Future<void> _fetchValuta() async {
+    final filters = ValutaGetFilter(
+      limit: 10,
+    );
+
+    final search = ValutaGetSearch(
+      term: 'like',
+      key: 'mvaluta.vcNama',
+      query: '',
+    );
+
+    final response = await _valutaGetDataDTOApi.getData(
+      action: "getValuta",
+      filters: filters,
+      search: search,
+    );
+
+    if (response.isRight) {
+      _valuta = response.right.data.data;
+      notify();
+    }
+  }
+
   Future<void> _fecthUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
@@ -310,8 +568,28 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     notify();
   }
 
-  void setselectedPPN(int value) {
-    _selectedPPN = value;
+  void setselectedgudang(GetDataContent? gudang) {
+    _selectedGudang = gudang;
+    notify();
+  }
+
+  void setselectedarea(AreaGetDataContent? area) {
+    _selectedArea = area;
+    notify();
+  }
+
+  void setselectedjenispenjualan(JenisPenjualanGetDataContent? jenispenjualan) {
+    _selectedJenisPenjualan = jenispenjualan;
+    notify();
+  }
+
+  void setselectedvaluta(ValutaGetDataContent? valuta) {
+    _selectedValuta = valuta;
+    notify();
+  }
+
+  void setselectedPembayaran(int value) {
+    _selectedPembayaran = value;
     notify();
   }
 

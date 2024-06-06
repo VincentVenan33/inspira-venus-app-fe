@@ -149,7 +149,7 @@ class _ProdukKatalogViewState extends ConsumerState<ProdukKatalogView> {
                                         context,
                                         Routes.addDetailCatalog,
                                         arguments: AddDetailOrderParam(
-                                          nomor: model.barang[index].nomor,
+                                          nomor: model.barang[index].intNomor,
                                           mode: 'view',
                                         ),
                                       );
@@ -190,7 +190,7 @@ class _ProdukKatalogViewState extends ConsumerState<ProdukKatalogView> {
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      model.barang[index].kode,
+                                                      model.barang[index].vcKode,
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
@@ -198,7 +198,7 @@ class _ProdukKatalogViewState extends ConsumerState<ProdukKatalogView> {
                                                     SizedBox(
                                                       width: 170,
                                                       child: Text(
-                                                        model.barang[index].nama,
+                                                        '${model.barang[index].vcNamaJual}',
                                                         style: const TextStyle(
                                                           fontSize: 12,
                                                           fontWeight: FontWeight.bold,
@@ -206,19 +206,19 @@ class _ProdukKatalogViewState extends ConsumerState<ProdukKatalogView> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Kategori : ${model.barang[index].kategoribarang}',
+                                                      'Kategori : ${model.barang[index].kategori}',
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Group : ${model.barang[index].groupbarang}',
+                                                      'Group : ${model.barang[index].namagroup}',
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
                                                     ),
                                                     Text(
-                                                      'Jenis : ${model.barang[index].jenispenjualan}',
+                                                      'tipe : ${model.barang[index].tipe}',
                                                       style: const TextStyle(
                                                         fontSize: 10,
                                                       ),
