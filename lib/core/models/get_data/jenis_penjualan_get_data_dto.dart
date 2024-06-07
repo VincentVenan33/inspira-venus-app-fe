@@ -115,5 +115,5 @@ class JenisPenjualanGetDataContent {
 
   final int intNomor;
 
-  final String vcNama;
+  late final String vcNama;
 }

@@ -27,6 +27,7 @@ class OrderJualGetFilter {
     this.startdate,
     this.enddate,
     this.sort,
+    this.intNomorHeader,
     this.intNomor,
     this.orderby,
   });
@@ -37,6 +38,7 @@ class OrderJualGetFilter {
 
   final int limit;
   final int page;
+  int? intNomorHeader;
   int? intNomor;
   @JsonKey(name: 'start_date')
   final String? startdate;
@@ -117,6 +119,7 @@ class OrderJualGetDataContent {
     this.intNomorMSatuanUnit = 0,
     this.vcKode = "",
     this.kodeGudang = "",
+    this.kodeBarang = "",
     this.kodeCustomer = "",
     this.kodeSales = "",
     this.intTOP = 0,
@@ -232,6 +235,8 @@ class OrderJualGetDataContent {
   final String vcKode;
   @JsonKey(name: 'KodeGudang', includeIfNull: false)
   final String? kodeGudang;
+  @JsonKey(name: 'KodeBarang', includeIfNull: false)
+  final String? kodeBarang;
   @JsonKey(name: 'KodeCustomer', includeIfNull: false)
   final String? kodeCustomer;
   @JsonKey(name: 'KodeSales', includeIfNull: false)
@@ -306,7 +311,7 @@ class OrderJualGetDataContent {
   final String? valuta;
   @JsonKey(name: 'Gudang', includeIfNull: false)
   final String? gudang;
-  @JsonKey(name: 'Area', includeIfNull: false)
+  @JsonKey(name: 'AREA', includeIfNull: false)
   final String? area;
   @JsonKey(name: 'Kota', includeIfNull: false)
   final String? kota;

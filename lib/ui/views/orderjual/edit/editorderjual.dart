@@ -220,45 +220,30 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                           ],
                                         ),
                                         Spacings.verSpace(5),
-                                        SizedBox(
+                                        Container(
                                           width: double.infinity,
                                           height: 48,
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              padding: const EdgeInsets.all(
-                                                8,
-                                              ),
-                                              side: const BorderSide(
-                                                color: Colors.grey,
-                                                width: 1.0,
-                                              ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(8),
-                                              ),
-                                              backgroundColor: venusColor.transparent,
-                                              surfaceTintColor: venusColor.transparent,
-                                              shadowColor: const Color(0x00000000),
-                                            ),
-                                            onPressed: () async {},
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  DateFormat('dd/MM/yyyy').format(model.selectedDate),
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: venusColor.black,
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: venusColor.black,
+                                                  fontWeight: FontWeight.w400,
                                                 ),
-                                                const Icon(
-                                                  Icons.calendar_month,
-                                                  color: venusColor.lightBlack016,
-                                                  size: 16,
-                                                ),
-                                              ],
-                                            ),
+                                              ),
+                                              const Icon(
+                                                Icons.calendar_month,
+                                                color: venusColor.lightBlack016,
+                                                size: 16,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Spacings.verSpace(14),
@@ -617,20 +602,9 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                   fontSize: 16,
                                                 ),
                                               ),
-                                              Row(
+                                              const Row(
                                                 children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        model.selectedJenisPenjualan;
-                                                      });
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.refresh,
-                                                      color: venusColor.lightBlack014,
-                                                    ),
-                                                  ),
-                                                  const Icon(
+                                                  Icon(
                                                     Icons.search,
                                                     color: venusColor.lightBlack014,
                                                   ),
@@ -898,54 +872,117 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
                                                       Expanded(
-                                                        child: DropdownButtonFormField<ValutaGetDataContent>(
-                                                          value: model
-                                                              .selectedValuta, // Ensure this matches the value of an item in the list
-                                                          hint: Text(model.orderjual?.valuta ?? ''),
-                                                          items: model.valuta
-                                                              .map(
-                                                                (item) => DropdownMenuItem<ValutaGetDataContent>(
-                                                                  value: item,
-                                                                  child: valuta(
-                                                                    context,
-                                                                    item,
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            showModalBottomSheet(
+                                                              context: context,
+                                                              builder: (BuildContext context) {
+                                                                return Container(
+                                                                  padding: const EdgeInsets.symmetric(
+                                                                    horizontal: 29,
+                                                                    vertical: 29,
                                                                   ),
-                                                                ),
-                                                              )
-                                                              .toList(),
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              model.setselectedvaluta(value);
-                                                            });
+                                                                  constraints: BoxConstraints(
+                                                                    maxHeight: MediaQuery.of(context).size.height * 0.4,
+                                                                  ),
+                                                                  decoration: BoxDecoration(
+                                                                    border: Border.all(
+                                                                      color: venusColor.lightBlack020,
+                                                                      width: 1,
+                                                                    ),
+                                                                    borderRadius: const BorderRadius.only(
+                                                                      topLeft: Radius.circular(25),
+                                                                      topRight: Radius.circular(25),
+                                                                    ),
+                                                                  ),
+                                                                  child: Column(
+                                                                    mainAxisSize: MainAxisSize.min,
+                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          const Text(
+                                                                            'Browse Valuta',
+                                                                            textAlign: TextAlign.left,
+                                                                            style: TextStyle(
+                                                                              fontSize: 18,
+                                                                              fontWeight: FontWeight.w600,
+                                                                            ),
+                                                                          ),
+                                                                          IconButton(
+                                                                            onPressed: () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                            icon: const Icon(Icons.close),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Spacings.verSpace(8),
+                                                                      Expanded(
+                                                                        child: ListView.builder(
+                                                                          shrinkWrap: true,
+                                                                          physics: const NeverScrollableScrollPhysics(),
+                                                                          itemCount: model.valuta.length,
+                                                                          itemBuilder: (context, index) {
+                                                                            return RadioListTile(
+                                                                              tileColor: venusColor.transparent,
+                                                                              title: Text(
+                                                                                model.valuta[index].vcNama,
+                                                                              ),
+                                                                              groupValue: model.selectedValuta,
+                                                                              value: model.valuta[index],
+                                                                              onChanged: (value) {
+                                                                                setState(() {
+                                                                                  model.setselectedvaluta(value);
+                                                                                });
+                                                                                Navigator.of(context).pop(true);
+                                                                              },
+                                                                            );
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
                                                           },
-                                                          decoration: InputDecoration(
-                                                            contentPadding:
-                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
-                                                            enabledBorder: OutlineInputBorder(
-                                                              borderRadius: BorderRadius.circular(8.0),
-                                                              borderSide:
-                                                                  const BorderSide(color: Colors.grey, width: 1.0),
-                                                            ),
-                                                            focusedBorder: OutlineInputBorder(
-                                                              borderRadius: BorderRadius.circular(8.0),
-                                                              borderSide:
-                                                                  const BorderSide(color: Colors.blue, width: 1.0),
+                                                          style: ElevatedButton.styleFrom(
+                                                            padding: const EdgeInsets.all(0),
+                                                            backgroundColor: Color(venusColor.transparent.value),
+                                                            surfaceTintColor: venusColor.transparent,
+                                                            shadowColor: venusColor.transparent,
+                                                            shape: const RoundedRectangleBorder(
+                                                              side: BorderSide.none,
+                                                              borderRadius: BorderRadius.all(
+                                                                Radius.zero,
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      IconButton(
-                                                        padding: EdgeInsets.zero,
-                                                        onPressed: () {},
-                                                        icon: IconButton(
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              model.setselectedvaluta(null);
-                                                            });
-                                                          },
-                                                          icon: const Icon(
-                                                            Icons.refresh_outlined,
-                                                            color: venusColor.lightBlack014,
+                                                          child: Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                model.selectedValuta != null
+                                                                    ? model.selectedValuta!.vcNama
+                                                                    : model.valutaController.text,
+                                                                style: const TextStyle(
+                                                                  color: venusColor.black,
+                                                                  fontWeight: FontWeight.w400,
+                                                                  fontSize: 16,
+                                                                ),
+                                                              ),
+                                                              const Row(
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.search,
+                                                                    color: venusColor.lightBlack014,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
@@ -974,6 +1011,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                   Spacings.verSpace(5),
                                                   TextFormField(
                                                     controller: model.kursController,
+                                                    textAlign: TextAlign.right,
                                                     onChanged: (value) {},
                                                     decoration: InputDecoration(
                                                       contentPadding:
@@ -1006,6 +1044,49 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                           ],
                                         ),
                                         Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Export / PPN',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: DropdownButton<int>(
+                                                value: model.selectedPPN,
+                                                onChanged: (newValue) {
+                                                  setState(() {
+                                                    model.setselectedPPN(newValue ?? 0);
+                                                    model.hitung();
+                                                  });
+                                                },
+                                                isExpanded: true,
+                                                underline: Container(),
+                                                items: const [
+                                                  DropdownMenuItem(
+                                                    value: 0,
+                                                    child: Text('Export'),
+                                                  ),
+                                                  DropdownMenuItem(
+                                                    value: 1,
+                                                    child: Text('PPN'),
+                                                  ),
+                                                ],
+                                                icon: const Icon(Icons.arrow_drop_down),
+                                                iconSize: 24,
+                                                alignment: AlignmentDirectional.centerEnd, // Alignment for the icon
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                         const Divider(
                                           color: Colors.grey,
                                         ),
@@ -1067,7 +1148,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                     children: [
                                                       Expanded(
                                                         child: Text(
-                                                          model.orderjualdetail[index].vcKode,
+                                                          '${model.orderjualdetail[index].kodeBarang}',
                                                           style: const TextStyle(
                                                             fontSize: 17,
                                                             fontWeight: FontWeight.bold,
@@ -1198,13 +1279,28 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                     ),
                                                   ),
                                                   Spacings.verSpace(5),
-                                                  Text(
-                                                    '${model.orderjualdetail[index].decJumlahUnit} ${model.orderjualdetail[index].satuan1}',
-                                                    style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight: FontWeight.w400,
-                                                      color: venusColor.black,
-                                                    ),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        '${model.orderjualdetail[index].decJumlahUnit.toString().replaceAll('.0', '')} ${model.orderjualdetail[index].satuan1}',
+                                                        style: const TextStyle(
+                                                          fontSize: 17,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: venusColor.black,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        'Berat : ${model.orderjualdetail[index].decBerat}'
+                                                            .toString()
+                                                            .replaceAll('.0', ''),
+                                                        style: const TextStyle(
+                                                          fontSize: 17,
+                                                          fontWeight: FontWeight.w400,
+                                                          color: venusColor.black,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   Spacings.verSpace(5),
                                                   Text(
@@ -1351,10 +1447,6 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                         crossAxisAlignment: CrossAxisAlignment.end,
                                                         children: [
                                                           Text(
-                                                            // StringUtils.rupiahFormat(
-                                                            //   double.parse(diskonnominalController.text),
-                                                            //   symbol: '',
-                                                            // ),
                                                             model.diskonnominalController.text,
                                                             style: const TextStyle(
                                                               color: venusColor.black,
@@ -1378,7 +1470,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  'DPP',
+                                                  'Biaya',
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w500,
@@ -1388,16 +1480,16 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                               ],
                                             ),
                                             Spacings.verSpace(5),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                SizedBox(
-                                                  height: 48,
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                            SizedBox(
+                                              height: 48,
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        dppController.text,
+                                                        model.biayaController.text,
                                                         style: const TextStyle(
                                                           color: venusColor.black,
                                                           fontWeight: FontWeight.w400,
@@ -1406,10 +1498,277 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                            Spacings.verSpace(14),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(14),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        const Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              'UM 1',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: venusColor.lightBlack011,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        TextFormField(
+                                                          controller: model.um1Controller,
+                                                          onChanged: (value) {
+                                                            model.hitung();
+                                                          },
+                                                          decoration: InputDecoration(
+                                                            contentPadding:
+                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            hintText: 'Masukkan UM1',
+                                                            hintStyle: const TextStyle(
+                                                              color: venusColor.lightBlack015,
+                                                              fontWeight: FontWeight.w300,
+                                                              fontSize: 14,
+                                                            ),
+                                                            enabledBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.grey, width: 1.0),
+                                                            ),
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.blue, width: 1.0),
+                                                            ),
+                                                          ),
+                                                          keyboardType: TextInputType.number,
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter.allow(
+                                                              RegExp(r'[0-9]'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Spacings.horSpace(10),
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        const Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              'UM 2',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: venusColor.lightBlack011,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        TextFormField(
+                                                          controller: model.um2Controller,
+                                                          onChanged: (value) {
+                                                            model.hitung();
+                                                          },
+                                                          decoration: InputDecoration(
+                                                            contentPadding:
+                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            hintText: 'Masukkan UM 2',
+                                                            hintStyle: const TextStyle(
+                                                              color: venusColor.lightBlack015,
+                                                              fontWeight: FontWeight.w300,
+                                                              fontSize: 14,
+                                                            ),
+                                                            enabledBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.grey, width: 1.0),
+                                                            ),
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.blue, width: 1.0),
+                                                            ),
+                                                          ),
+                                                          keyboardType: TextInputType.number,
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter.allow(
+                                                              RegExp(r'[0-9]'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Spacings.horSpace(10),
+                                                  Expanded(
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        const Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              'UM 3',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: venusColor.lightBlack011,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        TextFormField(
+                                                          controller: model.um3Controller,
+                                                          onChanged: (value) {
+                                                            model.hitung();
+                                                          },
+                                                          decoration: InputDecoration(
+                                                            contentPadding:
+                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            hintText: 'Masukkan UM 3',
+                                                            hintStyle: const TextStyle(
+                                                              color: venusColor.lightBlack015,
+                                                              fontWeight: FontWeight.w300,
+                                                              fontSize: 14,
+                                                            ),
+                                                            enabledBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.grey, width: 1.0),
+                                                            ),
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.blue, width: 1.0),
+                                                            ),
+                                                          ),
+                                                          keyboardType: TextInputType.number,
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter.allow(
+                                                              RegExp(r'[0-9]'),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Spacings.horSpace(10),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(14),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  const Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        'Total UM',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: venusColor.lightBlack011,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacings.verSpace(5),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 48,
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text(
+                                                              model.totalumController.text,
+                                                              style: const TextStyle(
+                                                                color: venusColor.black,
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacings.verSpace(14),
+                                                ],
+                                              ),
+                                            ),
+                                            Spacings.horSpace(10),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  const Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        'DPP',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.w500,
+                                                          color: venusColor.lightBlack011,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacings.verSpace(5),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 48,
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text(
+                                                              model.dppController.text,
+                                                              style: const TextStyle(
+                                                                color: venusColor.black,
+                                                                fontWeight: FontWeight.w400,
+                                                                fontSize: 17,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacings.verSpace(14),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
                                             const Row(
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
@@ -1438,7 +1797,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: [
                                                               Text(
-                                                                '11.00',
+                                                                '11%',
                                                                 style: TextStyle(
                                                                   color: venusColor.black,
                                                                   fontWeight: FontWeight.w400,
@@ -1458,7 +1817,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                             crossAxisAlignment: CrossAxisAlignment.end,
                                                             children: [
                                                               Text(
-                                                                ppnnominalController.text,
+                                                                model.ppnnominalController.text,
                                                                 style: const TextStyle(
                                                                   color: venusColor.black,
                                                                   fontWeight: FontWeight.w400,
@@ -1481,51 +1840,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'Biaya Lain',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                                color: venusColor.lightBlack011,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Spacings.verSpace(5),
-                                        TextFormField(
-                                          controller: model.biayalainController,
-                                          onChanged: (value) {
-                                            model.hitung2();
-                                          },
-                                          decoration: InputDecoration(
-                                            contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
-                                            hintText: 'Masukkan biaya lain',
-                                            hintStyle: const TextStyle(
-                                              color: venusColor.lightBlack015,
-                                              fontWeight: FontWeight.w300,
-                                              fontSize: 14,
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              borderSide: const BorderSide(color: Colors.blue, width: 1.0),
-                                            ),
-                                          ),
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                              RegExp(r'[0-9]'),
-                                            ),
-                                          ],
-                                        ),
-                                        Spacings.verSpace(14),
-                                        const Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Total',
+                                              'Sisa',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w500,
@@ -1544,7 +1859,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    model.totalController.text,
+                                                    model.sisaController.text,
                                                     style: const TextStyle(
                                                       color: venusColor.black,
                                                       fontWeight: FontWeight.w400,
@@ -1622,28 +1937,22 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                           child: ElevatedButton(
                             onPressed: () async {
                               final bool response = await model.updateOrderJualOnlyModel(
-                                dtTanggal: DateFormat('yyyy-MM-dd').format(model.selectedDate),
+                                dtTanggal: DateFormat('yyyy-MM-dd').format(DateTime.now()),
                                 dtTanggalKirim: DateFormat('yyyy-MM-dd').format(model.selectedDate),
-                                intNomorMCustomer: 0,
-                                intNomorMJenisPenjualan: 11,
-                                intNomorMValuta: 1,
-                                intNomorMGudang: 17,
-                                intNomorMSales: 72,
-                                intJenis: 1,
-                                intNomorMCabang: 1,
-                                decUM1: 0,
-                                decUM2: 0,
-                                decUM3: 0,
-                                decTotalUMC: 0,
-                                decTotalBiaya: 0,
-                                decSubTotal: 0,
-                                decPPN: 0,
-                                decPPNNominal: 0,
-                                decDPP: 0,
-                                decSisa: 0,
-                                vcKeterangan: "a",
-                                vcKeteranganFJ: "a",
-                                vcKeteranganKW: "a",
+                                intJenis: model.selectedPembayaran,
+                                intJTHari: int.parse(model.jatuhtempoController.text),
+                                decKurs: int.parse(model.kursController.text),
+                                decUM1: int.parse(model.um1Controller.text),
+                                decUM2: int.parse(model.um2Controller.text),
+                                decUM3: int.parse(model.um3Controller.text),
+                                decTotalUMC: int.parse(model.totalumController.text),
+                                decTotalBiaya: int.parse(model.biayaController.text),
+                                decSubTotal: int.parse(model.subtotalController.text),
+                                decPPN: 11,
+                                decPPNNominal: int.parse(model.ppnnominalController.text),
+                                decDPP: int.parse(model.dppController.text),
+                                decSisa: int.parse(model.sisaController.text),
+                                intEksport: model.selectedPembayaran,
                               );
                               if (response) {
                                 showDialog(

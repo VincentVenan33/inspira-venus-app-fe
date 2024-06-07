@@ -32,6 +32,7 @@ OrderJualGetFilter _$OrderJualGetFilterFromJson(Map<String, dynamic> json) =>
       startdate: json['start_date'] as String?,
       enddate: json['end_date'] as String?,
       sort: json['sort'] as String?,
+      intNomorHeader: json['intNomorHeader'] as int?,
       intNomor: json['intNomor'] as int?,
       orderby: json['order_by'] as String?,
     );
@@ -40,6 +41,7 @@ Map<String, dynamic> _$OrderJualGetFilterToJson(OrderJualGetFilter instance) =>
     <String, dynamic>{
       'limit': instance.limit,
       'page': instance.page,
+      'intNomorHeader': instance.intNomorHeader,
       'intNomor': instance.intNomor,
       'start_date': instance.startdate,
       'end_date': instance.enddate,
@@ -114,6 +116,7 @@ OrderJualGetDataContent _$OrderJualGetDataContentFromJson(
       intNomorMSatuanUnit: json['intNomorMSatuanUnit'] as int? ?? 0,
       vcKode: json['vcKode'] as String? ?? "",
       kodeGudang: json['KodeGudang'] as String? ?? "",
+      kodeBarang: json['KodeBarang'] as String? ?? "",
       kodeCustomer: json['KodeCustomer'] as String? ?? "",
       kodeSales: json['KodeSales'] as String? ?? "",
       intTOP: json['intTOP'] as int? ?? 0,
@@ -181,7 +184,7 @@ OrderJualGetDataContent _$OrderJualGetDataContentFromJson(
       sales: json['Sales'] as String? ?? "",
       valuta: json['Valuta'] as String? ?? "",
       gudang: json['Gudang'] as String? ?? "",
-      area: json['Area'] as String? ?? "",
+      area: json['AREA'] as String? ?? "",
       kota: json['Kota'] as String? ?? "",
       barang: json['Barang'] as String? ?? "",
       satuan: json['Satuan'] as String? ?? "",
@@ -237,6 +240,7 @@ Map<String, dynamic> _$OrderJualGetDataContentToJson(
   }
 
   writeNotNull('KodeGudang', instance.kodeGudang);
+  writeNotNull('KodeBarang', instance.kodeBarang);
   writeNotNull('KodeCustomer', instance.kodeCustomer);
   writeNotNull('KodeSales', instance.kodeSales);
   val['intTOP'] = instance.intTOP;
@@ -303,7 +307,7 @@ Map<String, dynamic> _$OrderJualGetDataContentToJson(
   writeNotNull('Sales', instance.sales);
   writeNotNull('Valuta', instance.valuta);
   writeNotNull('Gudang', instance.gudang);
-  writeNotNull('Area', instance.area);
+  writeNotNull('AREA', instance.area);
   writeNotNull('Kota', instance.kota);
   val['total'] = instance.total;
   val['qty'] = instance.qty;

@@ -26,7 +26,6 @@ UpdateOrderJualDetailRequest _$UpdateOrderJualDetailRequestFromJson(
     UpdateOrderJualDetailRequest(
       intNomorHeader: json['intNomorHeader'] as int?,
       intNomorDetail: json['intNomorDetail'] as int?,
-      intNomorMBarang: json['intNomorMBarang'] as int?,
       intNomorMSatuan1: json['intNomorMSatuan1'] as int?,
       decJumlah1: json['decJumlah1'] as int?,
       decNetto: json['decNetto'] as int?,
@@ -44,7 +43,6 @@ Map<String, dynamic> _$UpdateOrderJualDetailRequestToJson(
     <String, dynamic>{
       'intNomorHeader': instance.intNomorHeader,
       'intNomorDetail': instance.intNomorDetail,
-      'intNomorMBarang': instance.intNomorMBarang,
       'intNomorMSatuan1': instance.intNomorMSatuan1,
       'decJumlah1': instance.decJumlah1,
       'decNetto': instance.decNetto,

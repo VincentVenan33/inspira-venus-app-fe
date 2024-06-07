@@ -41,12 +41,21 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
   final TextEditingController kodeController = TextEditingController();
   final TextEditingController salesController = TextEditingController();
   final TextEditingController customerController = TextEditingController();
+  final TextEditingController gudangController = TextEditingController();
+  final TextEditingController jatuhtempoController = TextEditingController();
+  final TextEditingController areaController = TextEditingController();
   final TextEditingController ppnController = TextEditingController();
+  final TextEditingController jenisPenjualanController = TextEditingController();
+  final TextEditingController valutaController = TextEditingController();
+  final TextEditingController kursController = TextEditingController();
+  final TextEditingController um1Controller = TextEditingController();
+  final TextEditingController um2Controller = TextEditingController();
+  final TextEditingController um3Controller = TextEditingController();
   final TextEditingController diskonprosentaseController = TextEditingController();
   final TextEditingController diskonnominalController = TextEditingController();
   final TextEditingController dppController = TextEditingController();
   final TextEditingController ppnnominalController = TextEditingController();
-  final TextEditingController biayalainController = TextEditingController();
+  final TextEditingController biayaController = TextEditingController();
   final TextEditingController totalController = TextEditingController();
   final TextEditingController satuanController = TextEditingController();
   final TextEditingController jumlahController = TextEditingController();
@@ -386,6 +395,50 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                             ),
                                           ],
                                         ),
+                                        Spacings.verSpace(5),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 48,
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                DateFormat('dd/MM/yyyy').format(
+                                                  DateTime.tryParse('${model.orderjual[0].dtTanggal}') ??
+                                                      DateTime.now(),
+                                                ),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: venusColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Icons.calendar_month,
+                                                color: venusColor.lightBlack016,
+                                                size: 16,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Tanggal Kirim',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
                                         SizedBox(
                                           height: 48,
                                           child: ElevatedButton(
@@ -410,8 +463,9 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                               crossAxisAlignment: CrossAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  DateFormat('dd-MM-yyyy').format(
-                                                    DateTime.tryParse(model.orderjual[0].dtTanggal!) ?? DateTime.now(),
+                                                  DateFormat('dd/MM/yyyy').format(
+                                                    DateTime.tryParse('${model.orderjual[0].dtTanggalKirim}') ??
+                                                        DateTime.now(),
                                                   ),
                                                   style: const TextStyle(
                                                     color: venusColor.black,
@@ -425,6 +479,160 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                   size: 16,
                                                 ),
                                               ],
+                                            ),
+                                          ),
+                                        ),
+                                        Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Gudang',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        TextFormField(
+                                          controller: gudangController,
+                                          readOnly: true,
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                            hintText: '${model.orderjual[0].kodeGudang} - ${model.orderjual[0].gudang}',
+                                            hintStyle: const TextStyle(
+                                              color: venusColor.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.blue, width: 1.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Jatuh Tempo',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        TextFormField(
+                                          controller: jatuhtempoController,
+                                          readOnly: true,
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                            hintText: '${model.orderjual[0].intJTHari}',
+                                            hintStyle: const TextStyle(
+                                              color: venusColor.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.blue, width: 1.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Pembayaran',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: SizedBox(
+                                                height: 48,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      model.orderjual[0].intJenis == 1
+                                                          ? "CBD"
+                                                          : model.orderjual[0].intJenis == 2
+                                                              ? "COD"
+                                                              : model.orderjual[0].intJenis == 3
+                                                                  ? "CREDIT"
+                                                                  : model.orderjual[0].intJenis == 4
+                                                                      ? "CGD-TC"
+                                                                      : "",
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: venusColor.black,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    const Icon(
+                                                      Icons.arrow_drop_down_sharp,
+                                                      color: venusColor.black,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Retail',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        TextFormField(
+                                          controller: jenisPenjualanController,
+                                          readOnly: true,
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                            hintText: '${model.orderjual[0].jenisPenjualan}',
+                                            hintStyle: const TextStyle(
+                                              color: venusColor.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.blue, width: 1.0),
                                             ),
                                           ),
                                         ),
@@ -467,7 +675,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                         const Row(
                                           children: [
                                             Text(
-                                              'Sales',
+                                              'BEX',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 14,
@@ -499,43 +707,142 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                           ),
                                         ),
                                         Spacings.verSpace(14),
-                                        // const Row(
-                                        //   children: [
-                                        //     Text(
-                                        //       'PPN',
-                                        //       style: TextStyle(
-                                        //         fontWeight: FontWeight.w400,
-                                        //         fontSize: 14,
-                                        //         color: venusColor.lightBlack011,
-                                        //       ),
-                                        //     ),
-                                        //   ],
-                                        // ),
-                                        // Spacings.verSpace(5),
-                                        // TextFormField(
-                                        //   controller: ppnController,
-                                        //   readOnly: true,
-                                        //   decoration: InputDecoration(
-                                        //     contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
-                                        //     hintText: model.orderjual[0].statusppn != null
-                                        //         ? _getStatusPPNText(model.orderjual[0].statusppn!)
-                                        //         : '-',
-                                        //     hintStyle: const TextStyle(
-                                        //       color: venusColor.black,
-                                        //       fontWeight: FontWeight.w500,
-                                        //       fontSize: 14,
-                                        //     ),
-                                        //     enabledBorder: OutlineInputBorder(
-                                        //       borderRadius: BorderRadius.circular(8.0),
-                                        //       borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                                        //     ),
-                                        //     focusedBorder: OutlineInputBorder(
-                                        //       borderRadius: BorderRadius.circular(8.0),
-                                        //       borderSide: const BorderSide(color: Colors.blue, width: 1.0),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        // Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Area',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        TextFormField(
+                                          controller: areaController,
+                                          readOnly: true,
+                                          decoration: InputDecoration(
+                                            contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                            hintText: '${model.orderjual[0].area}',
+                                            hintStyle: const TextStyle(
+                                              color: venusColor.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              borderSide: const BorderSide(color: Colors.blue, width: 1.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Spacings.verSpace(14),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  const Row(
+                                                    children: [
+                                                      Text(
+                                                        'Valuta',
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 14,
+                                                          color: venusColor.lightBlack011,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacings.verSpace(5),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                        child: TextFormField(
+                                                          controller: valutaController,
+                                                          readOnly: true,
+                                                          decoration: InputDecoration(
+                                                            contentPadding:
+                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            hintText: '${model.orderjual[0].valuta}',
+                                                            hintStyle: const TextStyle(
+                                                              color: venusColor.black,
+                                                              fontWeight: FontWeight.w500,
+                                                              fontSize: 14,
+                                                            ),
+                                                            enabledBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.grey, width: 1.0),
+                                                            ),
+                                                            focusedBorder: OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(8.0),
+                                                              borderSide:
+                                                                  const BorderSide(color: Colors.blue, width: 1.0),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Spacings.horSpace(12),
+                                            Expanded(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  const Row(
+                                                    children: [
+                                                      Text(
+                                                        'Kurs',
+                                                        style: TextStyle(
+                                                          fontWeight: FontWeight.w400,
+                                                          fontSize: 14,
+                                                          color: venusColor.lightBlack011,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Spacings.verSpace(5),
+                                                  TextFormField(
+                                                    controller: kursController,
+                                                    textAlign: TextAlign.end,
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      contentPadding:
+                                                          const EdgeInsets.only(left: 16, top: 6, bottom: 6, right: 16),
+                                                      hintText:
+                                                          model.orderjual[0].decKurs.toString().replaceAll('.0', ''),
+                                                      hintStyle: const TextStyle(
+                                                        color: venusColor.black,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 14,
+                                                      ),
+                                                      enabledBorder: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(8.0),
+                                                        borderSide: const BorderSide(color: Colors.grey, width: 1.0),
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(8.0),
+                                                        borderSide: const BorderSide(color: Colors.blue, width: 1.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(14),
                                         const Divider(
                                           color: Colors.grey,
                                         ),
@@ -558,85 +865,110 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                         const Divider(
                                           color: Colors.grey,
                                         ),
-                                        // ListView.separated(
-                                        //   shrinkWrap: true,
-                                        //   physics: const NeverScrollableScrollPhysics(),
-                                        //   itemCount: model.orderjualdetail.length,
-                                        //   separatorBuilder: (context, index) => const Divider(),
-                                        //   itemBuilder: (context, index) {
-                                        //     return ListTile(
-                                        //       title: Row(
-                                        //         crossAxisAlignment: CrossAxisAlignment.start,
-                                        //         children: [
-                                        //           Column(
-                                        //             children: [
-                                        //               Image.network(
-                                        //                 'https://indraco.com/gmb/tanpalogo/TUGUBUAYA/TB-301.png',
-                                        //                 width: 100,
-                                        //                 fit: BoxFit.cover,
-                                        //               ),
-                                        //             ],
-                                        //           ),
-                                        //           Expanded(
-                                        //             child: Column(
-                                        //               crossAxisAlignment: CrossAxisAlignment.start,
-                                        //               children: [
-                                        //                 Row(
-                                        //                   children: [
-                                        //                     Expanded(
-                                        //                       child: Text(
-                                        //                         model.orderjualdetail[index].kodebarang,
-                                        //                         style: const TextStyle(
-                                        //                           fontSize: 17,
-                                        //                           fontWeight: FontWeight.bold,
-                                        //                           color: venusColor.black,
-                                        //                         ),
-                                        //                       ),
-                                        //                     ),
-                                        //                   ],
-                                        //                 ),
-                                        //                 Spacings.verSpace(5),
-                                        //                 Text(
-                                        //                   '${model.orderjualdetail[index].barang}',
-                                        //                   style: const TextStyle(
-                                        //                     fontSize: 17,
-                                        //                     fontWeight: FontWeight.w400,
-                                        //                     color: venusColor.black,
-                                        //                   ),
-                                        //                 ),
-                                        //                 Spacings.verSpace(5),
-                                        //                 Text(
-                                        //                   '${model.orderjualdetail[index].qty} ${model.orderjualdetail[index].satuanqty}',
-                                        //                   style: const TextStyle(
-                                        //                     fontSize: 17,
-                                        //                     fontWeight: FontWeight.w400,
-                                        //                     color: venusColor.black,
-                                        //                   ),
-                                        //                 ),
-                                        //                 Spacings.verSpace(5),
-                                        //                 Text(
-                                        //                   StringUtils.rupiahFormat(
-                                        //                     // ignore: unnecessary_null_comparison
-                                        //                     double.parse(model.orderjualdetail[index].subtotal != null
-                                        //                         ? '${model.orderjualdetail[index].subtotal}'
-                                        //                         : '0'),
-                                        //                     symbol: 'Subtotal (Rp) : ',
-                                        //                   ),
-                                        //                   style: const TextStyle(
-                                        //                     fontSize: 17,
-                                        //                     fontWeight: FontWeight.w400,
-                                        //                     color: venusColor.black,
-                                        //                   ),
-                                        //                 ),
-                                        //               ],
-                                        //             ),
-                                        //           ),
-                                        //         ],
-                                        //       ),
-                                        //     );
-                                        //   },
-                                        // ),
-
+                                        ListView.separated(
+                                          padding: const EdgeInsets.only(
+                                            top: 0,
+                                            left: 15,
+                                            right: 19,
+                                          ),
+                                          shrinkWrap: true,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          separatorBuilder: (context, index) {
+                                            return const Divider(
+                                              color: Colors.grey,
+                                            );
+                                          },
+                                          itemCount: model.orderjualdetail.length,
+                                          itemBuilder: (contect, index) {
+                                            // final detailItems = model.orderjualdetail[index];
+                                            return ListTile(
+                                              title: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    children: [
+                                                      Image.network(
+                                                        'https://indraco.com/gmb/tanpalogo/TUGUBUAYA/TB-301.png',
+                                                        width: 100,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${model.orderjualdetail[index].kodeBarang}',
+                                                                style: const TextStyle(
+                                                                  fontSize: 17,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: venusColor.black,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        Text(
+                                                          '${model.orderjualdetail[index].vcNamaJual}',
+                                                          style: const TextStyle(
+                                                            fontSize: 17,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: venusColor.black,
+                                                          ),
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              '${model.orderjualdetail[index].decJumlahUnit.toString().replaceAll('.0', '')} ${model.orderjualdetail[index].satuan1}',
+                                                              style: const TextStyle(
+                                                                fontSize: 17,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: venusColor.black,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              'Berat : ${model.orderjualdetail[index].decBerat}'
+                                                                  .toString()
+                                                                  .replaceAll('.0', ''),
+                                                              style: const TextStyle(
+                                                                fontSize: 17,
+                                                                fontWeight: FontWeight.w400,
+                                                                color: venusColor.black,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        Text(
+                                                          StringUtils.rupiahFormat(
+                                                            // ignore: unnecessary_null_comparison
+                                                            double.parse(
+                                                                model.orderjualdetail[index].decSubTotal != null
+                                                                    ? '${model.orderjualdetail[index].decSubTotal}'
+                                                                    : '0'),
+                                                            symbol: 'Subtotal (Rp) : ',
+                                                          ),
+                                                          style: const TextStyle(
+                                                            fontSize: 17,
+                                                            fontWeight: FontWeight.w400,
+                                                            color: venusColor.black,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
                                         Padding(
                                           padding: const EdgeInsets.only(
                                             left: 15,
@@ -644,6 +976,48 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                           ),
                                           child: Column(
                                             children: [
+                                              const Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    'Subtotal',
+                                                    style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w500,
+                                                      color: venusColor.lightBlack011,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacings.verSpace(5),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 48,
+                                                    child: Column(
+                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                      children: [
+                                                        Text(
+                                                          StringUtils.rupiahFormat(
+                                                            // ignore: unnecessary_null_comparison
+                                                            double.parse(model.orderjual[0].decTotal != null
+                                                                ? '${model.orderjual[0].decTotal}'
+                                                                : '0'),
+                                                            symbol: '',
+                                                          ),
+                                                          style: const TextStyle(
+                                                            color: venusColor.black,
+                                                            fontWeight: FontWeight.w500,
+                                                            fontSize: 17,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacings.verSpace(14),
                                               const Row(
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
@@ -683,7 +1057,9 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                                       top: 6,
                                                                       bottom: 6,
                                                                     ),
-                                                                    hintText: '${model.orderjual[0].decDisc}',
+                                                                    hintText: model.orderjual[0].decDisc
+                                                                        .toString()
+                                                                        .replaceAll('.0', ''),
                                                                     hintStyle: const TextStyle(
                                                                       color: venusColor.black,
                                                                       fontWeight: FontWeight.w500,
@@ -732,7 +1108,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                                   style: const TextStyle(
                                                                     color: venusColor.black,
                                                                     fontWeight: FontWeight.w500,
-                                                                    fontSize: 14,
+                                                                    fontSize: 17,
                                                                   ),
                                                                 ),
                                                               ],
@@ -749,7 +1125,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    'Subtotal',
+                                                    'Biaya',
                                                     style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight: FontWeight.w500,
@@ -770,15 +1146,15 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                         Text(
                                                           StringUtils.rupiahFormat(
                                                             // ignore: unnecessary_null_comparison
-                                                            double.parse(model.orderjual[0].decTotal != null
-                                                                ? '${model.orderjual[0].decTotal}'
+                                                            double.parse(model.orderjual[0].decTotalBiaya != null
+                                                                ? '${model.orderjual[0].decTotalBiaya}'
                                                                 : '0'),
                                                             symbol: '',
                                                           ),
                                                           style: const TextStyle(
                                                             color: venusColor.black,
                                                             fontWeight: FontWeight.w500,
-                                                            fontSize: 14,
+                                                            fontSize: 17,
                                                           ),
                                                         ),
                                                       ],
@@ -787,50 +1163,299 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                 ],
                                               ),
                                               Spacings.verSpace(14),
-                                              Column(
+                                              Row(
                                                 children: [
-                                                  const Row(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        'DPP',
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          fontWeight: FontWeight.w500,
-                                                          color: venusColor.lightBlack011,
+                                                  Expanded(
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              const Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  Text(
+                                                                    'UM 1',
+                                                                    style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      fontWeight: FontWeight.w500,
+                                                                      color: venusColor.lightBlack011,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Spacings.verSpace(5),
+                                                              TextFormField(
+                                                                controller: um1Controller,
+                                                                textAlign: TextAlign.right,
+                                                                onChanged: (value) {},
+                                                                decoration: InputDecoration(
+                                                                  contentPadding: const EdgeInsets.only(
+                                                                    left: 16,
+                                                                    top: 6,
+                                                                    bottom: 6,
+                                                                    right: 16,
+                                                                  ),
+                                                                  hintText: model.orderjual[0].decUM1
+                                                                      .toString()
+                                                                      .replaceAll('.0', ''),
+                                                                  hintStyle: const TextStyle(
+                                                                    color: venusColor.black,
+                                                                    fontWeight: FontWeight.w400,
+                                                                    fontSize: 14,
+                                                                  ),
+                                                                  enabledBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(
+                                                                        color: Colors.grey, width: 1.0),
+                                                                  ),
+                                                                  focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(
+                                                                        color: Colors.blue, width: 1.0),
+                                                                  ),
+                                                                ),
+                                                                keyboardType: TextInputType.number,
+                                                                inputFormatters: [
+                                                                  FilteringTextInputFormatter.allow(
+                                                                    RegExp(r'[0-9]'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Spacings.horSpace(10),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              const Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  Text(
+                                                                    'UM 2',
+                                                                    style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      fontWeight: FontWeight.w500,
+                                                                      color: venusColor.lightBlack011,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Spacings.verSpace(5),
+                                                              TextFormField(
+                                                                controller: um2Controller,
+                                                                textAlign: TextAlign.right,
+                                                                onChanged: (value) {},
+                                                                decoration: InputDecoration(
+                                                                  contentPadding: const EdgeInsets.only(
+                                                                    left: 16,
+                                                                    top: 6,
+                                                                    bottom: 6,
+                                                                    right: 16,
+                                                                  ),
+                                                                  hintText: model.orderjual[0].decUM2
+                                                                      .toString()
+                                                                      .replaceAll('.0', ''),
+                                                                  hintStyle: const TextStyle(
+                                                                    color: venusColor.black,
+                                                                    fontWeight: FontWeight.w400,
+                                                                    fontSize: 14,
+                                                                  ),
+                                                                  enabledBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(
+                                                                        color: Colors.grey, width: 1.0),
+                                                                  ),
+                                                                  focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(
+                                                                        color: Colors.blue, width: 1.0),
+                                                                  ),
+                                                                ),
+                                                                keyboardType: TextInputType.number,
+                                                                inputFormatters: [
+                                                                  FilteringTextInputFormatter.allow(
+                                                                    RegExp(r'[0-9]'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Spacings.horSpace(10),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: [
+                                                              const Row(
+                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                children: [
+                                                                  Text(
+                                                                    'UM 3',
+                                                                    style: TextStyle(
+                                                                      fontSize: 14,
+                                                                      fontWeight: FontWeight.w500,
+                                                                      color: venusColor.lightBlack011,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Spacings.verSpace(5),
+                                                              TextFormField(
+                                                                controller: um3Controller,
+                                                                textAlign: TextAlign.right,
+                                                                onChanged: (value) {},
+                                                                decoration: InputDecoration(
+                                                                  contentPadding: const EdgeInsets.only(
+                                                                    left: 16,
+                                                                    top: 6,
+                                                                    bottom: 6,
+                                                                    right: 6,
+                                                                  ),
+                                                                  hintText: model.orderjual[0].decUM3
+                                                                      .toString()
+                                                                      .replaceAll('.0', ''),
+                                                                  hintStyle: const TextStyle(
+                                                                    color: venusColor.black,
+                                                                    fontWeight: FontWeight.w400,
+                                                                    fontSize: 14,
+                                                                  ),
+                                                                  enabledBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(
+                                                                        color: Colors.grey, width: 1.0),
+                                                                  ),
+                                                                  focusedBorder: OutlineInputBorder(
+                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                    borderSide: const BorderSide(
+                                                                        color: Colors.blue, width: 1.0),
+                                                                  ),
+                                                                ),
+                                                                keyboardType: TextInputType.number,
+                                                                inputFormatters: [
+                                                                  FilteringTextInputFormatter.allow(
+                                                                    RegExp(r'[0-9]'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Spacings.horSpace(10),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  Spacings.verSpace(5),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 48,
-                                                        child: Column(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                ],
+                                              ),
+                                              Spacings.verSpace(14),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: [
+                                                        const Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                              StringUtils.rupiahFormat(
-                                                                // ignore: unnecessary_null_comparison
-                                                                double.parse(model.orderjual[0].decDPP != null
-                                                                    ? '${model.orderjual[0].decDPP}'
-                                                                    : '0'),
-                                                                symbol: '',
-                                                              ),
-                                                              style: const TextStyle(
-                                                                color: venusColor.black,
-                                                                fontWeight: FontWeight.w400,
-                                                                fontSize: 17,
+                                                              'Total UM',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: venusColor.lightBlack011,
                                                               ),
                                                             ),
                                                           ],
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Spacings.verSpace(5),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            SizedBox(
+                                                              height: 48,
+                                                              child: Column(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    StringUtils.rupiahFormat(
+                                                                      // ignore: unnecessary_null_comparison
+                                                                      double.parse(
+                                                                          model.orderjual[0].decTotalUMC != null
+                                                                              ? '${model.orderjual[0].decTotalUMC}'
+                                                                              : '0'),
+                                                                      symbol: '',
+                                                                    ),
+                                                                    style: const TextStyle(
+                                                                      color: venusColor.black,
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 17,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(14),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  Spacings.verSpace(14),
+                                                  Spacings.horSpace(10),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: [
+                                                        const Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              'DPP',
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: venusColor.lightBlack011,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(5),
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            SizedBox(
+                                                              height: 48,
+                                                              child: Column(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                children: [
+                                                                  Text(
+                                                                    StringUtils.rupiahFormat(
+                                                                      // ignore: unnecessary_null_comparison
+                                                                      double.parse(model.orderjual[0].decDPP != null
+                                                                          ? '${model.orderjual[0].decDPP}'
+                                                                          : '0'),
+                                                                      symbol: '',
+                                                                    ),
+                                                                    style: const TextStyle(
+                                                                      color: venusColor.black,
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 17,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Spacings.verSpace(14),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
                                                   const Row(
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
@@ -859,7 +1484,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                                   children: [
                                                                     Text(
-                                                                      '${model.orderjual[0].decPPN}',
+                                                                      '${model.orderjual[0].decPPN.toString().replaceAll('.0', '')}%',
                                                                       style: const TextStyle(
                                                                         color: venusColor.black,
                                                                         fontWeight: FontWeight.w400,
@@ -909,59 +1534,7 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                 mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    'Biaya Lain',
-                                                    style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: venusColor.lightBlack011,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Spacings.verSpace(5),
-                                              TextFormField(
-                                                controller: biayalainController,
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    // hitung2();
-                                                  });
-                                                },
-                                                decoration: InputDecoration(
-                                                  contentPadding: const EdgeInsets.only(left: 16, top: 6, bottom: 6),
-                                                  hintText: StringUtils.rupiahFormat(
-                                                    // ignore: unnecessary_null_comparison
-                                                    double.parse(model.orderjual[0].decTotalBiaya != null
-                                                        ? '${model.orderjual[0].decTotalBiaya}'
-                                                        : '0'),
-                                                    symbol: '',
-                                                  ),
-                                                  hintStyle: const TextStyle(
-                                                    color: venusColor.black,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 14,
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(8.0),
-                                                    borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-                                                  ),
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(8.0),
-                                                    borderSide: const BorderSide(color: Colors.blue, width: 1.0),
-                                                  ),
-                                                ),
-                                                keyboardType: TextInputType.number,
-                                                inputFormatters: [
-                                                  FilteringTextInputFormatter.allow(
-                                                    RegExp(r'[0-9]'),
-                                                  ),
-                                                ],
-                                              ),
-                                              Spacings.verSpace(14),
-                                              const Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Total',
+                                                    'Sisa',
                                                     style: TextStyle(
                                                       fontSize: 14,
                                                       fontWeight: FontWeight.w500,
@@ -982,15 +1555,15 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                                         Text(
                                                           StringUtils.rupiahFormat(
                                                             // ignore: unnecessary_null_comparison
-                                                            double.parse(model.orderjual[0].total != null
-                                                                ? '${model.orderjual[0].total}'
+                                                            double.parse(model.orderjual[0].decSisa != null
+                                                                ? '${model.orderjual[0].decSisa}'
                                                                 : '0'),
                                                             symbol: '',
                                                           ),
                                                           style: const TextStyle(
                                                             color: venusColor.black,
-                                                            fontWeight: FontWeight.w500,
-                                                            fontSize: 14,
+                                                            fontWeight: FontWeight.w400,
+                                                            fontSize: 17,
                                                           ),
                                                         ),
                                                       ],

@@ -39,7 +39,7 @@ class _SetUpdateOrderJualDetailDTOApi
     )
             .compose(
               _dio.options,
-              '/api/updateData/${nomor}',
+              '/updateData/${nomor}',
               queryParameters: queryParameters,
               data: _data,
             )

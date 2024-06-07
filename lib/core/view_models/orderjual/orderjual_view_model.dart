@@ -78,9 +78,9 @@ class OrderJualViewModel extends BaseViewModel {
 
   OrderJualGetFilter currentFilter = OrderJualGetFilter(
     limit: 10,
-    page: 10,
+    page: 1,
     sort: 'DESC',
-    orderby: 'thorderjual.dtTanggal',
+    orderby: 'thorderjual.intNomor',
   );
   Future<void> fetchOrderJual({bool reload = false}) async {
     final search = OrderJualGetSearch(
@@ -99,7 +99,7 @@ class OrderJualViewModel extends BaseViewModel {
         startdate: _selectedDateAwal.toIso8601String().substring(0, 10),
         enddate: _selectedDateAkhir.toIso8601String().substring(0, 10),
         sort: 'DESC',
-        orderby: 'thorderjual.dtTanggal',
+        orderby: 'thorderjual.intNomor',
       );
 
       final response = await _orderJualGetDataDTOApi.getData(

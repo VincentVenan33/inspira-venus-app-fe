@@ -24,8 +24,8 @@ class DetailOrderPenjualanViewModel extends BaseViewModel {
   final List<OrderJualGetDataContent> _orderjual = [];
   List<OrderJualGetDataContent> get orderjual => _orderjual;
 
-  // List<OrderJualGetDataContent> _orderjualdetail = [];
-  // List<OrderJualGetDataContent> get orderjualdetail => _orderjualdetail;
+  List<OrderJualGetDataContent> _orderjualdetail = [];
+  List<OrderJualGetDataContent> get orderjualdetail => _orderjualdetail;
 
   // List<OrderJualGetDataContent> _orderjualbonusdetail = [];
   // List<OrderJualGetDataContent> get orderjualbonusdetail => _orderjualbonusdetail;
@@ -38,7 +38,7 @@ class DetailOrderPenjualanViewModel extends BaseViewModel {
   Future<void> initModel() async {
     setBusy(true);
     await fetchOrderJual(reload: true);
-    // await _fetchOrderJualDetail(_nomor);
+    await _fetchOrderJualDetail(_nomor);
     // await _fetchOrderJualBonusDetail(_nomor);
     setBusy(false);
   }
@@ -87,29 +87,30 @@ class DetailOrderPenjualanViewModel extends BaseViewModel {
     }
   }
 
-  // Future<void> _fetchOrderJualDetail(int nomorOrderJual) async {
-  //   final search = OrderJualGetSearch(
-  //     term: 'like',
-  //     key: 'tdorderjual.intNomorHeader',
-  //     query: '$nomorOrderJual',
-  //   );
-  //   debugPrint('nomororderjual $nomorOrderJual');
-  //   final filters = OrderJualGetFilter(
-  //     limit: 10,
-  //     page: 1,
-  //   );
+  Future<void> _fetchOrderJualDetail(int nomorOrderJual) async {
+    final search = OrderJualGetSearch(
+      term: 'equal',
+      key: 'tdorderjual.intStatus',
+      query: '1',
+    );
+    debugPrint('intNomorHeader $nomorOrderJual');
+    final filters = OrderJualGetFilter(
+      limit: 10,
+      page: 1,
+      intNomorHeader: nomorOrderJual,
+    );
 
-  //   final response = await _orderJualGetDataDTOApi.getData(
-  //     action: "getOrderJualDetail",
-  //     filters: filters,
-  //     search: search,
-  //   );
+    final response = await _orderJualGetDataDTOApi.getData(
+      action: "getOrderJualDetail",
+      filters: filters,
+      search: search,
+    );
 
-  //   if (response.isRight) {
-  //     _orderjualdetail = response.right.data.data;
-  //     notify();
-  //   } else {}
-  // }
+    if (response.isRight) {
+      _orderjualdetail = response.right.data.data;
+      notify();
+    } else {}
+  }
 
   // Future<void> _fetchOrderJualBonusDetail(int nomorOrderJual) async {
   //   final search = OrderJualGetSearch(

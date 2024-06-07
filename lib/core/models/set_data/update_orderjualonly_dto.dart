@@ -27,8 +27,10 @@ class UpdateOrderJualOnlyRequest {
     required this.intNomorMGudang,
     required this.intNomorMCustomer,
     required this.intNomorMSales,
+    required this.intNomorMArea,
     required this.intJenis,
-    required this.intNomorMCabang,
+    required this.intJTHari,
+    required this.decKurs,
     required this.decUM1,
     required this.decUM2,
     required this.decUM3,
@@ -39,9 +41,7 @@ class UpdateOrderJualOnlyRequest {
     required this.decPPNNominal,
     required this.decDPP,
     required this.decSisa,
-    required this.vcKeterangan,
-    required this.vcKeteranganFJ,
-    required this.vcKeteranganKW,
+    required this.intEksport,
   });
 
   factory UpdateOrderJualOnlyRequest.fromJson(Map<String, dynamic> json) => _$UpdateOrderJualOnlyRequestFromJson(json);
@@ -55,8 +55,10 @@ class UpdateOrderJualOnlyRequest {
   final int intNomorMGudang;
   final int intNomorMCustomer;
   final int intNomorMSales;
+  final int intNomorMArea;
   final int intJenis;
-  final int intNomorMCabang;
+  final int decKurs;
+  final int intJTHari;
   final int decUM1;
   final int decUM2;
   final int decUM3;
@@ -67,9 +69,7 @@ class UpdateOrderJualOnlyRequest {
   final int decPPNNominal;
   final int decDPP;
   final int decSisa;
-  final String vcKeterangan;
-  final String vcKeteranganFJ;
-  final String vcKeteranganKW;
+  final int intEksport;
 }
 
 @JsonSerializable()

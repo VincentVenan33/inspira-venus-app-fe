@@ -21,7 +21,6 @@ class UpdateOrderJualDetailPayload {
 class UpdateOrderJualDetailRequest {
   UpdateOrderJualDetailRequest({required this.intNomorHeader,
     required this.intNomorDetail,
-    required this.intNomorMBarang,
     required this.intNomorMSatuan1,
     required this.decJumlah1,
     required this.decNetto,
@@ -40,7 +39,6 @@ class UpdateOrderJualDetailRequest {
 
   final int? intNomorHeader;
   final int? intNomorDetail;
-  final int? intNomorMBarang;
   final int? intNomorMSatuan1;
   final int? decJumlah1;
   final int? decNetto;

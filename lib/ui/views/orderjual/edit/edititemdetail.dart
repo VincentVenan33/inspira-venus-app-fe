@@ -1161,17 +1161,16 @@ class _UpdateEditDetailOrderJualState extends ConsumerState<UpdateEditDetailOrde
                           final bool response = await model.updateOrderJualDetailModel(
                             intNomorHeader: widget.param.header?.intNomor ?? 0,
                             intNomorDetail: widget.param.header?.intNomor ?? 0,
-                            intNomorMBarang: int.parse(model.nomorbarangController.text),
                             intNomorMSatuan1: model.selectedSatuanBarang?.intNomor ?? 0,
                             decJumlah1: int.parse(model.qtyController.text),
-                            decNetto: int.parse(model.nettoController.text),
-                            decDisc3: _disc3,
-                            decDisc2: _disc2,
-                            decDisc1: _disc1,
-                            decJumlahUnit: int.parse(isiController.text),
-                            decHarga: _harga,
-                            decSubTotal: int.parse(subtotalController.text),
-                            decBerat: int.parse(model.beratController.text),
+                            decNetto: int.tryParse(model.nettoController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decDisc3: int.tryParse(model.diskon3Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decDisc2: int.tryParse(model.diskon2Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decDisc1: int.tryParse(model.diskon1Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decJumlahUnit: int.tryParse(isiController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decHarga: int.tryParse(model.hargaController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decSubTotal: int.tryParse(subtotalController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decBerat: int.tryParse(model.beratController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
                           );
                           if (response) {
                             showDialog(

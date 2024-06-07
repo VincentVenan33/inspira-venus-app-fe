@@ -27,7 +27,6 @@ class SetUpdateOrderJualDetailDTOService {
     required String action,
     required final int? intNomorHeader,
     required final int? intNomorDetail,
-    required final int? intNomorMBarang,
     required final int? intNomorMSatuan1,
     required final int? decJumlah1,
     required final int? decHarga,
@@ -44,7 +43,6 @@ class SetUpdateOrderJualDetailDTOService {
       final requestData = UpdateOrderJualDetailRequest(
         intNomorHeader: intNomorHeader,
         intNomorDetail: intNomorDetail,
-        intNomorMBarang: intNomorMBarang,
         intNomorMSatuan1: intNomorMSatuan1,
         decJumlah1: decJumlah1,
         decHarga: decHarga,

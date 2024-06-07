@@ -54,6 +54,11 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   final TextEditingController gudangController = TextEditingController();
   final TextEditingController jatuhtempoController = TextEditingController();
   final TextEditingController jenisPenjualanController = TextEditingController();
+  final TextEditingController valutaController = TextEditingController();
+  final TextEditingController um1Controller = TextEditingController();
+  final TextEditingController um2Controller = TextEditingController();
+  final TextEditingController um3Controller = TextEditingController();
+  final TextEditingController totalumController = TextEditingController();
   final TextEditingController customerController = TextEditingController();
   final TextEditingController salesController = TextEditingController();
   final TextEditingController areaController = TextEditingController();
@@ -63,8 +68,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   final TextEditingController diskonnominalController = TextEditingController();
   final TextEditingController dppController = TextEditingController();
   final TextEditingController ppnnominalController = TextEditingController();
-  final TextEditingController biayalainController = TextEditingController();
-  final TextEditingController totalController = TextEditingController();
+  final TextEditingController biayaController = TextEditingController();
+  final TextEditingController sisaController = TextEditingController();
   final TextEditingController ppnController = TextEditingController();
   final TextEditingController qtyController = TextEditingController();
   final TextEditingController isiController = TextEditingController();
@@ -77,6 +82,10 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   int _ppn = 0;
   int _biayalain = 0;
   int _total = 0;
+  int _um1 = 0;
+  int _um2 = 0;
+  int _um3 = 0;
+  int _totalum = 0;
 
   OrderJualGetDataContent? _orderjual;
   OrderJualGetDataContent? get orderjual => _orderjual;
@@ -117,8 +126,11 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   JenisPenjualanGetDataContent? _selectedJenisPenjualan;
   JenisPenjualanGetDataContent? get selectedJenisPenjualan => _selectedJenisPenjualan;
 
-  int get selectedPembayaran => _selectedPembayaran;
   int _selectedPembayaran = 0;
+  int get selectedPembayaran => _selectedPembayaran;
+
+  int get selectedPPN => _selectedPPN;
+  int _selectedPPN = 0;
 
   int _currentPage = 1;
   bool _isLastPage = false;
@@ -150,7 +162,25 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     _diskonnominal = (_subtotal * disc1Percentage).toInt();
     diskonnominalController.text = _diskonnominal.toString();
 
-    _dpp = _subtotal - _diskonnominal.toInt();
+    if (selectedPPN == 0) {
+      _ppn = 0;
+      ppnnominalController.text = '0'; // Update the ppnnominalController immediately
+    } else {
+      _ppn = (_dpp * 0.11).toInt();
+      ppnnominalController.text = _ppn.toString();
+    }
+
+    _um1 = int.parse(um1Controller.text);
+    _um2 = int.parse(um2Controller.text);
+    _um3 = int.parse(um3Controller.text);
+
+    _totalum = _um1 + _um2 + _um3;
+
+    debugPrint('totalum : $_totalum');
+
+    totalumController.text = _totalum.toString();
+
+    _dpp = _subtotal - _diskonnominal.toInt() - _totalum;
     dppController.text = _dpp.toString();
     ppnnominalController.text = _ppn.toString();
     debugPrint('dpp : $_dpp');
@@ -158,7 +188,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     _biayalain = 0;
     debugPrint('biayalain : $_biayalain');
     _total = _dpp + _ppn + _biayalain;
-    totalController.text = _total.toString();
+    sisaController.text = _total.toString();
     notifyListeners();
   }
 
@@ -167,9 +197,9 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     debugPrint('dpp : $_dpp');
     _ppn = int.parse(ppnnominalController.text);
     debugPrint('ppn : $_ppn');
-    _biayalain = int.parse(biayalainController.text);
+    _biayalain = int.parse(biayaController.text);
     _total = _dpp + _ppn + _biayalain;
-    totalController.text = _total.toString();
+    sisaController.text = _total.toString();
     notifyListeners();
   }
 
@@ -198,7 +228,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     setBusy(false);
     diskonprosentaseController.addListener(hitung);
     subtotalController.addListener(hitung);
-    biayalainController.addListener(hitung2);
+    biayaController.addListener(hitung2);
+    totalumController.addListener(hitung);
   }
 
   Future<void> initData() async {
@@ -245,19 +276,23 @@ class UpdateOrderJualViewModel extends BaseViewModel {
         gudangController.text = "${_orderjual?.kodeGudang ?? ''} - ${_orderjual?.gudang ?? ''}";
         salesController.text = "${_orderjual?.kodeSales ?? ''} - ${_orderjual?.sales ?? ''}";
         jatuhtempoController.text = _orderjual?.intJTHari.toString() ?? '';
+        um1Controller.text = _orderjual?.decUM1.toString().replaceAll('.0', '') ?? '';
+        um2Controller.text = _orderjual?.decUM2.toString().replaceAll('.0', '') ?? '';
+        um3Controller.text = _orderjual?.decUM3.toString().replaceAll('.0', '') ?? '';
+        totalumController.text = _orderjual?.decTotalUMC.toString().replaceAll('.0', '') ?? '';
         jenisPenjualanController.text = _orderjual?.jenisPenjualan ?? '';
+        valutaController.text = _orderjual?.valuta ?? '';
         areaController.text = _orderjual?.area ?? '';
-        kursController.text = _orderjual?.decKurs.toString() ?? '';
-        // diskonprosentaseController.text = _orderjual?.diskonprosentase.toString() ?? '';
-        // diskonnominalController.text = _orderjual?.diskonnominal.toString() ?? '';
-        dppController.text = _orderjual?.decDPP.toString() ?? '';
-        ppnnominalController.text = _orderjual?.decPPNNominal.toString() ?? '';
-        biayalainController.text = _orderjual?.decTotalBiaya.toString() ?? '';
-        totalController.text = _orderjual?.decTotal.toString() ?? '';
-        subtotalController.text = _orderjual?.decSubTotal.toString() ?? '';
+        kursController.text = _orderjual?.decKurs.toString().replaceAll('.0', '') ?? '';
+        dppController.text = _orderjual?.decDPP.toString().replaceAll('.0', '') ?? '';
+        ppnnominalController.text = _orderjual?.decPPNNominal.toString().replaceAll('.0', '') ?? '';
+        biayaController.text = _orderjual?.decTotalBiaya.toString().replaceAll('.0', '') ?? '';
+        sisaController.text = _orderjual?.decSisa.toString().replaceAll('.0', '') ?? '';
+        subtotalController.text = _orderjual?.decSubTotal.toString().replaceAll('.0', '') ?? '';
         selectedDate = DateTime.parse(_orderjual?.dtTanggal ?? '');
         selectedDateKirim = DateTime.parse(_orderjual?.dtTanggalKirim ?? '');
         setselectedPembayaran(_orderjual!.intTOP?.toInt() ?? 0);
+        setselectedPPN(_orderjual!.intEksport?.toInt() ?? 0);
         notify();
       }
     } catch (e) {
@@ -267,14 +302,15 @@ class UpdateOrderJualViewModel extends BaseViewModel {
 
   Future<void> _fetchOrderJualDetail(int nomorOrderJual) async {
     final search = OrderJualGetSearch(
-      term: 'like',
-      key: 'tdorderjual.intNomorHeader',
-      query: '$nomorOrderJual',
+      term: 'equal',
+      key: 'tdorderjual.intStatus',
+      query: '1',
     );
     debugPrint('intNomorHeader $nomorOrderJual');
     final filters = OrderJualGetFilter(
       limit: 10,
       page: 1,
+      intNomorHeader: nomorOrderJual,
     );
 
     final response = await _orderJualGetDataDTOApi.getData(
@@ -593,16 +629,17 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     notify();
   }
 
+  void setselectedPPN(int value) {
+    _selectedPPN = value;
+    notify();
+  }
+
   Future<bool> updateOrderJualOnlyModel({
     required final String dtTanggal,
     required final String dtTanggalKirim,
-    required final int intNomorMJenisPenjualan,
-    required final int intNomorMValuta,
-    required final int intNomorMGudang,
-    required final int intNomorMCustomer,
-    required final int intNomorMSales,
     required final int intJenis,
-    required final int intNomorMCabang,
+    required final int intJTHari,
+    required final int decKurs,
     required final int decUM1,
     required final int decUM2,
     required final int decUM3,
@@ -613,23 +650,21 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     required final int decPPNNominal,
     required final int decDPP,
     required final int decSisa,
-    required final String vcKeterangan,
-    required final String vcKeteranganFJ,
-    required final String vcKeteranganKW,
+    required final int intEksport,
   }) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userDataJson = prefs.getString(SharedPrefKeys.userData.label);
     final response = await _setUpdateOrderJualOnlyDTOApi.seUpdatetOrderJual(
       action: "addOrderJual",
       dtTanggal: dtTanggal,
       dtTanggalKirim: dtTanggalKirim,
       intNomorMCustomer: _selectedCustomer?.intNomor ?? 0,
-      intNomorMSales: intNomorMSales,
-      intNomorMJenisPenjualan: intNomorMJenisPenjualan,
-      intNomorMValuta: intNomorMValuta,
-      intNomorMGudang: intNomorMGudang,
-      intNomorMCabang: intNomorMCabang,
+      intNomorMSales: _selectedSales?.intNomor ?? 0,
+      intNomorMJenisPenjualan: _selectedJenisPenjualan?.intNomor ?? 0,
+      intNomorMValuta: _selectedValuta?.intNomor ?? 0,
+      intNomorMGudang: _selectedGudang?.intNomor ?? 0,
+      intNomorMArea: _selectedArea?.intNomor ?? 0,
       intJenis: intJenis,
+      decKurs: decKurs,
+      intJTHari: intJTHari,
       decPPN: decPPN,
       decPPNNominal: decPPNNominal,
       decUM1: decUM1,
@@ -640,9 +675,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
       decSubTotal: decSubTotal,
       decDPP: decDPP,
       decSisa: decSisa,
-      vcKeterangan: vcKeterangan,
-      vcKeteranganFJ: vcKeteranganFJ,
-      vcKeteranganKW: vcKeteranganKW,
+      intEksport: intEksport,
       intNomor: _nomor,
     );
     if (response.isRight) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:venus/core/models/get_data/order_jual_get_data_dto.dart';
 import 'package:venus/core/models/get_data/produk_get_data_dto.dart';
 import 'package:venus/core/models/get_data/satuan_barang_get_data_dto.dart';
@@ -7,7 +6,6 @@ import 'package:venus/core/networks/barang_get_data_dto_network.dart';
 import 'package:venus/core/networks/order_jual_get_data_dto_network.dart';
 import 'package:venus/core/networks/satuan_barang_get_data_dto_network.dart';
 import 'package:venus/core/networks/update_order_jual_detail_dto.dart';
-import 'package:venus/core/services/shared_preferences_service.dart';
 import 'package:venus/core/view_models/base_view_model.dart';
 
 class EditItemDetailOrderJualViewModel extends BaseViewModel {
@@ -80,8 +78,8 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
   @override
   Future<void> initModel() async {
     setBusy(true);
-    await _fetchSatuanBarang(_orderjualdetail?.intNomorMBarang ?? 0);
     await _fetchOrderJualDetail();
+    await _fetchSatuanBarang(_orderjualdetail?.intNomorMBarang ?? 0);
     await fetchBarang(reload: true);
     setBusy(false);
     hargaController.addListener(calculateDiscTotal);
@@ -218,21 +216,21 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
 
     if (response.isRight) {
       _orderjualdetail = response.right.data.data[0];
-      kodeController.text = _orderjualdetail?.vcKode ?? '';
+      kodeController.text = _orderjualdetail?.kodeBarang ?? '';
       namaController.text = _orderjualdetail?.vcNamaJual ?? '';
       nomorbarangController.text = _orderjualdetail?.intNomorMBarang.toString() ?? '';
       nomorsatuanController.text = _orderjualdetail?.intNomorMSatuan1.toString() ?? '';
-      qtyController.text = _orderjualdetail?.decJumlah1.toString() ?? '';
+      qtyController.text = _orderjualdetail?.decJumlah1.toString().replaceAll('.0', '') ?? '';
       satuanqtyController.text = _orderjualdetail?.satuan1.toString() ?? '';
-      isiController.text = _orderjualdetail?.decJumlahUnit.toString() ?? '';
+      isiController.text = _orderjualdetail?.decJumlahUnit.toString().replaceAll('.0', '') ?? '';
       satuanisiController.text = _orderjualdetail?.satuanUnit.toString() ?? '';
-      hargaController.text = _orderjualdetail?.decHarga.toString() ?? '';
-      diskon1Controller.text = _orderjualdetail?.decDisc1.toString() ?? '';
-      diskon2Controller.text = _orderjualdetail?.decDisc2.toString() ?? '';
-      diskon3Controller.text = _orderjualdetail?.decDisc3.toString() ?? '';
-      nettoController.text = _orderjualdetail?.decNetto.toString() ?? '';
-      subtotalController.text = _orderjualdetail?.decSubTotal.toString() ?? '';
-      beratController.text = _orderjualdetail?.decBerat.toString() ?? '';
+      hargaController.text = _orderjualdetail?.decHarga.toString().replaceAll('.0', '') ?? '';
+      diskon1Controller.text = _orderjualdetail?.decDisc1.toString().replaceAll('.0', '') ?? '';
+      diskon2Controller.text = _orderjualdetail?.decDisc2.toString().replaceAll('.0', '') ?? '';
+      diskon3Controller.text = _orderjualdetail?.decDisc3.toString().replaceAll('.0', '') ?? '';
+      nettoController.text = _orderjualdetail?.decNetto.toString().replaceAll('.0', '') ?? '';
+      subtotalController.text = _orderjualdetail?.decSubTotal.toString().replaceAll('.0', '') ?? '';
+      beratController.text = _orderjualdetail?.decBerat.toString().replaceAll('.0', '') ?? '';
 
       notify();
     } else {}
@@ -246,7 +244,6 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
   Future<bool> updateOrderJualDetailModel({
     required int intNomorHeader,
     required int intNomorDetail,
-    required int intNomorMBarang,
     required int intNomorMSatuan1,
     required int decJumlah1,
     required int decHarga,
@@ -262,7 +259,6 @@ class EditItemDetailOrderJualViewModel extends BaseViewModel {
       action: "updateOrderJualDetail",
       intNomorHeader: intNomorHeader,
       intNomorDetail: intNomorDetail,
-      intNomorMBarang: intNomorMBarang,
       intNomorMSatuan1: intNomorMSatuan1,
       decJumlah1: decJumlah1,
       decHarga: decHarga,

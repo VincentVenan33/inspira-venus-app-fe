@@ -31,8 +31,10 @@ UpdateOrderJualOnlyRequest _$UpdateOrderJualOnlyRequestFromJson(
       intNomorMGudang: json['intNomorMGudang'] as int,
       intNomorMCustomer: json['intNomorMCustomer'] as int,
       intNomorMSales: json['intNomorMSales'] as int,
+      intNomorMArea: json['intNomorMArea'] as int,
       intJenis: json['intJenis'] as int,
-      intNomorMCabang: json['intNomorMCabang'] as int,
+      intJTHari: json['intJTHari'] as int,
+      decKurs: json['decKurs'] as int,
       decUM1: json['decUM1'] as int,
       decUM2: json['decUM2'] as int,
       decUM3: json['decUM3'] as int,
@@ -43,9 +45,7 @@ UpdateOrderJualOnlyRequest _$UpdateOrderJualOnlyRequestFromJson(
       decPPNNominal: json['decPPNNominal'] as int,
       decDPP: json['decDPP'] as int,
       decSisa: json['decSisa'] as int,
-      vcKeterangan: json['vcKeterangan'] as String,
-      vcKeteranganFJ: json['vcKeteranganFJ'] as String,
-      vcKeteranganKW: json['vcKeteranganKW'] as String,
+      intEksport: json['intEksport'] as int,
     );
 
 Map<String, dynamic> _$UpdateOrderJualOnlyRequestToJson(
@@ -58,8 +58,10 @@ Map<String, dynamic> _$UpdateOrderJualOnlyRequestToJson(
       'intNomorMGudang': instance.intNomorMGudang,
       'intNomorMCustomer': instance.intNomorMCustomer,
       'intNomorMSales': instance.intNomorMSales,
+      'intNomorMArea': instance.intNomorMArea,
       'intJenis': instance.intJenis,
-      'intNomorMCabang': instance.intNomorMCabang,
+      'decKurs': instance.decKurs,
+      'intJTHari': instance.intJTHari,
       'decUM1': instance.decUM1,
       'decUM2': instance.decUM2,
       'decUM3': instance.decUM3,
@@ -70,9 +72,7 @@ Map<String, dynamic> _$UpdateOrderJualOnlyRequestToJson(
       'decPPNNominal': instance.decPPNNominal,
       'decDPP': instance.decDPP,
       'decSisa': instance.decSisa,
-      'vcKeterangan': instance.vcKeterangan,
-      'vcKeteranganFJ': instance.vcKeteranganFJ,
-      'vcKeteranganKW': instance.vcKeteranganKW,
+      'intEksport': instance.intEksport,
     };
 
 UpdateOrderJualOnlyResponse _$UpdateOrderJualOnlyResponseFromJson(
