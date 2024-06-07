@@ -25,6 +25,9 @@ class Routes {
   static const String addorderjual = 'addorderjual';
   static const String editorderjual = 'editorderjual';
   static const String addpelangganorderjual = 'addpelangganorderjual';
+  static const String addgudangorderjual = 'addgudangorderjual';
+  static const String addsalesorderjual = 'addsalesorderjual';
+  static const String addareaorderjual = 'addareaorderjual';
   static const String editpelangganorderjual = 'editpelangganorderjual';
   static const String editsalesorderjual = 'editsalesorderjual';
   static const String editareaorderjual = 'editareaorderjual';

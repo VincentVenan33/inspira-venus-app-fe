@@ -37,7 +37,7 @@ class _SetOrderJualDetailBonusDTOApi implements SetOrderJualDetailBonusDTOApi {
     )
             .compose(
               _dio.options,
-              '/api/setData',
+              '/setData',
               queryParameters: queryParameters,
               data: _data,
             )

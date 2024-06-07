@@ -164,7 +164,7 @@ class UpdateOrderJualViewModel extends BaseViewModel {
 
     if (selectedPPN == 0) {
       _ppn = 0;
-      ppnnominalController.text = '0'; // Update the ppnnominalController immediately
+      ppnnominalController.text = '0';
     } else {
       _ppn = (_dpp * 0.11).toInt();
       ppnnominalController.text = _ppn.toString();
@@ -228,8 +228,8 @@ class UpdateOrderJualViewModel extends BaseViewModel {
     setBusy(false);
     diskonprosentaseController.addListener(hitung);
     subtotalController.addListener(hitung);
-    biayaController.addListener(hitung2);
     totalumController.addListener(hitung);
+    biayaController.addListener(hitung2);
   }
 
   Future<void> initData() async {
@@ -274,6 +274,24 @@ class UpdateOrderJualViewModel extends BaseViewModel {
         kodeController.text = _orderjual?.vcKode ?? '';
         customerController.text = "${_orderjual?.kodeCustomer ?? ''} - ${_orderjual?.customer ?? ''}";
         gudangController.text = "${_orderjual?.kodeGudang ?? ''} - ${_orderjual?.gudang ?? ''}";
+        _selectedGudang = GetDataContent(
+          intNomor: _orderjual?.intNomorMGudang ?? 0,
+          vcKode: _orderjual?.kodeGudang ?? '',
+          vcNama: _orderjual?.gudang ?? '',
+        );
+        _selectedSales = GetDataContent(
+          intNomor: _orderjual?.intNomorMSales ?? 0,
+          vcKode: _orderjual?.kodeSales ?? '',
+          vcNama: _orderjual?.sales ?? '',
+        );
+        _selectedArea = AreaGetDataContent(
+          intNomor: _orderjual?.intNomorMArea ?? 0,
+          vcNama: _orderjual?.area ?? '',
+        );
+        _selectedValuta = ValutaGetDataContent(
+          intNomor: _orderjual?.intNomorMValuta ?? 0,
+          vcNama: _orderjual?.valuta ?? '',
+        );
         salesController.text = "${_orderjual?.kodeSales ?? ''} - ${_orderjual?.sales ?? ''}";
         jatuhtempoController.text = _orderjual?.intJTHari.toString() ?? '';
         um1Controller.text = _orderjual?.decUM1.toString().replaceAll('.0', '') ?? '';
@@ -635,7 +653,6 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   }
 
   Future<bool> updateOrderJualOnlyModel({
-    required final String dtTanggal,
     required final String dtTanggalKirim,
     required final int intJenis,
     required final int intJTHari,
@@ -654,7 +671,6 @@ class UpdateOrderJualViewModel extends BaseViewModel {
   }) async {
     final response = await _setUpdateOrderJualOnlyDTOApi.seUpdatetOrderJual(
       action: "addOrderJual",
-      dtTanggal: dtTanggal,
       dtTanggalKirim: dtTanggalKirim,
       intNomorMCustomer: _selectedCustomer?.intNomor ?? 0,
       intNomorMSales: _selectedSales?.intNomor ?? 0,

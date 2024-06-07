@@ -25,7 +25,6 @@ class SetUpdateOrderJualOnlyDTOService {
 
   Future<Either<Failure, UpdateOrderJualOnlyResponse>> seUpdatetOrderJual({
     required String action,
-    required final String dtTanggal,
     required final String dtTanggalKirim,
     required final int intNomorMJenisPenjualan,
     required final int intNomorMValuta,
@@ -51,7 +50,6 @@ class SetUpdateOrderJualOnlyDTOService {
   }) async {
     try {
       final requestData = UpdateOrderJualOnlyRequest(
-        dtTanggal: dtTanggal,
         dtTanggalKirim: dtTanggalKirim,
         intNomorMJenisPenjualan: intNomorMJenisPenjualan,
         intNomorMValuta: intNomorMValuta,

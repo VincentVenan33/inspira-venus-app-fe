@@ -8,7 +8,7 @@ part 'create_order_jual_detail_bonus_dto_api.g.dart';
 abstract class SetOrderJualDetailBonusDTOApi {
   factory SetOrderJualDetailBonusDTOApi(Dio dio, {String baseUrl}) = _SetOrderJualDetailBonusDTOApi;
 
-  @POST('/api/setData')
+  @POST('/setData')
   Future<HttpResponse<dynamic>> createOrderJual(
     @Header('Accept') String accept,
     @Body() CreateOrderJualDetailBonusPayload payload,

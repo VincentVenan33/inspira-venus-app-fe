@@ -20,7 +20,6 @@ class UpdateOrderJualOnlyPayload {
 @JsonSerializable()
 class UpdateOrderJualOnlyRequest {
   UpdateOrderJualOnlyRequest({
-    required this.dtTanggal,
     required this.dtTanggalKirim,
     required this.intNomorMJenisPenjualan,
     required this.intNomorMValuta,
@@ -48,7 +47,6 @@ class UpdateOrderJualOnlyRequest {
 
   Map<String, dynamic> toJson() => _$UpdateOrderJualOnlyRequestToJson(this);
 
-  final String dtTanggal;
   final String dtTanggalKirim;
   final int intNomorMJenisPenjualan;
   final int intNomorMValuta;

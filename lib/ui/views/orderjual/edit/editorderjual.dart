@@ -231,7 +231,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                                                DateFormat('dd/MM/yyyy').format(model.selectedDate),
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   color: venusColor.black,
@@ -359,33 +359,39 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                               ),
                                             ),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          child: Column(
                                             children: [
-                                              Text(
-                                                model.gudangController.text,
-                                                style: const TextStyle(
-                                                  color: venusColor.black,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
                                               Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        model.gudangController.clear();
-                                                      });
-                                                    },
-                                                    icon: const Icon(
-                                                      Icons.refresh,
-                                                      color: venusColor.lightBlack014,
+                                                  Expanded(
+                                                    child: Text(
+                                                      model.gudangController.text,
+                                                      style: const TextStyle(
+                                                        color: venusColor.black,
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 16,
+                                                      ),
                                                     ),
                                                   ),
-                                                  const Icon(
-                                                    Icons.search,
-                                                    color: venusColor.lightBlack014,
+                                                  Row(
+                                                    children: [
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            model.gudangController.clear();
+                                                          });
+                                                        },
+                                                        icon: const Icon(
+                                                          Icons.refresh,
+                                                          color: venusColor.lightBlack014,
+                                                        ),
+                                                      ),
+                                                      const Icon(
+                                                        Icons.search,
+                                                        color: venusColor.lightBlack014,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
@@ -633,21 +639,38 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                               context,
                                               Routes.editpelangganorderjual,
                                               arguments: model,
-                                            ).then((withResponse) {
-                                              if (withResponse == false) {
-                                                return;
-                                              }
-                                              if (model.selectedCustomer != null) {
-                                                GetDataContent value = model.selectedCustomer!;
-                                                String? sales = value.namasales;
-                                                String? area = value.namaarea;
-                                                setState(() {
-                                                  model.customerController.text = value.vcNama;
-                                                  model.salesController.text = sales!;
-                                                  model.areaController.text = area!;
-                                                });
-                                              }
-                                            });
+                                            ).then(
+                                              (withResponse) {
+                                                if (withResponse == false) {
+                                                  return;
+                                                }
+                                                if (model.selectedCustomer != null) {
+                                                  GetDataContent value = model.selectedCustomer!;
+                                                  String? sales = value.namasales;
+                                                  String? area = value.namaarea;
+                                                  setState(
+                                                    () {
+                                                      model.customerController.text = value.vcNama;
+                                                      model.salesController.text = sales!;
+                                                      model.areaController.text = area!;
+                                                      model.setselectedarea(
+                                                        AreaGetDataContent(
+                                                          intNomor: value.intNomorMArea ?? 0,
+                                                          vcNama: value.namaarea ?? '',
+                                                        ),
+                                                      );
+                                                      model.setselectedsales(
+                                                        GetDataContent(
+                                                          intNomor: value.intNomorMSales ?? 0,
+                                                          vcNama: value.namasales ?? '',
+                                                          vcKode: value.kodesales ?? '',
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                }
+                                              },
+                                            );
                                           },
                                           style: ElevatedButton.styleFrom(
                                             padding: const EdgeInsets.all(0),
@@ -1014,8 +1037,12 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                     textAlign: TextAlign.right,
                                                     onChanged: (value) {},
                                                     decoration: InputDecoration(
-                                                      contentPadding:
-                                                          const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                      contentPadding: const EdgeInsets.only(
+                                                        left: 16,
+                                                        top: 6,
+                                                        bottom: 6,
+                                                        right: 16,
+                                                      ),
                                                       hintText: 'Masukkan Kurs',
                                                       hintStyle: const TextStyle(
                                                         color: venusColor.lightBlack015,
@@ -1530,12 +1557,17 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                         Spacings.verSpace(5),
                                                         TextFormField(
                                                           controller: model.um1Controller,
+                                                          textAlign: TextAlign.right,
                                                           onChanged: (value) {
                                                             model.hitung();
                                                           },
                                                           decoration: InputDecoration(
-                                                            contentPadding:
-                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            contentPadding: const EdgeInsets.only(
+                                                              left: 16,
+                                                              top: 6,
+                                                              bottom: 6,
+                                                              right: 16,
+                                                            ),
                                                             hintText: 'Masukkan UM1',
                                                             hintStyle: const TextStyle(
                                                               color: venusColor.lightBlack015,
@@ -1584,12 +1616,17 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                         Spacings.verSpace(5),
                                                         TextFormField(
                                                           controller: model.um2Controller,
+                                                          textAlign: TextAlign.right,
                                                           onChanged: (value) {
                                                             model.hitung();
                                                           },
                                                           decoration: InputDecoration(
-                                                            contentPadding:
-                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            contentPadding: const EdgeInsets.only(
+                                                              left: 16,
+                                                              top: 6,
+                                                              bottom: 6,
+                                                              right: 16,
+                                                            ),
                                                             hintText: 'Masukkan UM 2',
                                                             hintStyle: const TextStyle(
                                                               color: venusColor.lightBlack015,
@@ -1638,12 +1675,17 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                                         Spacings.verSpace(5),
                                                         TextFormField(
                                                           controller: model.um3Controller,
+                                                          textAlign: TextAlign.right,
                                                           onChanged: (value) {
                                                             model.hitung();
                                                           },
                                                           decoration: InputDecoration(
-                                                            contentPadding:
-                                                                const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                            contentPadding: const EdgeInsets.only(
+                                                              left: 16,
+                                                              top: 6,
+                                                              bottom: 6,
+                                                              right: 16,
+                                                            ),
                                                             hintText: 'Masukkan UM 3',
                                                             hintStyle: const TextStyle(
                                                               color: venusColor.lightBlack015,
@@ -1767,6 +1809,7 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                                             ),
                                           ],
                                         ),
+                                        Spacings.verSpace(14),
                                         Column(
                                           children: [
                                             const Row(
@@ -1937,7 +1980,6 @@ class _EditOrderJualState extends ConsumerState<EditOrderJual> {
                           child: ElevatedButton(
                             onPressed: () async {
                               final bool response = await model.updateOrderJualOnlyModel(
-                                dtTanggal: DateFormat('yyyy-MM-dd').format(DateTime.now()),
                                 dtTanggalKirim: DateFormat('yyyy-MM-dd').format(model.selectedDate),
                                 intJenis: model.selectedPembayaran,
                                 intJTHari: int.parse(model.jatuhtempoController.text),

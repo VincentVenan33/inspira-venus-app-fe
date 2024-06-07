@@ -38,7 +38,7 @@ class EditDetailOrderJualViewModel extends BaseViewModel {
   @override
   Future<void> initModel() async {
     setBusy(true);
-    await _fetchSatuanBarang(_detailitem?.nomormhbarang ?? 0);
+    await _fetchSatuanBarang(_detailitem?.intNomorMBarang ?? 0);
     setBusy(false);
   }
 

@@ -843,6 +843,51 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
                                           ],
                                         ),
                                         Spacings.verSpace(14),
+                                        const Row(
+                                          children: [
+                                            Text(
+                                              'Ekspor / PPN',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                                color: venusColor.lightBlack011,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(5),
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: SizedBox(
+                                                height: 48,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      model.orderjual[0].intEksport == 0
+                                                          ? "Export"
+                                                          : model.orderjual[0].intJenis == 1
+                                                              ? "PPN"
+                                                              : "",
+                                                      style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: venusColor.black,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    const Icon(
+                                                      Icons.arrow_drop_down_sharp,
+                                                      color: venusColor.black,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacings.verSpace(14),
                                         const Divider(
                                           color: Colors.grey,
                                         ),
@@ -1594,16 +1639,5 @@ class _DetailOrderPenjualanState extends ConsumerState<DetailOrderPenjualan> {
         );
       },
     );
-  }
-
-  String _getStatusPPNText(int statusppn) {
-    switch (statusppn) {
-      case 0:
-        return 'Non-PPN';
-      case 1:
-        return 'PPN';
-      default:
-        return '-';
-    }
   }
 }

@@ -24,7 +24,6 @@ Map<String, dynamic> _$UpdateOrderJualOnlyPayloadToJson(
 UpdateOrderJualOnlyRequest _$UpdateOrderJualOnlyRequestFromJson(
         Map<String, dynamic> json) =>
     UpdateOrderJualOnlyRequest(
-      dtTanggal: json['dtTanggal'] as String,
       dtTanggalKirim: json['dtTanggalKirim'] as String,
       intNomorMJenisPenjualan: json['intNomorMJenisPenjualan'] as int,
       intNomorMValuta: json['intNomorMValuta'] as int,
@@ -51,7 +50,6 @@ UpdateOrderJualOnlyRequest _$UpdateOrderJualOnlyRequestFromJson(
 Map<String, dynamic> _$UpdateOrderJualOnlyRequestToJson(
         UpdateOrderJualOnlyRequest instance) =>
     <String, dynamic>{
-      'dtTanggal': instance.dtTanggal,
       'dtTanggalKirim': instance.dtTanggalKirim,
       'intNomorMJenisPenjualan': instance.intNomorMJenisPenjualan,
       'intNomorMValuta': instance.intNomorMValuta,

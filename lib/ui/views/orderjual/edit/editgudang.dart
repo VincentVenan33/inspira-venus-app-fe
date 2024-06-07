@@ -36,7 +36,7 @@ class _EditGudangOrderJualState extends ConsumerState<EditGudangOrderJual> {
   Widget build(BuildContext context) {
     return ViewModel<UpdateOrderJualViewModel>(
       model: widget.viewModel,
-      onModelReady: (UpdateOrderJualViewModel model) => model.fetchCustomer(reload: true),
+      onModelReady: (UpdateOrderJualViewModel model) => model.fetchGudang(reload: true),
       builder: (_, UpdateOrderJualViewModel model, __) {
         return LoadingOverlay(
           isLoading: model.busy,

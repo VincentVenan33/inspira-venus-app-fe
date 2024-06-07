@@ -3,8 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:intl/intl.dart';
 import 'package:venus/core/app_constants/colors.dart';
+import 'package:venus/core/app_constants/route.dart';
 import 'package:venus/core/models/get_data/satuan_barang_get_data_dto.dart';
+import 'package:venus/core/models/set_data/create_order_jual_detail_bonus_dto.dart';
 import 'package:venus/core/networks/barang_get_data_dto_network.dart';
 import 'package:venus/core/networks/satuan_barang_get_data_dto_network.dart';
 import 'package:venus/core/services/shared_preferences_service.dart';
@@ -58,6 +61,7 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
   final TextEditingController satuanisiController = TextEditingController();
   final TextEditingController konversiSatuanController = TextEditingController();
   final TextEditingController isiController = TextEditingController();
+  final TextEditingController beratController = TextEditingController();
   final TextEditingController diskon1Controller = TextEditingController();
   final TextEditingController diskon2Controller = TextEditingController();
   final TextEditingController diskon3Controller = TextEditingController();
@@ -869,132 +873,6 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  'Discount (Rp)',
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: venusColor.lightBlack008),
-                                                ),
-                                              ],
-                                            ),
-                                            Spacings.verSpace(12),
-                                            const Divider(
-                                              height: 1,
-                                              color: venusColor.lightBlack009,
-                                            ),
-                                            Spacings.verSpace(12),
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Column(
-                                                    children: [
-                                                      const Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            'Direct',
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight: FontWeight.w500,
-                                                              color: venusColor.lightBlack011,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Spacings.verSpace(5),
-                                                      TextFormField(
-                                                        controller: directController,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            _discdirect = int.tryParse(value) ?? 0;
-                                                          });
-                                                        },
-                                                        decoration: InputDecoration(
-                                                          contentPadding:
-                                                              const EdgeInsets.only(left: 16, top: 6, bottom: 6),
-                                                          hintText: 'Masukkan diskon direct',
-                                                          hintStyle: const TextStyle(
-                                                            color: venusColor.lightBlack015,
-                                                            fontWeight: FontWeight.w300,
-                                                            fontSize: 14,
-                                                          ),
-                                                          enabledBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(8.0),
-                                                            borderSide:
-                                                                const BorderSide(color: Colors.grey, width: 1.0),
-                                                          ),
-                                                          focusedBorder: OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(8.0),
-                                                            borderSide:
-                                                                const BorderSide(color: Colors.blue, width: 1.0),
-                                                          ),
-                                                        ),
-                                                        keyboardType: TextInputType.number,
-                                                        inputFormatters: [
-                                                          FilteringTextInputFormatter.allow(
-                                                            RegExp(r'[0-9]'),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Spacings.horSpace(10),
-                                                Expanded(
-                                                  child: Column(
-                                                    children: [
-                                                      const Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: [
-                                                          Text(
-                                                            'Total Discount',
-                                                            style: TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight: FontWeight.w500,
-                                                              color: venusColor.lightBlack011,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Spacings.verSpace(5),
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          SizedBox(
-                                                            height: 48,
-                                                            child: Column(
-                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                              children: [
-                                                                Text(
-                                                                  totalController.text,
-                                                                  style: const TextStyle(
-                                                                    color: venusColor.black,
-                                                                    fontWeight: FontWeight.w400,
-                                                                    fontSize: 17,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Spacings.verSpace(
-                                              20,
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            const Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(
                                                   'Summary',
                                                   style: TextStyle(
                                                       fontSize: 12,
@@ -1095,6 +973,59 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                                                     ],
                                                   ),
                                                 ),
+                                                Spacings.horSpace(10),
+                                                Expanded(
+                                                  child: Column(
+                                                    children: [
+                                                      const Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            'Berat',
+                                                            style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight: FontWeight.w500,
+                                                              color: venusColor.lightBlack011,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Spacings.verSpace(5),
+                                                      TextFormField(
+                                                        controller: beratController,
+                                                        onChanged: (value) {
+                                                          setState(() {});
+                                                        },
+                                                        decoration: InputDecoration(
+                                                          contentPadding:
+                                                              const EdgeInsets.only(left: 16, top: 6, bottom: 6),
+                                                          hintText: 'Masukkan berat',
+                                                          hintStyle: const TextStyle(
+                                                            color: venusColor.lightBlack015,
+                                                            fontWeight: FontWeight.w300,
+                                                            fontSize: 14,
+                                                          ),
+                                                          enabledBorder: OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(8.0),
+                                                            borderSide:
+                                                                const BorderSide(color: Colors.grey, width: 1.0),
+                                                          ),
+                                                          focusedBorder: OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(8.0),
+                                                            borderSide:
+                                                                const BorderSide(color: Colors.blue, width: 1.0),
+                                                          ),
+                                                        ),
+                                                        keyboardType: TextInputType.number,
+                                                        inputFormatters: [
+                                                          FilteringTextInputFormatter.allow(
+                                                            RegExp(r'[0-9]'),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ],
@@ -1127,35 +1058,32 @@ class _AddDetailOrderJualState extends ConsumerState<AddDetailOrderJual> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          // final bool response = await model.addItemtoList(
-                          //   CreateOrderJualDetailRequest(
-                          //     nomormhbarang: model.barang[0].nomor,
-                          //     nomormhsatuan: model.selectedSatuanBarang?.nomor ?? 0,
-                          //     kode: model.barang[0].kode,
-                          //     nama: model.barang[0].nama,
-                          //     qty: _qty,
-                          //     netto: int.parse(nettoController.text),
-                          //     disctotal: int.parse(totalController.text),
-                          //     discdirect: _discdirect,
-                          //     disc3: _disc3,
-                          //     disc2: _disc2,
-                          //     disc1: _disc1,
-                          //     satuanqty: model.selectedSatuanBarang?.nama ?? '',
-                          //     isi: int.parse(isiController.text),
-                          //     satuanisi: model.barang[0].satuan1,
-                          //     harga: _harga,
-                          //     subtotal: int.parse(subtotalController.text),
-                          //     konversisatuan: _konversisatuan,
-                          //   ),
-                          // );
+                          final bool response = await model.addItemtoList(
+                            CreateOrderJualDetailRequest(
+                              intNomorMBarang: model.barang[0].intNomor,
+                              intNomorMSatuan1: model.selectedSatuanBarang?.intNomor ?? 0,
+                              kodeBarang: model.barang[0].vcKode,
+                              barang: model.barang[0].vcNamaJual,
+                              decJumlah1: _qty,
+                              decNetto: int.tryParse(nettoController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decDisc3: int.tryParse(diskon3Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decDisc2: int.tryParse(diskon2Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decDisc1: int.tryParse(diskon1Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decJumlahUnit: int.tryParse(isiController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decHarga: int.tryParse(hargaController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decSubTotal: int.tryParse(subtotalController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              decBerat: int.tryParse(beratController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                              dtTanggal: DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                            ),
+                          );
 
-                          // if (response) {
-                          //   Navigator.pushNamed(
-                          //     // ignore: use_build_context_synchronously
-                          //     context,
-                          //     Routes.addorderjual,
-                          //   );
-                          // }
+                          if (response) {
+                            Navigator.pushNamed(
+                              // ignore: use_build_context_synchronously
+                              context,
+                              Routes.addorderjual,
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(

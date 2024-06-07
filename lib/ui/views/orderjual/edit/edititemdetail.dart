@@ -1169,7 +1169,8 @@ class _UpdateEditDetailOrderJualState extends ConsumerState<UpdateEditDetailOrde
                             decDisc1: int.tryParse(model.diskon1Controller.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
                             decJumlahUnit: int.tryParse(isiController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
                             decHarga: int.tryParse(model.hargaController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
-                            decSubTotal: int.tryParse(subtotalController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
+                            decSubTotal:
+                                int.tryParse(model.subtotalController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
                             decBerat: int.tryParse(model.beratController.text.replaceAll(RegExp(r'[^\d-]'), '')) ?? 0,
                           );
                           if (response) {

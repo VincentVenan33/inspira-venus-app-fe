@@ -20,9 +20,12 @@ import 'package:venus/ui/views/navbar/navbar_owner_view.dart';
 import 'package:venus/ui/views/navbar/navbar_sales_view.dart';
 import 'package:venus/ui/views/nofitifikasi/notifikasi.dart';
 import 'package:venus/ui/views/omset.dart';
+import 'package:venus/ui/views/orderjual/addarea.dart';
+import 'package:venus/ui/views/orderjual/addgudang.dart';
 import 'package:venus/ui/views/orderjual/additemdetail.dart';
 import 'package:venus/ui/views/orderjual/addorderjual.dart';
 import 'package:venus/ui/views/orderjual/addpelanggan.dart';
+import 'package:venus/ui/views/orderjual/addsales.dart';
 import 'package:venus/ui/views/orderjual/daftarorderjual.dart';
 import 'package:venus/ui/views/orderjual/detailorder.dart';
 import 'package:venus/ui/views/orderjual/edit/editadditemdetail.dart';
@@ -143,6 +146,27 @@ class AppRouter {
       case Routes.addpelangganorderjual:
         return buildRoute(
           builder: (_) => AddPelangganOrderJual(
+            viewModel: settings.arguments as AddOrderJualViewModel,
+          ),
+        );
+
+      case Routes.addgudangorderjual:
+        return buildRoute(
+          builder: (_) => AddGudangOrderJual(
+            viewModel: settings.arguments as AddOrderJualViewModel,
+          ),
+        );
+
+      case Routes.addsalesorderjual:
+        return buildRoute(
+          builder: (_) => AddSalesOrderJual(
+            viewModel: settings.arguments as AddOrderJualViewModel,
+          ),
+        );
+
+      case Routes.addareaorderjual:
+        return buildRoute(
+          builder: (_) => AddAreaOrderJual(
             viewModel: settings.arguments as AddOrderJualViewModel,
           ),
         );

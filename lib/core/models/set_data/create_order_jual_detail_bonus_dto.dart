@@ -22,20 +22,28 @@ class CreateOrderJualDetailBonusPayload {
 class CreateOrderJualDetailBonusRequest {
   CreateOrderJualDetailBonusRequest({
     required this.formatcode,
-    required this.nomormhrelasicust,
-    required this.nomormhrelasisales,
-    required this.ppnprosentase,
-    required this.statusppn,
-    required this.ppnnominal,
-    required this.diskonprosentase,
-    required this.diskonnominal,
-    required this.dpp,
-    required this.totalbiaya,
-    required this.total,
-    required this.subtotal2,
-    required this.tanggal,
-    required this.kode,
-    required this.dibuatoleh,
+    required this.dtTanggal,
+    required this.dtTanggalKirim,
+    required this.intNomorMJenisPenjualan,
+    required this.intNomorMValuta,
+    required this.intNomorMGudang,
+    required this.intNomorMCustomer,
+    required this.intNomorMSales,
+    required this.intNomorMArea,
+    required this.intJenis,
+    required this.intJTHari,
+    required this.decKurs,
+    required this.decUM1,
+    required this.decUM2,
+    required this.decUM3,
+    required this.decTotalUMC,
+    required this.decTotalBiaya,
+    required this.decSubTotal,
+    required this.decPPN,
+    required this.decPPNNominal,
+    required this.decDPP,
+    required this.decSisa,
+    required this.intEksport,
     required this.detail,
   });
 
@@ -43,32 +51,31 @@ class CreateOrderJualDetailBonusRequest {
       _$CreateOrderJualDetailBonusRequestFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateOrderJualDetailBonusRequestToJson(this);
-
+  
   @JsonKey(name: 'format_code')
-  final String formatcode;
-  @JsonKey(name: 'nomormhrelasi_cust')
-  final String nomormhrelasicust;
-  @JsonKey(name: 'nomormhrelasi_sales')
-  final String nomormhrelasisales;
-  @JsonKey(name: 'ppn_prosentase')
-  final String ppnprosentase;
-  @JsonKey(name: 'status_ppn')
-  final int statusppn;
-  @JsonKey(name: 'ppn_nominal')
-  final int ppnnominal;
-  @JsonKey(name: 'diskon_prosentase')
-  final int diskonprosentase;
-  @JsonKey(name: 'diskon_nominal')
-  final int diskonnominal;
-  final int dpp;
-  @JsonKey(name: 'total_biaya')
-  final int totalbiaya;
-  final int total;
-  final int subtotal2;
-  final String tanggal;
-  final String kode;
-  @JsonKey(name: 'dibuat_oleh')
-  final int? dibuatoleh;
+  final String? formatcode;
+  final String dtTanggal;
+  final String dtTanggalKirim;
+  final int intNomorMJenisPenjualan;
+  final int intNomorMValuta;
+  final int intNomorMGudang;
+  final int intNomorMCustomer;
+  final int intNomorMSales;
+  final int intNomorMArea;
+  final int intJenis;
+  final int decKurs;
+  final int intJTHari;
+  final int decUM1;
+  final int decUM2;
+  final int decUM3;
+  final int decTotalUMC;
+  final int decTotalBiaya;
+  final int decSubTotal;
+  final int decPPN;
+  final int decPPNNominal;
+  final int decDPP;
+  final int decSisa;
+  final int intEksport;
   final List<CreateDetailRequest> detail;
 }
 
@@ -106,23 +113,21 @@ class CreateDetailRequest {
 @JsonSerializable()
 class CreateOrderJualDetailRequest {
   CreateOrderJualDetailRequest({
-    required this.nomormhbarang,
-    this.kode,
-    this.nama,
-    required this.nomormhsatuan,
-    required this.qty,
-    required this.netto,
-    required this.disctotal,
-    required this.discdirect,
-    required this.disc3,
-    required this.disc2,
-    required this.disc1,
-    this.satuanqty,
-    required this.isi,
-    this.satuanisi,
-    required this.harga,
-    required this.subtotal,
-    this.konversisatuan,
+    this.kodeBarang,
+    this.barang,
+    this.satuan1,
+    required this.intNomorMBarang,
+    required this.intNomorMSatuan1,
+    required this.decJumlah1,
+    required this.decNetto,
+    required this.decDisc1,
+    required this.decDisc2,
+    required this.decDisc3,
+    required this.decJumlahUnit,
+    required this.dtTanggal,
+    required this.decHarga,
+    required this.decSubTotal,
+    required this.decBerat,
   });
 
   factory CreateOrderJualDetailRequest.fromJson(Map<String, dynamic> json) =>
@@ -130,31 +135,24 @@ class CreateOrderJualDetailRequest {
 
   Map<String, dynamic> toJson() => _$CreateOrderJualDetailRequestToJson(this);
 
-  final int nomormhbarang;
-  final String? kode;
-  final String? nama;
-  final int nomormhsatuan;
-  final int qty;
-  final int netto;
-  @JsonKey(name: 'disc_total')
-  final int disctotal;
-  @JsonKey(name: 'disc_direct')
-  final int discdirect;
-  @JsonKey(name: 'disc_3')
-  final int disc3;
-  @JsonKey(name: 'disc_2')
-  final int disc2;
-  @JsonKey(name: 'disc_1')
-  final int disc1;
-  @JsonKey(name: 'satuan_qty')
-  final String? satuanqty;
-  final int isi;
-  @JsonKey(name: 'satuan_isi')
-  final String? satuanisi;
-  final int harga;
-  final int subtotal;
-  @JsonKey(name: 'konversi_satuan')
-  final int? konversisatuan;
+  @JsonKey(name: 'KodeBarang')
+  final String? kodeBarang;
+  @JsonKey(name: 'Barang')
+  final String? barang;
+  @JsonKey(name: 'Satuan1')
+  final String? satuan1;
+  final int? intNomorMBarang;
+  final int? intNomorMSatuan1;
+  final int? decJumlah1;
+  final int? decNetto;
+  final int? decDisc1;
+  final int? decDisc2;
+  final int? decDisc3;
+  final int? decJumlahUnit;
+  final String dtTanggal;
+  final int? decHarga;
+  final int decSubTotal;
+  final int decBerat;
 }
 
 // @JsonSerializable()
