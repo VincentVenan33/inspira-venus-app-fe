@@ -57,7 +57,7 @@ class OrderJualViewModel extends BaseViewModel {
       context: context,
       initialDate: _selectedDateAkhir,
       firstDate: DateTime(0000),
-      lastDate: DateTime(9999),
+      lastDate: DateTime.now(),
     );
 
     if (date != null) {
