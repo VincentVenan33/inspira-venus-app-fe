@@ -1,4 +1,5 @@
 # venus
+An application that uses sales orders and shows stock reports from a company that is connected to flutter and uses api
 
 ## Pre requisite
 
